@@ -5,6 +5,7 @@
 
 package chess.business;
 
+import chess.business.pieces.Piece;
 import java.util.ArrayList;
 
 public class Board {
@@ -15,16 +16,15 @@ public class Board {
 
     }
     public boolean move(Move move){
-
+        return true;
     }
     public boolean undoLastMove(){
-
+    return true;
     }
     public void changePiece(Position position, Piece piece){
-
     }
     public Piece getPieceAt(Position position){
-        
+  
     }
 }
 
