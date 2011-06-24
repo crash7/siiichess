@@ -24,8 +24,7 @@ public class Board {
     public void changePiece(Position position, Piece piece){
     }
     public Piece getPieceAt(Position position){
-  
+
     }
-}
 
 
