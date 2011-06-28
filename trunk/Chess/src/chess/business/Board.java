@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package chess.business;
 
 import chess.business.pieces.Piece;
@@ -24,7 +19,8 @@ public class Board {
     public void changePiece(Position position, Piece piece){
     }
     public Piece getPieceAt(Position position){
-
+        return null;
     }
+}
 
 
