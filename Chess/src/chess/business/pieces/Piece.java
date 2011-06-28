@@ -1,12 +1,15 @@
 package chess.business.pieces;
 
+import chess.business.Position;
+import chess.business.rules.PieceRule;
+
 public abstract class Piece {
 
     private char color;
     private Position pos;
     private int movesCount;
     private char keyname;
-    private bool active;
+    private boolean active;
 
     public Piece(char color, char kn) {
     }
@@ -15,19 +18,17 @@ public abstract class Piece {
         return true;
     }
     public boolean sameColour(Piece p){
-        retunr true;
+        return true;
     }
-    public PieceRule getMoveRules(){
-        return new PieceRule();
-    }
+    public abstract PieceRule getMoveRules();
     public boolean hasMove(){
         return true;
     }
-    public bool getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(bool active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

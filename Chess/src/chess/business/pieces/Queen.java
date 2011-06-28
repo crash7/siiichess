@@ -1,4 +1,5 @@
 package chess.business.pieces;
+import chess.business.rules.*;
 
 public class Queen extends Piece {
 
@@ -6,7 +7,8 @@ public class Queen extends Piece {
         super(color, 'Q');
     }
 
+    @Override
     public PieceRule getMoveRules() {
-        return new PieceRule();
+        return new QueenRule(this);
     }
 }

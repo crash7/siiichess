@@ -1,4 +1,8 @@
 package chess.business.pieces;
+
+import chess.business.rules.PawnRule;
+import chess.business.rules.PieceRule;
+
 public class Pawn extends Piece {
 
     public Pawn(char color) {
@@ -6,6 +10,6 @@ public class Pawn extends Piece {
     }
 
     public PieceRule getMoveRules() {
-        return new PieceRule();
+        return new PawnRule(this);
     }
 }

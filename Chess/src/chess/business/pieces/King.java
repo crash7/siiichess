@@ -1,5 +1,8 @@
 package chess.business.pieces;
 
+import chess.business.rules.KingRule;
+import chess.business.rules.PieceRule;
+
 public class King extends Piece {
 
     public King(char color) {
@@ -7,6 +10,6 @@ public class King extends Piece {
     }
 
     public PieceRule getMoveRules() {
-        return new PieceRule();
+        return new KingRule(this);
     }
 }

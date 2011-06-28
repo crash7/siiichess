@@ -1,5 +1,8 @@
 package chess.business.pieces;
 
+import chess.business.rules.BishopRule;
+import chess.business.rules.PieceRule;
+
 public class Bishop extends Piece {
 
     public Bishop(char color) {
@@ -7,6 +10,6 @@ public class Bishop extends Piece {
     }
 
     public PieceRule getMoveRules() {
-        return new PieceRule();
+        return new BishopRule(this);
     }
 }
