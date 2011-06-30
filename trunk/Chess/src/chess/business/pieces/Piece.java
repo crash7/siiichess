@@ -63,4 +63,10 @@ public abstract class Piece {
     public void setPos(Position pos) {
         this.pos = pos;
     }
+    
+    public boolean isWhite ()
+    {
+        if (color=='w')return true;
+        else return false;
+    }
 }
