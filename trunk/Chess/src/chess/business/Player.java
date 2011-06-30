@@ -65,4 +65,5 @@ public class Player {
 		return this.color == 'B' || this.color == 'b';
 		
 	}
+
 }

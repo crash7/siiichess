@@ -1,6 +1,6 @@
 package chess.business;
 
-import chess.business.pieces.Piece;
+import chess.business.pieces.*;
 import chess.business.pieces.rules.KingRule;
 import chess.business.pieces.rules.PieceRule;
 import chess.business.board.Board;
@@ -20,6 +20,10 @@ public class Game {
     private static int CHECKMATE = 5;
     private static int ILEGALMOVE = 6;
 
+    public Game(){
+        board = new Board();
+    }
+
     public int getStatus() {
         return this.status;
 
@@ -29,14 +33,15 @@ public class Game {
         return this.board;
 
     }
-
-    public void newGame(Player w, Player b) {
-        this.board = new Board();
-        this.currentPlayer = w;
-        this.opponentPlayer = b;
-        this.status = Game.PLAYING;
-        this.positionToPromote = null;
-
+    
+    public void newGame(Player w, Player b){
+    	this.board = new Board();
+    	this.currentPlayer = w;
+        this.createPieceList(this.currentPlayer);
+    	this.opponentPlayer = b;
+        this.createPieceList(this.opponentPlayer);
+    	this.status = Game.PLAYING;
+    	this.positionToPromote = null;
     }
 
     public int move(Player p, Move m) {
@@ -115,4 +120,24 @@ public class Game {
         return false;
 
     }
+    private void createPieceList(Player player){
+            player.addPiece(new Rook(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Knight(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Bishop(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Queen(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new King(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Bishop(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Knight(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Rook(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
+            
+    }
+
 }
