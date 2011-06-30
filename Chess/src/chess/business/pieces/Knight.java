@@ -5,14 +5,14 @@ import chess.business.rules.PieceRule;
 
 public class Knight extends Piece {
 
-    public Knight(char color) {
-        super(color, 'N');
-        
-    }
+	public Knight(char color) {
+		super(color, 'N');
 
-    public PieceRule getMoveRules() {
-        return new KnightRule(this);
-        
-    }
-    
+	}
+
+	public PieceRule getMoveRules() {
+		return new KnightRule(this);
+
+	}
+
 }

@@ -1,12 +1,15 @@
 package chess.business.pieces;
 
 import chess.business.rules.PieceRule;
+import chess.business.util.Position;
+import chess.business.pieces.Piece;
 
 public abstract class Piece {
     private char color;
     private int movesCount;
     private char keyname;
     private boolean active;
+    private Position position;
 
     public Piece(char color, char kn) {
     	this.color = color;
@@ -42,6 +45,16 @@ public abstract class Piece {
     public char getColor() {
         return this.color;
         
+    }
+    
+    public void setPosition(Position pos) {
+    	this.position = pos;
+    	
+    }
+    
+    public Position getPosition() {
+    	return this.position;
+    	
     }
 
     public void setKeyname(char keyname) {

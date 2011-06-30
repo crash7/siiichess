@@ -5,12 +5,12 @@ import chess.business.rules.PieceRule;
 
 public class Bishop extends Piece {
 
-    public Bishop(char color) {
-        super(color, 'B');
-    }
+	public Bishop(char color) {
+		super(color, 'B');
+	}
 
-    public PieceRule getMoveRules() {
-        return new BishopRule(this);
-    }
-    
+	public PieceRule getMoveRules() {
+		return new BishopRule(this);
+	}
+
 }
