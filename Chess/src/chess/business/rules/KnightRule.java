@@ -13,7 +13,6 @@ public class KnightRule extends PieceRule {
         super(piece);
     }
 
-    @Override
     public boolean makeMove(Move move, Board board, King king, List oppiece) {
         if (isValidMove(move) &&
                 (board.getPieceAt(move.getDestination())==null) || 
