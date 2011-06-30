@@ -1,7 +1,7 @@
 package chess.business.pieces;
 
-import chess.business.rules.PieceRule;
-import chess.business.rules.RookRule;
+import chess.business.pieces.rules.PieceRule;
+import chess.business.pieces.rules.RookRule;
 
 public class Rook extends Piece {
     

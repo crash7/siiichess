@@ -1,6 +1,6 @@
 package chess.business.board;
 
-import chess.business.util.Position;
+import chess.business.Position;
 import chess.business.pieces.Piece;
 import java.util.List;
 import java.util.ArrayList;

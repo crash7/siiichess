@@ -1,6 +1,6 @@
 package chess.business.pieces;
-import chess.business.rules.QueenRule;
-import chess.business.rules.PieceRule;
+import chess.business.pieces.rules.QueenRule;
+import chess.business.pieces.rules.PieceRule;
 
 public class Queen extends Piece {
 

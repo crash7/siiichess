@@ -1,7 +1,7 @@
 package chess.business.pieces;
 
-import chess.business.rules.BishopRule;
-import chess.business.rules.PieceRule;
+import chess.business.pieces.rules.BishopRule;
+import chess.business.pieces.rules.PieceRule;
 
 public class Bishop extends Piece {
 

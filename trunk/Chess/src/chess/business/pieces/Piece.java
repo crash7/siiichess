@@ -1,7 +1,7 @@
 package chess.business.pieces;
 
-import chess.business.rules.PieceRule;
-import chess.business.util.Position;
+import chess.business.pieces.rules.PieceRule;
+import chess.business.Position;
 import chess.business.pieces.Piece;
 
 public abstract class Piece {

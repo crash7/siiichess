@@ -1,7 +1,7 @@
 package chess.business.pieces;
 
-import chess.business.rules.PawnRule;
-import chess.business.rules.PieceRule;
+import chess.business.pieces.rules.PawnRule;
+import chess.business.pieces.rules.PieceRule;
 
 public class Pawn extends Piece {
 
