@@ -4,14 +4,13 @@ import chess.business.pieces.rules.PieceRule;
 import chess.business.pieces.rules.RookRule;
 
 public class Rook extends Piece {
-    
-	public Rook(char color){
+    private PieceRule pieceRule = new RookRule();
+    public Rook(char color) {
         super(color, 'R');
     }
-        
-    public PieceRule  getMoveRule(){
+
+    public PieceRule getMoveRule() {
         return new RookRule(this);
-        
+
     }
-    
 }
