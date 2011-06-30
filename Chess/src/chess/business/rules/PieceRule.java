@@ -1,7 +1,7 @@
 package chess.business.rules;
 
-import chess.business.Board;
-import chess.business.Move;
+import chess.business.board.Board;
+import chess.business.util.Move;
 import chess.business.pieces.King;
 import chess.business.pieces.Piece;
 import java.util.List;
