@@ -1,9 +1,9 @@
 package chess.business.board;
 
-import chess.business.util.Move;
 import chess.business.util.Position;
 import chess.business.pieces.Piece;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Board {
 	private static final int DIMENSION = 8;
@@ -20,6 +20,8 @@ public class Board {
 			}
 			
 		}
+		
+		this.moves = new ArrayList();
 
     }
 	
@@ -44,7 +46,6 @@ public class Board {
     }
     
     public boolean move(PieceMove move) {
-    	
     	/* Locked by Christian!
     	
     	
@@ -80,6 +81,7 @@ public class Board {
 		
     public boolean undoLastMove() {
     	/* Locked by Christian */
+    	
     	return true;
 			
     }
