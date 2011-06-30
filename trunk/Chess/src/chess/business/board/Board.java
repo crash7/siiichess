@@ -54,11 +54,15 @@ public class Board {
 	public boolean move(PieceMove move) {
 		if (this.validatePosition(move.getSource())
 				&& this.validatePosition(move.getDestination())
-				&& !move.getSource().equals(move.getDestination())) {
+				&& !move.getSource().equals(move.getDestination())
+				&& move.getPiece() != null) {
 			this.squares[move.getSource().getX()][move.getSource().getY()]
 					.setPiece(null);
+			
+			move.getPiece().setPosition(move.getDestination());
 			this.squares[move.getDestination().getX()][move.getDestination()
 					.getY()].setPiece(move.getPiece());
+			
 			if (move.getCaptured() != null) {
 				move.getCaptured().setActive(false);
 
