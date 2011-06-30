@@ -2,6 +2,7 @@
 package chess.business.rules;
 
 import chess.business.board.Board;
+import chess.business.board.PieceMove;
 import chess.business.util.Move;
 import chess.business.util.Position;
 import chess.business.pieces.King;
@@ -18,7 +19,7 @@ public class BishopRule extends PieceRule {
     public boolean makeMove(Move move, Board board, King king, List oppiece) {
         if (isValidMove(move) && pathIsClear(move, board))
         {
-            board.move(move);
+            board.move(new PieceMove(this.getPiece(),board.getPieceAt(move.getDestination()), move));
             if (endsInCheck(board, king, oppiece))
             {
                 board.undoLastMove();

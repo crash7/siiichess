@@ -1,6 +1,7 @@
 package chess.business.rules;
 
 import chess.business.board.Board;
+import chess.business.board.PieceMove;
 import chess.business.util.Move;
 import chess.business.util.Position;
 import chess.business.pieces.King;
@@ -17,7 +18,7 @@ public class KnightRule extends PieceRule {
         if (isValidMove(move) &&
                 (board.getPieceAt(move.getDestination())==null) || 
                 !(board.getPieceAt(move.getDestination()).sameColour(board.getPieceAt(move.getSource())))) {
-            board.move(move);            
+            board.move(new PieceMove(this.getPiece(),board.getPieceAt(move.getDestination()), move));            
         }
         return king.getMoveRules().endsInCheck(board, king, oppiece);
     }
