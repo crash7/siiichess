@@ -13,9 +13,16 @@ public class QueenRule extends PieceRule {
         super(piece);
     }
 
-    @Override
+    
     public boolean makeMove(Move move, Board board, King king, List oppiece) {
-        return true;
+        PieceRule rule = new BishopRule(this.getPiece());
+        boolean flag =rule.makeMove(move, board, king, oppiece);
+        if (!flag)
+        {
+            rule = new RookRule(this.getPiece());
+            flag = rule.makeMove(move, board, king, oppiece);
+        }
+        return flag;
     }
     
 }
