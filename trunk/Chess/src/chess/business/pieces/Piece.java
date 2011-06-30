@@ -1,72 +1,83 @@
 package chess.business.pieces;
 
-import chess.business.util.Position;
 import chess.business.rules.PieceRule;
 
 public abstract class Piece {
-
     private char color;
-    private Position pos;
     private int movesCount;
     private char keyname;
     private boolean active;
 
     public Piece(char color, char kn) {
+    	this.color = color;
+    	this.keyname = kn;
+    	
     }
 
     public boolean sameType(Piece p) {
-        return true;
+    	return this.keyname == p.getKeyname();
+        
     }
+    
     public boolean sameColour(Piece p){
-        return true;
+        return this.color == p.getColor();
+        
     }
-    public abstract PieceRule getMoveRules();
-    public boolean hasMove(){
-        return true;
-    }
-    public boolean getActive() {
-        return active;
-    }
-
+    
     public void setActive(boolean active) {
         this.active = active;
+        
     }
 
-    public char getColor() {
-        return color;
+    public boolean isActive() {
+    	return this.active;
+    	
     }
 
     public void setColor(char color) {
-        this.color = color;
+    	this.color = color;
+    	
     }
 
-    public char getKeyname() {
-        return keyname;
+    public char getColor() {
+        return this.color;
+        
     }
 
     public void setKeyname(char keyname) {
-        this.keyname = keyname;
+    	this.keyname = keyname;
+    	
+    }
+
+    public char getKeyname() {
+        return this.keyname;
+        
     }
 
     public int getMovesCount() {
-        return movesCount;
+        return this.movesCount;
+        
+    }
+    
+    public boolean hasMove() {
+        return this.movesCount > 0;
+        
     }
 
     public void setMovesCount(int movesCount) {
         this.movesCount = movesCount;
+        
     }
 
-    public Position getPos() {
-        return pos;
+    public boolean isWhite() {
+    	return this.color == 'w' || this.color == 'W';
+    	
     }
 
-    public void setPos(Position pos) {
-        this.pos = pos;
+    public boolean isBlack() {
+        return this.color == 'b' || this.color == 'B';
+        
     }
     
-    public boolean isWhite ()
-    {
-        if (color=='w')return true;
-        else return false;
-    }
+    public abstract PieceRule getMoveRules();
 }

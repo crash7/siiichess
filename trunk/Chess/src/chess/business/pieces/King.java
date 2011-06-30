@@ -1,7 +1,7 @@
 package chess.business.pieces;
 
-import chess.business.rules.KingRule;
 import chess.business.rules.PieceRule;
+import chess.business.rules.KingRule;
 
 public class King extends Piece {
 
@@ -11,5 +11,7 @@ public class King extends Piece {
 
     public PieceRule getMoveRules() {
         return new KingRule(this);
+        
     }
+    
 }
