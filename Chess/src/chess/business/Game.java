@@ -1,11 +1,8 @@
 package chess.business;
 
 import chess.business.pieces.Piece;
-import chess.business.rules.KingRule;
-import chess.business.rules.PieceRule;
-import chess.business.util.Player;
-import chess.business.util.Position;
-import chess.business.util.Move;
+import chess.business.pieces.rules.KingRule;
+import chess.business.pieces.rules.PieceRule;
 import chess.business.board.Board;
 
 

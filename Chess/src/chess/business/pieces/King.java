@@ -1,7 +1,7 @@
 package chess.business.pieces;
 
-import chess.business.rules.PieceRule;
-import chess.business.rules.KingRule;
+import chess.business.pieces.rules.PieceRule;
+import chess.business.pieces.rules.KingRule;
 
 public class King extends Piece {
 
