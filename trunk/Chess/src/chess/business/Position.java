@@ -32,4 +32,11 @@ public class Position {
         this.y = y;
     }
     
+    public boolean equals (Object o)
+    {
+        Position p= (Position) o;
+        if ((this.getX()==p.getX()) && (this.getY()==p.getY()))return true;
+        else return false;
+    }
+    
 }
