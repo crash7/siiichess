@@ -1,4 +1,4 @@
-package chess.business;
+package chess.business.util;
 
 public class Position {
 	private int x;

@@ -2,8 +2,8 @@
 package chess.business.rules;
 
 import chess.business.board.Board;
+import chess.business.board.PieceMove;
 import chess.business.util.Move;
-import chess.business.util.Position;
 import chess.business.pieces.King;
 import chess.business.pieces.Piece;
 import java.util.List;
@@ -27,7 +27,7 @@ public class KingRule extends PieceRule {
             {
                 if (!piezatemporal.sameColour(this.getPiece()))
                 {
-                    board.move(move);
+                    board.move(new PieceMove(this.getPiece(),board.getPieceAt(move.getDestination()), move));
                     if (endsInCheck(board, king, oppiece))
                     {
                         board.undoLastMove();
@@ -39,7 +39,7 @@ public class KingRule extends PieceRule {
             }
             else
             {
-                 board.move(move);
+                 board.move(new PieceMove(this.getPiece(),board.getPieceAt(move.getDestination()), move));
                     if (endsInCheck(board, king, oppiece))
                     {
                         board.undoLastMove();

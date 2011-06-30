@@ -1,9 +1,10 @@
 
 package chess.business.rules;
 
-import chess.business.Board;
-import chess.business.Move;
-import chess.business.Position;
+import chess.business.board.Board;
+import chess.business.board.PieceMove;
+import chess.business.util.Move;
+import chess.business.util.Position;
 import chess.business.pieces.King;
 import chess.business.pieces.Piece;
 import java.util.List;
@@ -17,7 +18,7 @@ public class RookRule extends PieceRule {
  public boolean makeMove(Move move, Board board, King king, List oppiece) {
         if (isValidMove(move) && pathIsClear(move, board))
                  {
-            board.move(move);            
+            board.move(new PieceMove(this.getPiece(),board.getPieceAt(move.getDestination()), move));             
         }
         return king.getMoveRules().endsInCheck(board, king, oppiece);
     }

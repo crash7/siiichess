@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package chess.business;
+package chess.business.util;
 
 
 public class Move {

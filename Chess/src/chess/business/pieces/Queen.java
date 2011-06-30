@@ -7,7 +7,7 @@ public class Queen extends Piece {
         super(color, 'Q');
     }
 
-    @Override
+   
     public PieceRule getMoveRules() {
         return new QueenRule(this);
     }
