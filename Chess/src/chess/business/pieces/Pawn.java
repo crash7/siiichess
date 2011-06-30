@@ -10,7 +10,7 @@ public class Pawn extends Piece {
         
     }
 
-    public PieceRule getMoveRules() {
+    public PieceRule getMoveRule() {
         return new PawnRule(this);
         
     }

@@ -9,7 +9,7 @@ public class Queen extends Piece {
         
     }
    
-    public PieceRule getMoveRules() {
+    public PieceRule getMoveRule() {
         return new QueenRule(this);
         
     }

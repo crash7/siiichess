@@ -9,7 +9,7 @@ public class King extends Piece {
 		super(color, 'K');
 	}
 
-	public PieceRule getMoveRules() {
+	public PieceRule getMoveRule() {
 		return new KingRule(this);
 
 	}

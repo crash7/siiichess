@@ -9,7 +9,7 @@ public class Rook extends Piece {
         super(color, 'R');
     }
         
-    public PieceRule  getMoveRules(){
+    public PieceRule  getMoveRule(){
         return new RookRule(this);
         
     }

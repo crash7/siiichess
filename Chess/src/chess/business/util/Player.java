@@ -51,4 +51,8 @@ public class Player {
 		
 	}
 	
+	public boolean equals(Object o) {
+		return this.color == ((Player) o).getColor();
+		
+	}
 }
