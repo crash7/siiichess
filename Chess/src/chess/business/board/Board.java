@@ -46,46 +46,39 @@ public class Board {
     }
     
     public boolean move(PieceMove move) {
-    	/* Locked by Christian!
-    	
-    	
-    	PieceMove pm;
-    	Piece temp;
-    	if(this.validatePosition(move.getSource()) && this.validatePosition(move.getDestination())) {
-    		temp = this.squares[move.getSource().getX()][move.getSource().getY()].getPiece();
-    		if(temp != null) {
-    			pm = new PieceMove(temp, move);
-    			temp = this.squares[move.getDestination().getX()][move.getDestination().getY()].getPiece();
-    			if(temp != null) {
-    				
-    			}
+    	if(this.validatePosition(move.getSource()) && this.validatePosition(move.getDestination())
+    			&& !move.getSource().equals(move.getDestination())) {
+    		this.squares[move.getSource().getX()][move.getSource().getY()].setPiece(null);
+    		this.squares[move.getDestination().getX()][move.getDestination().getY()].setPiece(move.getPiece());
+    		if(move.getCaptured() != null) {
+    			move.getCaptured().setActive(false);
+    			
     		}
+    		
+    		this.moves.add(move);
+    		
+    		return true;
     		
     	}
     	
     	return false;
     	
-    	pm = new PieceMove();
-    	
-    	pm.setPiece();
-    	if(pm.getPiece() != null) {
-    		pm.setMove(move);
-    		pm.setCaptured
-    		
-    	}
-    	
-    }
-    	*/
-    	return true;
     }
 		
     public boolean undoLastMove() {
-    	/* Locked by Christian */
+    	PieceMove lastmove = (PieceMove) this.moves.remove(this.moves.size() -1);
     	
-    	return true;
+    	if(lastmove != null) {
+	    	this.squares[lastmove.getSource().getX()][lastmove.getSource().getY()].setPiece(lastmove.getPiece());
+			this.squares[lastmove.getDestination().getX()][lastmove.getDestination().getY()].setPiece(lastmove.getCaptured());
+			lastmove.getCaptured().setActive(true);
 			
-    }
+			return true;
+    	}
+    	
+    	return false;
 		
+    }
 		
 }
 
