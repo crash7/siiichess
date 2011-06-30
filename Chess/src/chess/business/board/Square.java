@@ -5,19 +5,24 @@ import chess.business.pieces.Piece;
 public class Square {
 	private Piece piece;
 	
+	public Square(Piece p) {
+		this.piece = p;
+		
+	}
+	
     public Square() {
-    	this.piece = null;
+    	this(null);
 
+    }
+    
+    public void setPiece(Piece piece) {
+    	this.piece = piece;
+    	
     }
     
     public Piece getPiece() {
     	return this.piece;
     	
-    }
-
-    public void setPiece(Piece piece) {
-        this.piece = piece;
-        
     }
     
     public boolean isEmpty(){

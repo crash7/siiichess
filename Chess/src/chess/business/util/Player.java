@@ -8,7 +8,7 @@ public class Player {
 
     private char color;
     private String name;
-    private ArrayList pieces;
+    private List pieces;
     private King king;
 
     public Player(String name, char color) {

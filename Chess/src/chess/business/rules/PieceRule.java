@@ -26,8 +26,7 @@ public abstract class PieceRule {
     	 * 		break
     	 * 
     	 * return foundcheck
-    	 * 
-    	 * 
+    	 *  
     	 */
     	
     	return true;
