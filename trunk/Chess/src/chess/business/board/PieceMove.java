@@ -1,8 +1,7 @@
 package chess.business.board;
 
-import chess.business.Move;
+import chess.business.util.Move;
 import chess.business.pieces.Piece;
-
 
 public class PieceMove {
     private Piece piece;

@@ -1,7 +1,7 @@
 package chess.business.board;
 
-import chess.business.Move;
-import chess.business.Position;
+import chess.business.util.Move;
+import chess.business.util.Position;
 import chess.business.pieces.Piece;
 import java.util.List;
 
@@ -28,7 +28,26 @@ public class Board {
     	
     }
     
-    public boolean move(Move move) {
+    public boolean setPieceAt(Position position, Piece piece) {
+    	if(this.validatePosition(position)) {
+    		this.squares[position.getX()][position.getY()].setPiece(piece);
+    		return true;
+    		
+    	}
+    	
+    	return false;
+    }
+    
+    public Piece getPieceAt(Position position) {
+    	return this.squares[position.getX()][position.getY()].getPiece();
+    	
+    }
+    
+    public boolean move(PieceMove move) {
+    	
+    	/* Locked by Christian!
+    	
+    	
     	PieceMove pm;
     	Piece temp;
     	if(this.validatePosition(move.getSource()) && this.validatePosition(move.getDestination())) {
@@ -44,41 +63,27 @@ public class Board {
     	}
     	
     	return false;
-    }
-    		pm = new PieceMove();
-    		
-    		pm.setPiece();
-    		if(pm.getPiece() != null) {
-    			pm.setMove(move);
-    			pm.setCaptured
-    			
-    		}
+    	
+    	pm = new PieceMove();
+    	
+    	pm.setPiece();
+    	if(pm.getPiece() != null) {
+    		pm.setMove(move);
+    		pm.setCaptured
     		
     	}
     	
-    	return false;
-    	
+    }
+    	*/
+    	return true;
     }
 		
     public boolean undoLastMove() {
-			return true;
+    	/* Locked by Christian */
+    	return true;
 			
     }
 		
-   public bool setPieceAt(Position position, Piece piece) {
-			if(this.validatePosition(position)) {
-				this.[position.getX()][position.getY()].setPiece(piece);
-				return true;
-				
-			}
-			
-			return false;
-		}
-		
-    public Piece getPieceAt(Position position) {
-        return null;
-				
-    }
 		
 }
 
