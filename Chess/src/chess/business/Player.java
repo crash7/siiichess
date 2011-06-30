@@ -1,41 +1,45 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package chess.business;
 
+import chess.business.pieces.King;
+import chess.business.pieces.Piece;
 import java.util.ArrayList;
 
 public class Player {
+
     private char color;
     private String name;
     private ArrayList pieces;
     private King king;
 
-    public Player(String name, char color){
+    public Player(String name, char color) {
+        this.color = color;
+        this.name = name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
     }
-    public void setName(String name){
-        this.name=name;
-    }
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
-    public void setColor(char color){
-        this.color=color;
+
+    public void setColor(char color) {
+        this.color = color;
     }
-    public char getColor(){
+
+    public char getColor() {
         return this.color;
     }
-    public King getKing(){
+
+    public King getKing() {
         return this.king;
     }
-    public void addPiece(Piece piece){
 
+    public void addPiece(Piece piece) {
     }
-    public ArrayList getPiece(){
 
+    public ArrayList getPieces() {
+        return this.pieces;
     }
-}
 }

@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package chess.business;
+
+import chess.business.pieces.Piece;
 
 public class Square {
     private Piece piece;
@@ -17,7 +14,13 @@ public class Square {
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
-    public bool isEmpty(){
+    public boolean isEmpty(){
+        if (this.piece == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
 
     }
 
