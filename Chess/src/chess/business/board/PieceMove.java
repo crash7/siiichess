@@ -1,6 +1,7 @@
 package chess.business.board;
 
 import chess.business.util.Move;
+import chess.business.util.Position;
 import chess.business.pieces.Piece;
 
 public class PieceMove {
@@ -28,6 +29,16 @@ public class PieceMove {
     public Move getMove() {
         return move;
         
+    }
+    
+    public Position getSource() {
+    	return this.move.getSource();
+    	
+    }
+    
+    public Position getDestination() {
+    	return this.move.getDestination();
+    	
     }
 
     public void setPiece(Piece p) {
