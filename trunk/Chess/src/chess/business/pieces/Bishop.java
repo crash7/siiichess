@@ -9,7 +9,7 @@ public class Bishop extends Piece {
 		super(color, 'B');
 	}
 
-	public PieceRule getMoveRules() {
+	public PieceRule getMoveRule() {
 		return new BishopRule(this);
 	}
 

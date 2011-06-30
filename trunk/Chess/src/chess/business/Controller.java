@@ -1,25 +1,53 @@
 package chess.business;
 
+import chess.business.util.Player;
+import chess.business.board.Board;
+import chess.business.dtos.*;
+
 public class Controller {
+    private Game currentGame;
+    private Player[] registeredPlayers;
 
-    Game currentGame;
-    Player[] registeredPlayers;
-
-    public void newGame(PlayerDto playerA, PlayerDto playerB) {
+    public Controller() {
+    	this.registeredPlayers = new Player[2];
+    	
+    }
+    
+    public void newGame(PlayerDTO white, PlayerDTO black) {
+    	
+    	
     }
 
     public void restartGame() {
+    	
+    	
     }
-    public int move(PlayerDto player, PlayerMoveDto playerMove){
+    
+    public int move(PlayerDTO player, PlayerMoveDTO playerMove){
         return 0;
-    }
-    public boolean promoteTo(PlayerDto player, PieceDto piece){
-        return true;
-    }
-    public BoardDto getBoard(){
-        return new BoardDto();
-    }
-    public void undoLastMove(){
         
+    }
+    
+    public boolean promoteTo(PlayerDTO player, PlayerDTO piece){
+        return true;
+        
+    }
+    
+    public BoardDTO getBoard(){
+    	Board board = this.currentGame.getBoard();
+    	
+    	// conversion...
+    	
+        return new BoardDTO();
+    }
+    
+    public boolean undoLastMove(PlayerDTO player) {
+    	if(player.getId() < 3 && player.getId() > 0) {
+    		return this.currentGame.undoLastMove(this.registeredPlayers[player.getId()-1]);
+    		
+    	}
+    	
+    	return false;
+    	
     }
 }

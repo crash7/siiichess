@@ -92,5 +92,5 @@ public abstract class Piece {
         
     }
     
-    public abstract PieceRule getMoveRules();
+    public abstract PieceRule getMoveRule();
 }

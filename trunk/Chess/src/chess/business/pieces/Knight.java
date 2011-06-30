@@ -10,7 +10,7 @@ public class Knight extends Piece {
 
 	}
 
-	public PieceRule getMoveRules() {
+	public PieceRule getMoveRule() {
 		return new KnightRule(this);
 
 	}

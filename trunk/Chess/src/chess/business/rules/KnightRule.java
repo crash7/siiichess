@@ -22,7 +22,7 @@ public class KnightRule extends PieceRule {
 			board.move(new PieceMove(this.getPiece(), board.getPieceAt(move
 					.getDestination()), move));
 		}
-		return king.getMoveRules().endsInCheck(board, king, oppiece);
+		return king.getMoveRule().endsInCheck(board, king, oppiece);
 	}
 
 	private boolean isValidMove(Move move) {
