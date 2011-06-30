@@ -1,6 +1,7 @@
 package chess.business;
 
 import chess.business.pieces.Piece;
+import chess.business.rules.KingRule;
 import chess.business.rules.PieceRule;
 import chess.business.util.Player;
 import chess.business.util.Position;
@@ -54,6 +55,28 @@ public class Game {
         	Player temp = this.currentPlayer;
         	this.currentPlayer = this.opponentPlayer;
         	this.opponentPlayer = temp;
+    		
+    	}
+    	
+    	KingRule cpking = (KingRule) this.currentPlayer.getKing().getMoveRule();
+    	
+    	if(cpking.isCheckMated(this.board, this.opponentPlayer.getPieces())) {
+    		if(this.currentPlayer.isWhite()) {
+    			this.status = Game.WHITECHECKMATE;
+    			
+    		} else {
+    			this.status = Game.BLACKCHECKMATE;
+    			
+    		}
+    		
+    	} else if(cpking.isChecked(this.board, this.opponentPlayer.getPieces())) {
+    		if(this.currentPlayer.isWhite()) {
+    			this.status = Game.WHITECHECK;
+    			
+    		} else {
+    			this.status = Game.BLACKCHECK;
+    			
+    		}
     		
     	}
 

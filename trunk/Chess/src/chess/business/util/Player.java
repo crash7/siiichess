@@ -55,4 +55,14 @@ public class Player {
 		return this.color == ((Player) o).getColor();
 		
 	}
+	
+	public boolean isWhite() {
+		return this.color == 'W' || this.color == 'w';
+		
+	}
+	
+	public boolean isBlack() {
+		return this.color == 'B' || this.color == 'b';
+		
+	}
 }
