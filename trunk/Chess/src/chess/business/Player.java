@@ -43,6 +43,9 @@ public class Player {
 
 	public void addPiece(Piece piece) {
 		this.pieces.add(piece);
+                if (piece.getKeyname()=='k') {
+                    this.king=(King)piece;
+                }
 		
 	}
 
