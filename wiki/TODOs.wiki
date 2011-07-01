@@ -1,0 +1,20 @@
+#labels Phase-Implementation
+Procedimiento cada vez que se hace una agregarla a Issues.
+
+
+1) Sacar en las distintas piezas getMoveRules()
+2) Agregar en piezas (inclusive la abstracta) makeMove (el que esta en     PieceRules) para que haga de interfaz con pieceRules.
+3) Declarar en todas las piezas un atributo estatico privado del tipo de la regla de la pieza y en la misma declaracion instanciar un objeto de la regla.
+4) Inicializar las fichas en el tablero (lo esta haciendo Jowen).
+5) Arreglar que el move del controller devuelva un int en lugar de un boolean.
+6) Terminar los DTO.Faltan el de Board , pieceDto, playerMoveDto, playerDto.
+7) Hacer en el controller el RestartGame.    
+8) Hacer en el controller el newGame.
+9) Hacer en el controller el getBoard (requiere punto 6).
+10) Hacer en la clase game el newGame.
+11) Hacer en controller el metodo promoteTo.
+12) Terminar en Game newGame (jowen)
+13) Hacer el comer al paso de la pawnRule.
+14) Hacer el enroque del rey.
+15) Implementar metodo endsInCheck en PieceRules.
+16) Agregar que el metodo add de player reconozca la pieza del rey para ademas de ponerlo en la lista lo pongo en el atributo king del player.
