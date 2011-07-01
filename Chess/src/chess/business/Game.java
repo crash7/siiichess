@@ -19,10 +19,7 @@ public class Game {
     private static int BLACKCHECKMATE = 4;
     private static int CHECKMATE = 5;
     private static int ILEGALMOVE = 6;
-
-    public Game(){
-        board = new Board();
-    }
+    
 
     public int getStatus() {
         return this.status;
@@ -35,12 +32,13 @@ public class Game {
     }
     
     public void newGame(Player w, Player b){
-    	this.board = new Board();
+    	
     	this.currentPlayer = w;
         this.createPieceList(this.currentPlayer);
     	this.opponentPlayer = b;
         this.createPieceList(this.opponentPlayer);
-    	this.status = Game.PLAYING;
+    	this.board = new Board(currentPlayer.getPieces(),opponentPlayer.getPieces());
+        this.status = Game.PLAYING;
     	this.positionToPromote = null;
     }
 
