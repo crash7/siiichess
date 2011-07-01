@@ -17,7 +17,12 @@ public class RookRule extends PieceRule {
         if (isValidMove(move) && pathIsClear(move, board)) {
             board.move(new PieceMove(this.getPiece(), board.getPieceAt(move.getDestination()), move));
         }
-        return king.getMoveRule().endsInCheck(board, king, oppiece);
+        if (endsInCheck(board, king, oppiece)) {
+            board.undoLastMove();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private boolean isValidMove(Move move) {

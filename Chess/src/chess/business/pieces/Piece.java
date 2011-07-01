@@ -1,8 +1,11 @@
 package chess.business.pieces;
 
+import chess.business.Move;
 import chess.business.pieces.rules.PieceRule;
 import chess.business.Position;
+import chess.business.board.Board;
 import chess.business.pieces.Piece;
+import java.util.List;
 
 public abstract class Piece {
 
@@ -93,6 +96,5 @@ public abstract class Piece {
         return this.color == 'b' || this.color == 'B';
 
     }
-
-    public abstract PieceRule getMoveRule();
+    public abstract boolean makeMove(Move move, Board board, King king, List oppiece);
 }

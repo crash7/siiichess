@@ -5,7 +5,6 @@ import chess.business.board.PieceMove;
 import chess.business.Move;
 import chess.business.Position;
 import chess.business.pieces.King;
-import chess.business.pieces.Piece;
 import java.util.List;
 
 public class KnightRule extends PieceRule {
@@ -19,7 +18,12 @@ public class KnightRule extends PieceRule {
                 || !(board.getPieceAt(move.getDestination()).sameColour(board.getPieceAt(move.getSource())))) {
             board.move(new PieceMove(this.getPiece(), board.getPieceAt(move.getDestination()), move));
         }
-        return king.getMoveRule().endsInCheck(board, king, oppiece);
+        if (endsInCheck(board, king, oppiece)) {
+            board.undoLastMove();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private boolean isValidMove(Move move) {
