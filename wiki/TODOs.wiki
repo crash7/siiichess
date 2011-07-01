@@ -1,5 +1,5 @@
 #labels Phase-Implementation
-<strong>Procedimiento cada vez que se hace una agregarla a Issues.</strong>
+<strong>Procedimiento cada vez que se hace una agregarla a Issues. Poniendo en summary el numero de item y en contenido el comentario que quieran</strong>
 
 
 1) Sacar en las distintas piezas getMoveRules() <br/>
