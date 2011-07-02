@@ -1,12 +1,12 @@
 package chess.business;
 
+import chess.dtos.PlayerDTO;
+import chess.dtos.PlayerMoveDTO;
 import chess.business.board.Board;
-import chess.business.dtos.*;
 
 public class Controller {
     private Game currentGame;
-    private Player[] registeredPlayers;
-
+    private Player[] registeredPlayers;    
     public Controller() {
     	this.registeredPlayers = new Player[2];
     	
@@ -23,7 +23,11 @@ public class Controller {
     }
     
     public int move(PlayerDTO player, PlayerMoveDTO playerMove){
-        return 0;
+        Move move = new Move();
+        Player businessPlayer = new Player(player.getName(), player.getColor());
+        move.setDestination(new Position(playerMove.getDestinationX(), playerMove.getDestinationY()));
+        move.setSource(new Position(playerMove.getSourceX(), playerMove.getSourceY()));        
+        return currentGame.move(businessPlayer, move);
         
     }
     
@@ -32,12 +36,19 @@ public class Controller {
         
     }
     
-    public BoardDTO getBoard(){
+    public String[][] getBoard(){
     	Board board = this.currentGame.getBoard();
-    	
-    	// conversion...
-    	
-        return new BoardDTO();
+        String[][] boardDT = new String[8][8];
+        String keyPlayer;
+    	for (int i=0;i<8;i++)
+        {
+            for(int j=0;j<8;j++) {
+                Position pos = new Position(i,j);
+                keyPlayer = board.getPieceAt(pos).getKeyname() + "," +board.getPieceAt(pos).getColor(); 
+                boardDT[i][j] = keyPlayer;
+            }
+        }            	    	
+        return boardDT;
     }
     
     public boolean undoLastMove(PlayerDTO player) {
