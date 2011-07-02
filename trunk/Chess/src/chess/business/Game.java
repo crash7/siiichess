@@ -31,8 +31,7 @@ public class Game {
 
     }
     
-    public void newGame(Player w, Player b){
-    	
+    public void newGame(Player w, Player b){    	
     	this.currentPlayer = w;
         this.createPieceList(this.currentPlayer);
     	this.opponentPlayer = b;

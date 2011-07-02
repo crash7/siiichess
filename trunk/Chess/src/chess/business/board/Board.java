@@ -10,7 +10,7 @@ public class Board {
 	private Square[][] squares;
 	private List moves;
 
-	public Board() {
+	public Board(List Pieces1, List Pieces2) {
 		this.squares = new Square[Board.DIMENSION][Board.DIMENSION];
 
 		for (int i = 0; i < Board.DIMENSION; i++) {
@@ -21,6 +21,12 @@ public class Board {
 
 		}
 
+                for(int i=0;i<Board.DIMENSION;i++){
+                    this.squares[Board.DIMENSION-1][i].setPiece((Piece)Pieces1.remove(0));
+                    this.squares[Board.DIMENSION-2][i].setPiece((Piece)Pieces1.remove(0));
+                    this.squares[1][i].setPiece((Piece)Pieces2.remove(0));
+                    this.squares[2][i].setPiece((Piece)Pieces2.remove(0));
+                }
 		this.moves = new ArrayList();
 
 	}
