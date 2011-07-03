@@ -41,8 +41,8 @@ public class Controller {
     public int move(PlayerDTO player, int xs, int ys, int xd, int yd){
         Move move = new Move();
         Player businessPlayer = new Player(player.getName(), player.getColor());
-        move.setDestination(new Position(xs, ys));
-        move.setSource(new Position(xd, yd));        
+        move.setSource(new Position(xs, ys));
+        move.setDestination(new Position(xd, yd));
         return currentGame.move(businessPlayer, move);
         
     }
