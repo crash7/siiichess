@@ -4,13 +4,14 @@ import chess.business.Position;
 import chess.business.pieces.Piece;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Board {
 	public static final int DIMENSION = 8;
 	private Square[][] squares;
 	private List moves;
 
-	public Board(List Pieces1, List Pieces2) {
+	public Board() {
 		this.squares = new Square[Board.DIMENSION][Board.DIMENSION];
 
 		for (int i = 0; i < Board.DIMENSION; i++) {
@@ -19,17 +20,25 @@ public class Board {
 
 			}
 
-		}
-
-                for(int i=0;i<Board.DIMENSION;i++){
-                    this.squares[Board.DIMENSION-1][i].setPiece((Piece)Pieces1.remove(0));
-                    this.squares[Board.DIMENSION-2][i].setPiece((Piece)Pieces1.remove(0));
-                    this.squares[1][i].setPiece((Piece)Pieces2.remove(0));
-                    this.squares[2][i].setPiece((Piece)Pieces2.remove(0));
-                }
+		}                
+                
 		this.moves = new ArrayList();
 
 	}
+
+        public void llenarTablero(List Pieces1, List Pieces2) {
+            Iterator iterator1 = Pieces1.iterator();
+            Iterator iterator2 = Pieces2.iterator();
+            int i=0;
+
+            while(iterator1.hasNext() && iterator2.hasNext()){
+                this.setPieceAt(new Position(Board.DIMENSION-1,i), (Piece)iterator1.next());
+                this.setPieceAt(new Position(Board.DIMENSION-2,i), (Piece)iterator1.next());
+                this.setPieceAt(new Position(1,i), (Piece)iterator2.next());
+                this.setPieceAt(new Position(2,i), (Piece)iterator2.next());
+                i++;
+            }
+        }
 
 	public boolean validatePosition(Position p) {
 		return (p.getX() >= 0 && p.getX() < Board.DIMENSION && p.getY() >= 0 && p

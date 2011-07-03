@@ -34,7 +34,8 @@ public class Game {
         this.createPieceList(this.currentPlayer);
     	this.opponentPlayer = b;
         this.createPieceList(this.opponentPlayer);
-    	this.board = new Board(currentPlayer.getPieces(),opponentPlayer.getPieces());
+    	this.board = new Board();
+        this.board.llenarTablero(currentPlayer.getPieces(),opponentPlayer.getPieces());
         this.status = Game.PLAYING;
     	this.positionToPromote = null;
     }
