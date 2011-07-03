@@ -3,6 +3,7 @@ package chess.business;
 import chess.business.pieces.King;
 import chess.business.pieces.Piece;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Player {
 	private char color;
@@ -13,6 +14,7 @@ public class Player {
 	public Player(String name, char color) {
 		this.color = color;
 		this.name = name;
+		this.pieces = new ArrayList();
 
 	}
 

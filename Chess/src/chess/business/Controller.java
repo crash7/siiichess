@@ -1,7 +1,6 @@
 package chess.business;
 
 import chess.dtos.PlayerDTO;
-import chess.dtos.PlayerMoveDTO;
 import chess.dtos.PieceDTO;
 import chess.business.board.Board;
 import chess.business.pieces.Bishop;
@@ -29,7 +28,9 @@ public class Controller {
     public void newGame(PlayerDTO white, PlayerDTO black) {
     	currentGame = new Game();        
         registeredPlayers[0] = new Player(white.getName(), white.getColor());
-        registeredPlayers[1] = new Player(black.getName(), black.getColor());        
+        registeredPlayers[1] = new Player(black.getName(), black.getColor());  
+        white.setId(0);
+        black.setId(1);
         currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);    	
     }
 
@@ -37,11 +38,11 @@ public class Controller {
         currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);    	
     }
     
-    public int move(PlayerDTO player, PlayerMoveDTO playerMove){
+    public int move(PlayerDTO player, int xs, int ys, int xd, int yd){
         Move move = new Move();
         Player businessPlayer = new Player(player.getName(), player.getColor());
-        move.setDestination(new Position(playerMove.getDestinationX(), playerMove.getDestinationY()));
-        move.setSource(new Position(playerMove.getSourceX(), playerMove.getSourceY()));        
+        move.setDestination(new Position(xs, ys));
+        move.setSource(new Position(xd, yd));        
         return currentGame.move(businessPlayer, move);
         
     }
@@ -88,17 +89,26 @@ public class Controller {
     }
     
     public String[][] getBoard(){
-    	Board board = this.currentGame.getBoard();
-        String[][] boardDT = new String[Board.DIMENSION][Board.DIMENSION];
-    	for (int i=0;i< Board.DIMENSION; i++) {
-            for(int j=0;j< Board.DIMENSION; j++) {
-                Position pos = new Position(i,j);
-                boardDT[i][j] = board.getPieceAt(pos).getKeyname() + "," + board.getPieceAt(pos).getColor(); 
-            }
-            
-        }   
+    	if(this.currentGame != null) {
+    		Board board = this.currentGame.getBoard();
+	        String[][] boardDT = new String[Board.DIMENSION][Board.DIMENSION];
+	    	for (int i=0;i< Board.DIMENSION; i++) {
+	            for(int j=0;j< Board.DIMENSION; j++) {
+	                Position pos = new Position(i,j);
+	                Piece piece = board.getPieceAt(pos);
+	                if(piece != null) {
+	                	boardDT[i][j] = board.getPieceAt(pos).getKeyname() + "," + board.getPieceAt(pos).getColor();
+	                }
+	                
+	            }
+	            
+	        }
+	    	return boardDT;
+	    	
+        }
     	
-        return boardDT;
+        return null;
+        
     }
     
     public boolean undoLastMove(PlayerDTO player) {
@@ -113,6 +123,11 @@ public class Controller {
     
     private boolean validPlayer(PlayerDTO p) {
     	return (p.getId() < 3 && p.getId() > 0);
+    	
+    }
+    
+    public boolean isActive() {
+    	return this.currentGame.isActive();
     	
     }
 

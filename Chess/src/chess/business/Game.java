@@ -133,4 +133,9 @@ public class Game {
             
     }
 
+	public boolean isActive() {
+		return this.status == Game.PLAYING;
+		
+	}
+
 }
