@@ -27,8 +27,10 @@ public class Board {
 	}
 	
 	
-	// WTF? whyGODWHY 
 	// porque el board tiene que llenar el tablero? porque tiene saber como van las cosas?
+	// y si cambiamos la modalidad a juego de reinas?
+	// como hacemos que simplemente heredando Game y sobreescribiendo los metodos juguemos solo con reinas?
+	// y que las reinas vayan en lugares especificos? 
     public void llenarTablero(List Pieces1, List Pieces2) {
         Iterator iterator1 = Pieces1.iterator();
         Iterator iterator2 = Pieces2.iterator();
@@ -37,8 +39,8 @@ public class Board {
         while(iterator1.hasNext() && iterator2.hasNext()){
             this.setPieceAt(new Position(Board.DIMENSION-1,i), (Piece)iterator1.next());
             this.setPieceAt(new Position(Board.DIMENSION-2,i), (Piece)iterator1.next());
+            this.setPieceAt(new Position(0,i), (Piece)iterator2.next());
             this.setPieceAt(new Position(1,i), (Piece)iterator2.next());
-            this.setPieceAt(new Position(2,i), (Piece)iterator2.next());
             i++;
         }
     }
