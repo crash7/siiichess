@@ -1,8 +1,6 @@
 #labels Phase-Implementation
 <strong>Procedimiento cada vez que se hace una agregarla a Issues. Poniendo en summary el numero de item y en contenido el comentario que quieran</strong>
 
-
-10) Hacer en la clase game el newGame.<br/>
 13) Hacer el comer al paso de la pawnRule.<br/>
 
 
@@ -17,6 +15,7 @@
 7) Hacer en el controller el RestartGame.  <br/>  
 8) Hacer en el controller el newGame.<br/>
 9) Hacer en el controller el getBoard (requiere punto 6).<br/>
+10) Hacer en la clase game el newGame.<br/> (REPETIDO)
 11) Hacer en controller el metodo promoteTo.<br/>
 12) Terminar en Game newGame (jowen)<br/>
 14) Hacer el enroque del rey.<br/>
