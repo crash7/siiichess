@@ -2,7 +2,13 @@ package chess.business;
 
 import chess.dtos.PlayerDTO;
 import chess.dtos.PlayerMoveDTO;
+import chess.dtos.PieceDTO;
 import chess.business.board.Board;
+import chess.business.pieces.Bishop;
+import chess.business.pieces.Knight;
+import chess.business.pieces.Piece;
+import chess.business.pieces.Queen;
+import chess.business.pieces.Rook;
 
 public class Controller {
     private Game currentGame;
@@ -31,8 +37,44 @@ public class Controller {
         
     }
     
-    public boolean promoteTo(PlayerDTO player, PlayerDTO piece){
-        return true;
+    public boolean promoteTo(PlayerDTO player, PieceDTO piece){
+    	Piece promotep;
+    	if(this.validPlayer(player)) {
+	    	switch(piece.getKeyname()) {
+	    		case 'B':
+	    		case 'b':
+	    			promotep = new Bishop(piece.getColor());
+	    			break;
+	    			
+	    		case 'N':
+	    		case 'n':
+	    			promotep = new Knight(piece.getColor());
+	    			break;
+	    			
+	    		case 'R':
+	    		case 'r':
+	    			promotep = new Rook(piece.getColor());
+	    			break;
+	    			
+	    		case 'Q':
+	    		case 'q':
+	    			promotep = new Queen(piece.getColor());
+	    			break;
+	    			
+	    		default:
+	    			promotep = null;
+	    		
+	    	
+	    	}
+	    	
+	    	if(promotep != null) {
+	    		this.currentGame.promotePawnTo(this.registeredPlayers[player.getId()-1], promotep);
+	    		return true;
+	    		
+	    	}
+    	}
+    	
+        return false;
         
     }
     
@@ -51,12 +93,17 @@ public class Controller {
     }
     
     public boolean undoLastMove(PlayerDTO player) {
-    	if(player.getId() < 3 && player.getId() > 0) {
+    	if(this.validPlayer(player)) {
     		return this.currentGame.undoLastMove(this.registeredPlayers[player.getId()-1]);
     		
     	}
     	
     	return false;
+    	
+    }
+    
+    private boolean validPlayer(PlayerDTO p) {
+    	return (p.getId() < 3 && p.getId() > 0);
     	
     }
 
