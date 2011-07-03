@@ -25,20 +25,23 @@ public class Board {
 		this.moves = new ArrayList();
 
 	}
+	
+	
+	// WTF? whyGODWHY 
+	// porque el board tiene que llenar el tablero? porque tiene saber como van las cosas?
+    public void llenarTablero(List Pieces1, List Pieces2) {
+        Iterator iterator1 = Pieces1.iterator();
+        Iterator iterator2 = Pieces2.iterator();
+        int i=0;
 
-        public void llenarTablero(List Pieces1, List Pieces2) {
-            Iterator iterator1 = Pieces1.iterator();
-            Iterator iterator2 = Pieces2.iterator();
-            int i=0;
-
-            while(iterator1.hasNext() && iterator2.hasNext()){
-                this.setPieceAt(new Position(Board.DIMENSION-1,i), (Piece)iterator1.next());
-                this.setPieceAt(new Position(Board.DIMENSION-2,i), (Piece)iterator1.next());
-                this.setPieceAt(new Position(1,i), (Piece)iterator2.next());
-                this.setPieceAt(new Position(2,i), (Piece)iterator2.next());
-                i++;
-            }
+        while(iterator1.hasNext() && iterator2.hasNext()){
+            this.setPieceAt(new Position(Board.DIMENSION-1,i), (Piece)iterator1.next());
+            this.setPieceAt(new Position(Board.DIMENSION-2,i), (Piece)iterator1.next());
+            this.setPieceAt(new Position(1,i), (Piece)iterator2.next());
+            this.setPieceAt(new Position(2,i), (Piece)iterator2.next());
+            i++;
         }
+    }
 
 	public boolean validatePosition(Position p) {
 		return (p.getX() >= 0 && p.getX() < Board.DIMENSION && p.getY() >= 0 && p
