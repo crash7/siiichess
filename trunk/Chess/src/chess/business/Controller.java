@@ -27,13 +27,14 @@ public class Controller {
     }
     
     public void newGame(PlayerDTO white, PlayerDTO black) {
-    	currentGame = new Game();
-        Player playerWhite = new Player(white.getName(), white.getColor());
-        Player playerBlack = new Player(black.getName(), black.getColor());        
-        currentGame.newGame(playerWhite, playerBlack);    	
+    	currentGame = new Game();        
+        registeredPlayers[0] = new Player(white.getName(), white.getColor());
+        registeredPlayers[1] = new Player(black.getName(), black.getColor());        
+        currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);    	
     }
 
-    public void restartGame() {        
+    public void restartGame() {  
+        currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);    	
     }
     
     public int move(PlayerDTO player, PlayerMoveDTO playerMove){
