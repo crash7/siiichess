@@ -17,12 +17,6 @@ public class Game {
     private static int CHECKMATE = 5;
     private static int ILEGALMOVE = 6;
     
-
-    public int getStatus() {
-        return this.status;
-
-    }
-
     public Board getBoard() {
         return this.board;
 
@@ -37,6 +31,8 @@ public class Game {
         this.board.llenarTablero(currentPlayer.getPieces(),opponentPlayer.getPieces());
         this.status = Game.PLAYING;
     	this.positionToPromote = null;
+    	this.status = Game.PLAYING;
+    	
     }
 
     public int move(Player p, Move m) {
@@ -51,6 +47,7 @@ public class Game {
                         Player temp = this.currentPlayer;
                         this.currentPlayer = this.opponentPlayer;
                         this.opponentPlayer = temp;
+                        
 
                         King cpking = this.currentPlayer.getKing();
 

@@ -17,7 +17,7 @@ public abstract class Piece {
     public Piece(char color, char kn) {
         this.color = color;
         this.keyname = kn;
-
+        this.active = true;
     }
 
     public boolean sameType(Piece p) {
