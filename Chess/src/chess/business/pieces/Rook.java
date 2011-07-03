@@ -4,35 +4,36 @@ import chess.business.Move;
 import chess.business.Position;
 import chess.business.board.Board;
 import chess.business.board.PieceMove;
-import chess.business.pieces.rules.PieceRule;
 import java.util.List;
 
 public class Rook extends Piece {
-
-    private PieceRule pieceRule = new RookRule();
+    private static RookRule pieceRule = new RookRule();
 
     public Rook(char color) {
         super(color, 'R');
     }
 
     public boolean makeMove(Move move, Board board, King king, List oppiece) {
-        return this.pieceRule.makeMove(move, board, king, oppiece);
+        return Rook.pieceRule.makeMove(move, board, king, oppiece);
     }
 
-    public class RookRule extends PieceRule {
-
-        public RookRule() {
-        }
-
-        public boolean makeMove(Move move, Board board, King king, List oppiece) {
+    static class RookRule {
+        private boolean makeMove(Move move, Board board, King king, List oppiece) {
+        	Piece piezaorigen = board.getPieceAt(move.getSource());
+        	
             if (isValidMove(move) && pathIsClear(move, board)) {
-                board.move(new PieceMove(this.getPiece(), board.getPieceAt(move.getDestination()), move));
+                board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
+                
             }
-            if (endsInCheck(board, king, oppiece)) {
+            
+            if (king.isChecked(board, oppiece)) {
                 board.undoLastMove();
                 return false;
+                
             } else {
+            	piezaorigen.incMoves();
                 return true;
+                
             }
         }
 

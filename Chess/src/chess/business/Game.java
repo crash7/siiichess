@@ -1,8 +1,6 @@
 package chess.business;
 
 import chess.business.pieces.*;
-import chess.business.pieces.rules.KingRule;
-import chess.business.pieces.rules.PieceRule;
 import chess.business.board.Board;
 
 public class Game {
@@ -45,18 +43,16 @@ public class Game {
         int moveResult = Game.ILEGALMOVE;
         if (this.status == Game.PLAYING) {
             Piece piece;
-            PieceRule rule;
             if (this.board.validatePosition(m.getSource()) && this.board.validatePosition(m.getDestination())) {
                 piece = this.board.getPieceAt(m.getSource());
                 if (piece != null) {
-                    rule = piece.getMoveRule();
-                    if (rule.makeMove(m, this.board, this.currentPlayer.getKing(), this.opponentPlayer.getPieces())) {
+                    if (piece.makeMove(m, this.board, this.currentPlayer.getKing(), this.opponentPlayer.getPieces())) {
                         // Solo si el resultado del movimiento es valido!
                         Player temp = this.currentPlayer;
                         this.currentPlayer = this.opponentPlayer;
                         this.opponentPlayer = temp;
 
-                        KingRule cpking = (KingRule) this.currentPlayer.getKing().getMoveRule();
+                        King cpking = this.currentPlayer.getKing();
 
                         if (cpking.isCheckMated(this.board, this.opponentPlayer.getPieces())) {
                             if (this.currentPlayer.isWhite()) {

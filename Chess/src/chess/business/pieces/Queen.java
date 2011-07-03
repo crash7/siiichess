@@ -2,27 +2,43 @@ package chess.business.pieces;
 
 import chess.business.Move;
 import chess.business.board.Board;
-import chess.business.pieces.rules.QueenRule;
-import chess.business.pieces.rules.PieceRule;
 import java.util.List;
 
 public class Queen extends Piece {
-    private PieceRule pieceRule = new QueenRule();
+    private static QueenRule pieceRule = new QueenRule();
     public Queen(char color) {
         super(color, 'Q');
 
     }
 
     public boolean makeMove(Move move, Board board, King king, List oppiece) {
-        
-        Piece piece = new Bishop(this.getColor());
-        boolean flag = false;
-        flag= piece.makeMove(move, board, king, oppiece);
-        if (!flag)
-        {
-            piece= new Rook(this.getColor());
-            return piece.makeMove(move, board, king, oppiece);
-        }
-        return flag;
+    	return Queen.pieceRule.makeMove(move, board, king, oppiece);
+    	
     }
+    
+    static class QueenRule {
+    	private boolean makeMove(Move move, Board board, King king, List oppiece) {
+    		Piece piezaorigen = board.getPieceAt(move.getSource());
+    		boolean moved = false;
+    		Piece piece = new Bishop(piezaorigen.getColor());
+            if(piece.makeMove(move, board, king, oppiece)) {
+            	moved = true;
+            	
+            } else {
+            	piece = new Rook(piezaorigen.getColor());
+            	moved = piece.makeMove(move, board, king, oppiece);
+            	
+            }
+            
+            if(moved) {
+            	piezaorigen.incMoves();
+            	
+            }
+            
+            return moved;
+    		
+    	}
+    	
+    }
+    
 }
