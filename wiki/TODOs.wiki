@@ -15,7 +15,7 @@
 7) Hacer en el controller el RestartGame.  <br/>  
 8) Hacer en el controller el newGame.<br/>
 9) Hacer en el controller el getBoard (requiere punto 6).<br/>
-10) Hacer en la clase game el newGame.<br/> (REPETIDO)
+10) Hacer en la clase game el newGame. (REPETIDO)<br/>
 11) Hacer en controller el metodo promoteTo.<br/>
 12) Terminar en Game newGame (jowen)<br/>
 14) Hacer el enroque del rey.<br/>
