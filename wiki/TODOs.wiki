@@ -10,9 +10,9 @@
 13) Hacer el comer al paso de la pawnRule.<br/>
 
 
-<strong>Listas</strong>
+<strong>Lista de cosas realizadas</strong>
 
-1) Sacar en las distintas piezas getMoveRules() <strong>DONE</strong> <br/> 
+1) Sacar en las distintas piezas getMoveRules() <br/> 
 2) Agregar en piezas (inclusive la abstracta) makeMove (el que esta en PieceRules) para que haga de interfaz con pieceRules. <br/> 
 3) Declarar en todas las piezas un atributo estatico privado del tipo de la regla de la pieza y en la misma declaracion instanciar un objeto de la regla <br/>
 5) Arreglar que el move del controller devuelva un int en lugar de un boolean.<br/>
