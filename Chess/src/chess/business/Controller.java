@@ -17,15 +17,23 @@ public class Controller {
     	this.registeredPlayers = new Player[2];
     	
     }
-    
-    public void newGame(PlayerDTO white, PlayerDTO black) {
-    	
-    	
+
+    public Player[] getRegisteredPlayers() {
+        return registeredPlayers;
     }
 
-    public void restartGame() {
-    	
-    	
+    public void setRegisteredPlayers(Player[] registeredPlayers) {
+        this.registeredPlayers = registeredPlayers;
+    }
+    
+    public void newGame(PlayerDTO white, PlayerDTO black) {
+    	currentGame = new Game();
+        Player playerWhite = new Player(white.getName(), white.getColor());
+        Player playerBlack = new Player(black.getName(), black.getColor());        
+        currentGame.newGame(playerWhite, playerBlack);    	
+    }
+
+    public void restartGame() {        
     }
     
     public int move(PlayerDTO player, PlayerMoveDTO playerMove){
