@@ -160,6 +160,8 @@ public class King extends Piece {
 		}
 
 		private boolean isChecked(Board board, King king, List oppiece) {
+			return false;
+			/*
 			Piece current;
 			Move move = new Move();
 			boolean checked = false;
@@ -182,7 +184,7 @@ public class King extends Piece {
 
 			}
 
-			return checked;
+			return checked;*/
 
 		}
 
