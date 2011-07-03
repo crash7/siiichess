@@ -169,12 +169,15 @@ public class King extends Piece {
 			move.setDestination(king.getPosition());
 			while (i.hasNext()) {
 				current = (Piece) i.next();
-				move.setSource(current.getPosition());
-				if (current.makeMove(move, board, king, oppiece)) {
-					board.undoLastMove();
-					checked = true;
-					break;
-
+				if(current.isActive()) {
+					move.setSource(current.getPosition());
+					if (current.makeMove(move, board, king, oppiece)) {
+						board.undoLastMove();
+						checked = true;
+						break;
+		
+					}
+					
 				}
 
 			}

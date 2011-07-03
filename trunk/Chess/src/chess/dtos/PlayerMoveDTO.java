@@ -1,14 +1,14 @@
 package chess.dtos;
 
 public class PlayerMoveDTO {
+	private int sourceX;
+	private int sourceY;
+	private int destinationX;
+	private int destinationY;
 	
 	public PlayerMoveDTO() {
 		
 	}
-        int sourceX;
-        int sourceY;
-        int destinationX;
-        int destinationY;
 
     public int getDestinationX() {
         return destinationX;
