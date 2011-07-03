@@ -3,6 +3,7 @@ package chess.dtos;
 public class PieceDTO {
 
     public PieceDTO() {
+    	
     }
     private char color;
     private char keyname;
