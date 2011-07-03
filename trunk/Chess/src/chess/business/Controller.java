@@ -38,16 +38,15 @@ public class Controller {
     
     public String[][] getBoard(){
     	Board board = this.currentGame.getBoard();
-        String[][] boardDT = new String[8][8];
-        String keyPlayer;
-    	for (int i=0;i<8;i++)
-        {
-            for(int j=0;j<8;j++) {
+        String[][] boardDT = new String[Board.DIMENSION][Board.DIMENSION];
+    	for (int i=0;i< Board.DIMENSION; i++) {
+            for(int j=0;j< Board.DIMENSION; j++) {
                 Position pos = new Position(i,j);
-                keyPlayer = board.getPieceAt(pos).getKeyname() + "," +board.getPieceAt(pos).getColor(); 
-                boardDT[i][j] = keyPlayer;
+                boardDT[i][j] = board.getPieceAt(pos).getKeyname() + "," + board.getPieceAt(pos).getColor(); 
             }
-        }            	    	
+            
+        }   
+    	
         return boardDT;
     }
     

@@ -1,7 +1,6 @@
 package chess.business.pieces;
 
 import chess.business.Move;
-import chess.business.pieces.rules.PieceRule;
 import chess.business.Position;
 import chess.business.board.Board;
 import chess.business.pieces.Piece;
@@ -14,7 +13,6 @@ public abstract class Piece {
     private char keyname;
     private boolean active;
     private Position position;
-    private static PieceRule pieceRule;
 
     public Piece(char color, char kn) {
         this.color = color;
@@ -77,9 +75,14 @@ public abstract class Piece {
 
     }
 
-    public boolean hasMove() {
+    public boolean hasMoved() {
         return this.movesCount > 0;
 
+    }
+    
+    public void incMoves() {
+    	this.movesCount++;
+    	
     }
 
     public void setMovesCount(int movesCount) {
@@ -96,5 +99,6 @@ public abstract class Piece {
         return this.color == 'b' || this.color == 'B';
 
     }
+    
     public abstract boolean makeMove(Move move, Board board, King king, List oppiece);
 }

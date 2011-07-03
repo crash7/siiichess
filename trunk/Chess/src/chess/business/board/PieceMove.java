@@ -17,7 +17,6 @@ public class PieceMove {
 	}
 
 	public PieceMove() {
-		this(null, null, null);
 
 	}
 

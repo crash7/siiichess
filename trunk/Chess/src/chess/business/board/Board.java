@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Board {
-	private static final int DIMENSION = 8;
+	public static final int DIMENSION = 8;
 	private Square[][] squares;
 	private List moves;
 
@@ -82,6 +82,11 @@ public class Board {
 
 		return false;
 
+	}
+	
+	public void addMove(PieceMove m) {
+		this.moves.add(m);
+		
 	}
 
 	public boolean undoLastMove() {
