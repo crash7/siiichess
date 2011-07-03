@@ -42,6 +42,7 @@ public class Game {
             if (this.board.validatePosition(m.getSource()) && this.board.validatePosition(m.getDestination())) {
                 piece = this.board.getPieceAt(m.getSource());
                 if (piece != null) {
+                  if (piece.getColor()==p.getColor()) {
                     if (piece.makeMove(m, this.board, this.currentPlayer.getKing(), this.opponentPlayer.getPieces())) {
                         // Solo si el resultado del movimiento es valido!
                         Player temp = this.currentPlayer;
@@ -76,7 +77,7 @@ public class Game {
                         }
 
                     }
-
+                  }
                 }
 
             }
