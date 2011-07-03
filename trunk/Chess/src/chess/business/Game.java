@@ -4,7 +4,6 @@ import chess.business.pieces.*;
 import chess.business.board.Board;
 
 public class Game {
-
     private Player currentPlayer;
     private Player opponentPlayer;
     private Position positionToPromote;
