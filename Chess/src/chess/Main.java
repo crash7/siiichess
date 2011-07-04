@@ -1,6 +1,7 @@
 package chess;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import chess.business.Controller;
@@ -42,32 +43,42 @@ public class Main {
         BufferedReader keyb = new BufferedReader(new InputStreamReader(System.in));
         
         
-		try {
-			while(cc.isActive()) {
-	        	printBoard(cc.getBoard());
-	        	current = players[turno%2];
-	            System.out.println("Juega " + current.getName() + "(" + current.getColor() + ")");
-	
-	            do{
-	                System.out.print("Elija Pieza\nPosX: ");
-	                origenX = Integer.parseInt(keyb.readLine());
-	                System.out.print("PosY: ");
-	                origenY = Integer.parseInt(keyb.readLine());
-	                System.out.print("Elija destino\nPosX: ");
-	                destinoX = Integer.parseInt(keyb.readLine());
-	                System.out.print("PosY: ");
-	                destinoY = Integer.parseInt(keyb.readLine());
-	                respuesta = cc.move(current, origenX, origenY, destinoX, destinoY);
-	                if(respuesta == 6) {
-	                	System.out.println("Movimiento Invalido");
-	                } else {
-	                	System.out.println("RTA: " + respuesta);
-	                }
-	            } while (respuesta == 6);
-	            
-	            turno++;
-	        }
-		} catch(Exception e) { }
+		while(cc.isActive()) {
+        	printBoard(cc.getBoard());
+        	current = players[turno%2];
+            System.out.println("Juega " + current.getName() + "(" + current.getColor() + ")");
+
+            do{
+            	respuesta = 6;
+                try {
+                	System.out.print("Elija Pieza\nPosX: ");
+                	origenX = Integer.parseInt(keyb.readLine());
+                	
+                	System.out.print("PosY: ");
+                	origenY = Integer.parseInt(keyb.readLine());
+                	System.out.print("Elija destino\nPosX: ");
+                	destinoX = Integer.parseInt(keyb.readLine());
+                	System.out.print("PosY: ");
+					destinoY = Integer.parseInt(keyb.readLine());
+					respuesta = cc.move(current, origenX, origenY, destinoX, destinoY);
+					
+				} catch (Exception e) {
+					System.out.println("We got an exception, RUUUUUN");
+					
+				}
+                
+                
+                if(respuesta == 6) {
+                	System.out.println("Movimiento Invalido");
+                	
+                } else {
+                	System.out.println("RTA: " + respuesta);
+                	
+                }
+            } while (respuesta == 6);
+            
+            turno++;
+        }
 		
 	}
 	

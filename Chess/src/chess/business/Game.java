@@ -31,25 +31,26 @@ public class Game {
         this.board.llenarTablero(currentPlayer.getPieces(),opponentPlayer.getPieces());
         this.status = Game.PLAYING;
     	this.positionToPromote = null;
-    	this.status = Game.PLAYING;
+    	
+    	// test tip    	
+    	// this.board.setPieceAt(new Position(6, 1), null);
     	
     }
 
     public int move(Player p, Move m) {
         int moveResult = Game.ILEGALMOVE;
-        if (this.status == Game.PLAYING) {
+        if (this.status == Game.PLAYING && currentPlayer.equals(p)) {
             Piece piece;
             if (this.board.validatePosition(m.getSource()) && this.board.validatePosition(m.getDestination())) {
                 piece = this.board.getPieceAt(m.getSource());
                 if (piece != null) {
-                  if (piece.getColor()==p.getColor()) {
+                  if (piece.getColor() == p.getColor()) {
                     if (piece.makeMove(m, this.board, this.currentPlayer.getKing(), this.opponentPlayer.getPieces())) {
                         // Solo si el resultado del movimiento es valido!
                         Player temp = this.currentPlayer;
                         this.currentPlayer = this.opponentPlayer;
                         this.opponentPlayer = temp;
                         
-
                         King cpking = this.currentPlayer.getKing();
 
                         if (cpking.isCheckMated(this.board, this.opponentPlayer.getPieces())) {
