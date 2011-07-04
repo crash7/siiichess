@@ -53,7 +53,9 @@ public class Board {
 
 	public boolean setPieceAt(Position position, Piece piece) {
 		if (this.validatePosition(position)) {
-			piece.setPosition(position);
+			if(piece != null) {
+				piece.setPosition(position);
+			}
 			this.squares[position.getX()][position.getY()].setPiece(piece);
 			return true;
 

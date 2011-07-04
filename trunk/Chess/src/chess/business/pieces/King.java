@@ -88,29 +88,29 @@ public class King extends Piece {
 				 * 
 				 */
 				
-				if(king.isChecked(board, oppiece) && !piezaorigen.hasMoved() && x == 2) {
-					int xA, xB;
+				if(!king.isChecked(board, oppiece) && !piezaorigen.hasMoved() && y == 2) {
+					int yA, yB;
 					
-					if(move.getDestination().getX() - move.getSource().getX() > 0) { // Torre tablero derecha
+					if(move.getDestination().getY() - move.getSource().getY() > 0) { // Torre tablero derecha
 						piezatemporal = board.getPieceAt(new Position(move.getSource().getX(), move.getDestination().getY() + 1));
-						xA = move.getSource().getX() + 1;
-						xB = xA + 1;
+						yA = move.getSource().getY() + 1;
+						yB = yA + 1;
 						
 						
 					} else { // Torre tablero izquierda
 						piezatemporal = board.getPieceAt(new Position(move.getSource().getX(), move.getDestination().getY() - 2));
-						xA = move.getSource().getX() - 1;
-						xB = xA - 1;
+						yA = move.getSource().getY() - 1;
+						yB = yA - 1;
 						
 					}
 					if(piezatemporal != null) {
-						if(piezatemporal.hasMoved()) {
-							if(board.getPieceAt(new Position(xA, move.getSource().getY())) == null 
-									&& board.getPieceAt(new Position(xB, move.getSource().getY())) == null) {
+						if(!piezatemporal.hasMoved()) {
+							if(board.getPieceAt(new Position(move.getSource().getX(), yA)) == null 
+									&& board.getPieceAt(new Position(move.getSource().getX(), yB)) == null) {
 								
-								king.setPosition(new Position(xA, move.getSource().getY()));
+								king.setPosition(new Position(move.getSource().getX(), yB));
 								if(king.isChecked(board, oppiece) == false) {
-									king.setPosition(new Position(xB, move.getSource().getY()));
+									king.setPosition(new Position(move.getSource().getX(), yB));
 									if(king.isChecked(board, oppiece) == false) {
 										
 										// dirty move
@@ -118,11 +118,13 @@ public class King extends Piece {
 										// my apologies
 										move.setDestination(piezatemporal.getPosition()); // fake move para el rollback
 										board.addMove(new PieceMove(piezaorigen, piezatemporal, move)); // meto un move a la fuerza
-										board.setPieceAt(new Position(xA, move.getSource().getY()), piezaorigen); // rey
-										board.setPieceAt(new Position(xB, move.getSource().getY()), piezatemporal); // torre
+										board.setPieceAt(move.getSource(), null); // rey
+										board.setPieceAt(piezatemporal.getPosition(), null); // torre
+										board.setPieceAt(new Position(move.getSource().getX(), yB), piezaorigen); // rey
+										board.setPieceAt(new Position(move.getSource().getX(), yA), piezatemporal); // torre
 										piezaorigen.incMoves();
 										piezatemporal.incMoves();
-										
+																			
 										return true;
 										
 									} else {
@@ -160,8 +162,6 @@ public class King extends Piece {
 		}
 
 		private boolean isChecked(Board board, King king, List oppiece) {
-			return false;
-			/*
 			Piece current;
 			Move move = new Move();
 			boolean checked = false;
@@ -169,10 +169,12 @@ public class King extends Piece {
 			Iterator i = oppiece.iterator();
 
 			move.setDestination(king.getPosition());
+			
 			while (i.hasNext()) {
 				current = (Piece) i.next();
 				if(current.isActive()) {
 					move.setSource(current.getPosition());
+					System.out.println(current);
 					if (current.makeMove(move, board, king, oppiece)) {
 						board.undoLastMove();
 						checked = true;
@@ -181,10 +183,12 @@ public class King extends Piece {
 					}
 					
 				}
-
+				
+				i.next();
+				
 			}
 
-			return checked;*/
+			return checked;
 
 		}
 
@@ -193,7 +197,8 @@ public class King extends Piece {
 			King temp = new King(king.getColor());
 			List positions = this.getPosiblePositions(king);
 			Iterator i = positions.iterator();
-			while (i.hasNext()) {
+			
+			/*while (i.hasNext()) {
 				temp.setPosition((Position) i.next());
 				if (temp.isChecked(board, oppiece) == false) {
 					mated = false;
@@ -201,7 +206,7 @@ public class King extends Piece {
 
 				}
 
-			}
+			}*/
 
 			return mated;
 		}
