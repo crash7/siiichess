@@ -38,8 +38,8 @@ public class Rook extends Piece {
         private boolean isValidMove(Move move) {
             Position source = move.getSource();
             Position destination = move.getDestination();
-            if (((source.getX() == destination.getX()) && (source.getY() != source.getY()))
-                 || ((source.getX() != destination.getX()) && (source.getY() == source.getY()))) {
+            if (((source.getX() == destination.getX()) && (source.getY() != destination.getY()))
+                 || ((source.getX() != destination.getX()) && (source.getY() == destination.getY()))) {
                 return true;
             } else {
                 return false;
