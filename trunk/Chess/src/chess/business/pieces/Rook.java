@@ -23,10 +23,7 @@ public class Rook extends Piece {
         	
             if (isValidMove(move) && pathIsClear(move, board)) {
                 board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-                
-            }
-            
-            if (king.isChecked(board, oppiece)) {
+                if (king.isChecked(board, oppiece)) {
                 board.undoLastMove();
                 return false;
                 
@@ -35,15 +32,14 @@ public class Rook extends Piece {
                 return true;
                 
             }
+          }else return false;
         }
 
         private boolean isValidMove(Move move) {
             Position source = move.getSource();
             Position destination = move.getDestination();
-            if ((source.getX() == destination.getX())
-                    && (source.getY() != source.getY())
-                    || (source.getX() != destination.getX())
-                    && (source.getY() == source.getY())) {
+            if (((source.getX() == destination.getX()) && (source.getY() != source.getY()))
+                 || ((source.getX() != destination.getX()) && (source.getY() == source.getY()))) {
                 return true;
             } else {
                 return false;
@@ -51,29 +47,39 @@ public class Rook extends Piece {
         }
 
         private boolean pathIsClear(Move move, Board board) {
-            Position source = move.getSource();
-            Position destination = move.getDestination();
-            boolean valid = true;
-            if (source.getX() != destination.getX()) {
-
-                int i = source.getX();
-                while (i < destination.getX() && valid) {
-                    i++;
-                    if (board.getPieceAt(new Position(i, source.getY())) != null) {
-                        valid = false;
-                    }
-                }
-            } else if (source.getY() != destination.getY()) {
-
-                int i = source.getY();
-                while (i < destination.getY() && valid) {
-                    i++;
-                    if (board.getPieceAt(new Position(i, source.getX())) != null) {
-                        valid = false;
+            int x = move.getDestination().getX() - move.getSource().getX();
+            int y = move.getDestination().getY() -  move.getSource().getY();
+            Position position = new Position (move.getSource().getX(),move.getSource().getY());
+            if (Math.abs(x) >= 1) {
+                x = x/Math.abs(x);
+                while (position.getX() != move.getDestination().getX()) {
+                    position.setX(position.getX()+x);
+                    if (board.getPieceAt(position) != null) {
+                        return false;
                     }
                 }
             }
-            return valid;
+            else {
+                y = y/Math.abs(y);
+                while (position.getY() != move.getDestination().getY()) {
+                    position.setY(position.getY()+y);
+                    if (board.getPieceAt(position) != null) {
+                        return false;
+                    }
+                }
+                
+                
+            }
+            Piece piece = null;
+            piece= board.getPieceAt(position);
+            if (piece != null)
+            {   
+                if (board.getPieceAt(move.getSource()).sameColour(piece))return false;
+                return true;
+            }
+            else return true;
+            
+            
         }
     }
 }
