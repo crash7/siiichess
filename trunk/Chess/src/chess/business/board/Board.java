@@ -123,4 +123,7 @@ public class Board {
 
 	}
 
+        public PieceMove getMove() {
+            return (PieceMove)this.moves.get(0);
+        }
 }

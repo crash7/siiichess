@@ -118,7 +118,18 @@ public class Pawn extends Piece {
 						return true;
 					}
 				} else {
-					return false;// comer pasando. // just do it (?)
+                                    int y = move.getSource().getY()-move.getDestination().getY();
+                                    piezatemporal = board.getPieceAt(new Position(move.getSource().getX(),move.getSource().getY()+y));
+                                    if(piezatemporal != null) {
+                                        if(piezatemporal instanceof Pawn && !piezatemporal.sameColour(piezaorigen)) {
+                                            PieceMove lastMove = board.getMove();                                            
+                                            if(Math.abs(lastMove.getSource().getX()-lastMove.getDestination().getX()) == 2) {
+                                                return true;
+                                            }                                            
+                                        }
+                                    } 
+
+                                    return false;// comer pasando. // just do it (?) maybe
 				}
 
 			} else {
