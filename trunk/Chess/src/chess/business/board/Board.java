@@ -106,15 +106,16 @@ public class Board {
 	}
 
 	public boolean undoLastMove() {
-		PieceMove lastmove = (PieceMove) this.moves
-				.remove(this.moves.size() - 1);
+		PieceMove lastmove = (PieceMove) this.moves.remove(this.moves.size() - 1);
 
 		if (lastmove != null) {
 			this.squares[lastmove.getSource().getX()][lastmove.getSource()
 					.getY()].setPiece(lastmove.getPiece());
 			this.squares[lastmove.getDestination().getX()][lastmove
 					.getDestination().getY()].setPiece(lastmove.getCaptured());
-			lastmove.getCaptured().setActive(true);
+			if(lastmove.getCaptured() != null) {
+				lastmove.getCaptured().setActive(true);
+			}
 
 			return true;
 		}
@@ -123,7 +124,9 @@ public class Board {
 
 	}
 
-        public PieceMove getMove() {
-            return (PieceMove)this.moves.get(0);
-        }
+	public PieceMove getLastMove() {
+	    return (PieceMove)this.moves.get(this.moves.size() - 1);
+	    
+	}
+	
 }

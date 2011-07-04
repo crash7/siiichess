@@ -13,26 +13,26 @@ public class Rook extends Piece {
         super(color, 'R');
     }
 
-    public boolean makeMove(Move move, Board board, King king, List oppiece) {
-        return Rook.pieceRule.makeMove(move, board, king, oppiece);
+    public boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
+        return Rook.pieceRule.makeMove(move, board, king, oppiece, safely);
     }
 
     static class RookRule {
-        private boolean makeMove(Move move, Board board, King king, List oppiece) {
+        private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
         	Piece piezaorigen = board.getPieceAt(move.getSource());
         	
             if (isValidMove(move) && pathIsClear(move, board)) {
                 board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-                if (king.isChecked(board, oppiece)) {
-                board.undoLastMove();
-                return false;
+                if (safely && king.isChecked(board, oppiece)) {
+	                board.undoLastMove();
+	                return false;
                 
-            } else {
-            	piezaorigen.incMoves();
-                return true;
-                
-            }
-          }else return false;
+	            } else {
+	            	piezaorigen.incMoves();
+	                return true;
+	                
+	            }
+            }else return false;
         }
 
         private boolean isValidMove(Move move) {

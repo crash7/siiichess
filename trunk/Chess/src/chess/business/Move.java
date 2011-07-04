@@ -8,6 +8,12 @@ public class Move {
 
 	}
 
+	public Move(Position source, Position destination) {
+		this.source = source;
+		this.destination = destination;
+		
+	}
+
 	public Position getDestination() {
 		return destination;
 

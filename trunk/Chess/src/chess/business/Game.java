@@ -45,7 +45,7 @@ public class Game {
                 piece = this.board.getPieceAt(m.getSource());
                 if (piece != null) {
                   if (piece.getColor() == p.getColor()) {
-                    if (piece.makeMove(m, this.board, this.currentPlayer.getKing(), this.opponentPlayer.getPieces())) {
+                    if (piece.makeMove(m, this.board, this.currentPlayer.getKing(), this.opponentPlayer.getPieces(), true)) {
                         // Solo si el resultado del movimiento es valido!
                         Player temp = this.currentPlayer;
                         this.currentPlayer = this.opponentPlayer;
@@ -88,9 +88,11 @@ public class Game {
 
     public boolean promotePawnTo(Player player, Piece piece) {
         if (currentPlayer.equals(player)) {
+        	piece.setPosition(this.positionToPromote);
             board.setPieceAt(this.positionToPromote, piece);
-
+            currentPlayer.addPiece(piece);
             return true;
+            
         }
 
         return false;

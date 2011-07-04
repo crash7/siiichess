@@ -100,5 +100,5 @@ public abstract class Piece {
 
     }
     
-    public abstract boolean makeMove(Move move, Board board, King king, List oppiece);
+    public abstract boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely);
 }

@@ -16,8 +16,8 @@ public class King extends Piece {
 
 	}
 
-	public boolean makeMove(Move move, Board board, King king, List oppiece) {
-		return King.pieceRule.makeMove(move, board, king, oppiece);
+	public boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
+		return King.pieceRule.makeMove(move, board, king, oppiece, safely);
 
 	}
 
@@ -36,7 +36,7 @@ public class King extends Piece {
 	 * clase que la contiene y porque...tenes que leer el capitulo 8 del TIJ
 	 */
 	static class KingRule {
-		private boolean makeMove(Move move, Board board, King king, List oppiece) {
+		private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
 			int x = move.getDestination().getX() - move.getSource().getX();
 			int y = move.getDestination().getY() - move.getSource().getY();
 
@@ -53,7 +53,8 @@ public class King extends Piece {
 				if (piezatemporal != null) {
 					if (!piezatemporal.sameColour(piezaorigen)) {
 						board.move(new PieceMove(piezaorigen, piezatemporal, move));
-						if(king.isChecked(board, oppiece)) {
+						piezatemporal.setActive(false); // captura
+						if(safely && king.isChecked(board, oppiece)) {
 							board.undoLastMove();
 							return false;
 							
@@ -70,7 +71,7 @@ public class King extends Piece {
 					
 				} else {
 					board.move(new PieceMove(piezaorigen, piezatemporal, move));
-					if (king.isChecked(board, oppiece)) {
+					if (safely && king.isChecked(board, oppiece)) {
 						board.undoLastMove();
 						return false;
 						
@@ -88,7 +89,7 @@ public class King extends Piece {
 				 * 
 				 */
 				
-				if(!king.isChecked(board, oppiece) && !piezaorigen.hasMoved() && y == 2) {
+				if(safely && !king.isChecked(board, oppiece) && !piezaorigen.hasMoved() && y == 2) {
 					int yA, yB;
 					
 					if(move.getDestination().getY() - move.getSource().getY() > 0) { // Torre tablero derecha
@@ -111,7 +112,7 @@ public class King extends Piece {
 								king.setPosition(new Position(move.getSource().getX(), yB));
 								if(king.isChecked(board, oppiece) == false) {
 									king.setPosition(new Position(move.getSource().getX(), yB));
-									if(king.isChecked(board, oppiece) == false) {
+									if(safely && !king.isChecked(board, oppiece)) {
 										
 										// dirty move
 										// VERY dirty
@@ -170,12 +171,11 @@ public class King extends Piece {
 
 			move.setDestination(king.getPosition());
 			
-			/*while (i.hasNext()) {
+			while (i.hasNext()) {
 				current = (Piece) i.next();
 				if(current.isActive()) {
 					move.setSource(current.getPosition());
-					System.out.println(current);
-					if (current.makeMove(move, board, king, oppiece)) {
+					if (current.makeMove(move, board, king, oppiece, false)) {
 						board.undoLastMove();
 						checked = true;
 						break;
@@ -183,10 +183,9 @@ public class King extends Piece {
 					}
 					
 				}
-				
 				i.next();
 				
-			}*/
+			}
 
 			return checked;
 
@@ -198,7 +197,7 @@ public class King extends Piece {
 			List positions = this.getPosiblePositions(king);
 			Iterator i = positions.iterator();
 			
-			/*while (i.hasNext()) {
+			while (i.hasNext()) {
 				temp.setPosition((Position) i.next());
 				if (temp.isChecked(board, oppiece) == false) {
 					mated = false;
@@ -206,7 +205,7 @@ public class King extends Piece {
 
 				}
 
-			}*/
+			}
 
 			return mated;
 		}
