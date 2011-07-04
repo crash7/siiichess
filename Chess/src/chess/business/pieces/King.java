@@ -170,7 +170,7 @@ public class King extends Piece {
 
 			move.setDestination(king.getPosition());
 			
-			while (i.hasNext()) {
+			/*while (i.hasNext()) {
 				current = (Piece) i.next();
 				if(current.isActive()) {
 					move.setSource(current.getPosition());
@@ -186,7 +186,7 @@ public class King extends Piece {
 				
 				i.next();
 				
-			}
+			}*/
 
 			return checked;
 
