@@ -14,20 +14,20 @@ public class Knight extends Piece {
 
     }
 
-    public boolean makeMove(Move move, Board board, King king, List oppiece) {
-        return Knight.pieceRule.makeMove(move, board, king, oppiece);
+    public boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
+        return Knight.pieceRule.makeMove(move, board, king, oppiece, safely);
         
     }
 
     static class KnightRule {
-        private boolean makeMove(Move move, Board board, King king, List oppiece) {
+        private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
         	Piece piezaorigen = board.getPieceAt(move.getSource());
         
-        	if (isValidMove(move) && (board.getPieceAt(move.getDestination()) == null)
-                    || !(board.getPieceAt(move.getDestination()).sameColour(piezaorigen))) {
+        	if(isValidMove(move) && ((board.getPieceAt(move.getDestination()) == null)
+        			|| !(board.getPieceAt(move.getDestination()).sameColour(piezaorigen)))) {
                 board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
                 
-                if(king.isChecked(board, oppiece)) {
+                if(safely && king.isChecked(board, oppiece)) {
                 board.undoLastMove();
                 return false;
             

@@ -1,7 +1,6 @@
 package chess;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import chess.business.Controller;
@@ -64,6 +63,7 @@ public class Main {
 					
 				} catch (Exception e) {
 					System.out.println("We got an exception, RUUUUUN");
+					e.printStackTrace();
 					
 				}
                 

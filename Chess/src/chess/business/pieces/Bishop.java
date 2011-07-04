@@ -14,17 +14,17 @@ public class Bishop extends Piece {
         
     }
 
-    public boolean makeMove(Move move, Board board, King king, List oppiece) {
-        return Bishop.pieceRule.makeMove(move, board, king, oppiece);
+    public boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
+        return Bishop.pieceRule.makeMove(move, board, king, oppiece, safely);
         
     }
 
     static class BishopRule {
-        private boolean makeMove(Move move, Board board, King king, List oppiece) {
+        private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
         	Piece piezaorigen = board.getPieceAt(move.getSource());
             if (isValidMove(move) && pathIsClear(move, board)) {
                 board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-                if(king.isChecked(board, oppiece)) {
+                if(safely && king.isChecked(board, oppiece)) {
                     board.undoLastMove();
                     return false;
                     
