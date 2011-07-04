@@ -27,9 +27,7 @@ public class Knight extends Piece {
                     || !(board.getPieceAt(move.getDestination()).sameColour(piezaorigen))) {
                 board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
                 
-            }
-            
-            if(king.isChecked(board, oppiece)) {
+                if(king.isChecked(board, oppiece)) {
                 board.undoLastMove();
                 return false;
             
@@ -38,6 +36,10 @@ public class Knight extends Piece {
                 return true;
             
             }
+                
+            }
+                else return false;
+            
         
         }
 
