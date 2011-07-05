@@ -112,7 +112,12 @@ public class Pawn extends Piece {
 				piezatemporal = board.getPieceAt(move.getDestination());
 				piezaorigen = board.getPieceAt(move.getSource());
 				if (piezatemporal != null) {
-					return !piezatemporal.sameColour(piezaorigen);
+					if (piezatemporal.sameColour(piezaorigen))return false;
+                                        else
+                                        {
+                                             board.getPieceAt(move.getDestination()).setActive(false);
+                                             return true;
+                                        }
 					
 				} else {
 					piezatemporal = board.getPieceAt(new Position(move.getSource().getX(), move.getDestination().getY()));
