@@ -23,6 +23,7 @@ public class Rook extends Piece {
         	
             if (isValidMove(move) && pathIsClear(move, board)) {
                 board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
+                board.getPieceAt(move.getDestination()).setActive(false);
                 if (safely && king.isChecked(board, oppiece)) {
 	                board.undoLastMove();
 	                return false;

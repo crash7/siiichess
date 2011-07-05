@@ -26,6 +26,7 @@ public class Knight extends Piece {
         	if(isValidMove(move) && ((board.getPieceAt(move.getDestination()) == null)
         			|| !(board.getPieceAt(move.getDestination()).sameColour(piezaorigen)))) {
                 board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
+                board.getPieceAt(move.getDestination()).setActive(false);
                 
                 if(safely && king.isChecked(board, oppiece)) {
                 board.undoLastMove();
