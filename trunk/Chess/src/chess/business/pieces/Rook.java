@@ -24,7 +24,7 @@ public class Rook extends Piece {
             if (isValidMove(move) && pathIsClear(move, board)) {
             	if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
             		board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-            		board.getPieceAt(move.getDestination()).setActive(false);
+            		if (board.getPieceAt(move.getDestination())!=null)board.getPieceAt(move.getDestination()).setActive(false);
 	                if (king.isChecked(board, oppiece)) {
 		                board.undoLastMove();
 		                return false;
@@ -59,20 +59,22 @@ public class Rook extends Piece {
             Position position = new Position (move.getSource().getX(),move.getSource().getY());
             if (Math.abs(x) >= 1) {
                 x = x/Math.abs(x);
+                position.setX(position.getX()+x);
                 while (position.getX() != move.getDestination().getX()) {
-                    position.setX(position.getX()+x);
                     if (board.getPieceAt(position) != null) {
                         return false;
                     }
+                    position.setX(position.getX()+x);
                 }
             }
             else {
                 y = y/Math.abs(y);
+                position.setY(position.getY()+y);
                 while (position.getY() != move.getDestination().getY()) {
-                    position.setY(position.getY()+y);
-                    if (board.getPieceAt(position) != null) {
+                   if (board.getPieceAt(position) != null) {
                         return false;
                     }
+                   position.setY(position.getY()+y);
                 }
                 
                 

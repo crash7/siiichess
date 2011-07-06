@@ -205,8 +205,8 @@ public class King extends Piece {
 		}
 
 		private boolean isCheckMated(Board board, King king, List oppiece) {
-			boolean mated = true;
-			King temp = new King(king.getColor());
+			boolean mated = false;
+			/*King temp = new King(king.getColor());
 			List positions = this.getPosiblePositions(king);
 			Iterator i = positions.iterator();
 			
@@ -218,7 +218,7 @@ public class King extends Piece {
 
 				}
 
-			}
+			}*/
 
 			return mated;
 		}
