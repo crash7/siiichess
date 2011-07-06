@@ -4,7 +4,6 @@ import chess.business.Position;
 import chess.business.pieces.Piece;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Board {
 	public static final int DIMENSION = 8;
@@ -31,20 +30,7 @@ public class Board {
 	// y si cambiamos la modalidad a juego de reinas?
 	// como hacemos que simplemente heredando Game y sobreescribiendo los metodos juguemos solo con reinas?
 	// y que las reinas vayan en lugares especificos? 
-    public void llenarTablero(List Pieces1, List Pieces2) {
-        Iterator iterator1 = Pieces1.iterator();
-        Iterator iterator2 = Pieces2.iterator();
-        int i=0;
-
-        while(iterator1.hasNext() && iterator2.hasNext()){
-            this.setPieceAt(new Position(Board.DIMENSION-1,i), (Piece)iterator1.next());
-            this.setPieceAt(new Position(Board.DIMENSION-2,i), (Piece)iterator1.next());
-            this.setPieceAt(new Position(0,i), (Piece)iterator2.next());
-            this.setPieceAt(new Position(1,i), (Piece)iterator2.next());
-            i++;
-        }
-    }
-
+   
 	public boolean validatePosition(Position p) {
 		return (p.getX() >= 0 && p.getX() < Board.DIMENSION && p.getY() >= 0 && p
 				.getY() < Board.DIMENSION);

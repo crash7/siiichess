@@ -2,6 +2,8 @@ package chess.business;
 
 import chess.business.pieces.*;
 import chess.business.board.Board;
+import java.util.List;
+import java.util.Iterator;
 
 public class Game {
     private Player currentPlayer;
@@ -28,7 +30,7 @@ public class Game {
     	this.opponentPlayer = b;
         this.createPieceList(this.opponentPlayer);
     	this.board = new Board();
-        this.board.llenarTablero(currentPlayer.getPieces(),opponentPlayer.getPieces());
+        this.fillChessBoard(this.currentPlayer.getPieces(),this.opponentPlayer.getPieces());
         this.status = Game.PLAYING;
     	this.positionToPromote = null;
     	
@@ -138,5 +140,19 @@ public class Game {
 		return this.status == Game.PLAYING;
 		
 	}
+
+        public void fillChessBoard(List Pieces1, List Pieces2) {
+        Iterator iterator1 = Pieces1.iterator();
+        Iterator iterator2 = Pieces2.iterator();
+        int i=0;
+
+            while(iterator1.hasNext() && iterator2.hasNext()){
+                this.board.setPieceAt(new Position(Board.DIMENSION-1,i), (Piece)iterator1.next());
+                this.board.setPieceAt(new Position(Board.DIMENSION-2,i), (Piece)iterator1.next());
+                this.board.setPieceAt(new Position(0,i), (Piece)iterator2.next());
+                this.board.setPieceAt(new Position(1,i), (Piece)iterator2.next());
+                i++;
+            }
+        }
 
 }
