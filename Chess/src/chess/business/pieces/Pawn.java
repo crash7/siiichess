@@ -24,17 +24,23 @@ public class Pawn extends Piece {
 			Piece piezaorigen = board.getPieceAt(move.getSource());
 			
 			if (this.isValidMove(board, move) && this.pathIsClear(move, board)) {
-				board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-				
-				if(safely && king.isChecked(board, oppiece)) {
-					board.undoLastMove();
-					return false;
+				if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
+					board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
 					
-				} else {
-					piezaorigen.incMoves();
-					return true;
+					if(safely && king.isChecked(board, oppiece)) {
+						board.undoLastMove();
+						return false;
+						
+					} else {
+						piezaorigen.incMoves();
+						return true;
+						
+					}
 					
-				}
+				} else { // el movimiento es valido, con eso me alcanza
+                	return true;
+                	
+                }
 
 			} else {
 				return false;

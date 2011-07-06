@@ -23,17 +23,23 @@ public class Bishop extends Piece {
         private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
         	Piece piezaorigen = board.getPieceAt(move.getSource());
             if (isValidMove(move) && pathIsClear(move, board)) {
-                board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-                board.getPieceAt(move.getDestination()).setActive(false);
-                if(safely && king.isChecked(board, oppiece)) {
-                    board.undoLastMove();
-                    return false;
-                    
-                } else {
-                	piezaorigen.incMoves();
-                    return true;
-                    
-                }
+            	if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
+            		board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
+            		board.getPieceAt(move.getDestination()).setActive(false);
+            		if(king.isChecked(board, oppiece)) {
+            			board.undoLastMove();
+            			return false;
+            			
+            		} else {
+            			piezaorigen.incMoves();
+            			return true;
+            			
+            		}
+            		
+            	} else { // el movimiento es valido, con eso me alcanza
+					return true;
+					
+				}
 
             } else {
                 return false;

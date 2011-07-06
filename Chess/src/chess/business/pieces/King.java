@@ -52,14 +52,20 @@ public class King extends Piece {
 								
 				if (piezatemporal != null) {
 					if (!piezatemporal.sameColour(piezaorigen)) {
-						board.move(new PieceMove(piezaorigen, piezatemporal, move));
-						piezatemporal.setActive(false); // captura
-						if(safely && king.isChecked(board, oppiece)) {
-							board.undoLastMove();
-							return false;
+						if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
+							board.move(new PieceMove(piezaorigen, piezatemporal, move));
+							piezatemporal.setActive(false); // captura
+							if(king.isChecked(board, oppiece)) {
+								board.undoLastMove();
+								return false;
+								
+							} else {
+								piezaorigen.incMoves();
+								return true;
+								
+							}
 							
-						} else {
-							piezaorigen.incMoves();
+						} else { // el movimiento es valido, con eso me alcanza
 							return true;
 							
 						}
@@ -70,13 +76,19 @@ public class King extends Piece {
 					}
 					
 				} else {
-					board.move(new PieceMove(piezaorigen, piezatemporal, move));
-					if (safely && king.isChecked(board, oppiece)) {
-						board.undoLastMove();
-						return false;
+					if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
+						board.move(new PieceMove(piezaorigen, piezatemporal, move));
+						if (king.isChecked(board, oppiece)) {
+							board.undoLastMove();
+							return false;
+							
+						} else {
+							piezaorigen.incMoves();
+							return true;
+							
+						}
 						
-					} else {
-						piezaorigen.incMoves();
+					} else { // el movimiento es valido, con eso me alcanza
 						return true;
 						
 					}
@@ -178,6 +190,7 @@ public class King extends Piece {
 					if (current.makeMove(move, board, king, oppiece, false)) {
 						board.undoLastMove();
 						checked = true;
+						System.out.println("JAQUEEE HA HA");
 						break;
 		
 					}
