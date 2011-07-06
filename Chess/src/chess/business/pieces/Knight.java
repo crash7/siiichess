@@ -27,7 +27,7 @@ public class Knight extends Piece {
         			|| !(board.getPieceAt(move.getDestination()).sameColour(piezaorigen)))) {
         		if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
         			board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-        			board.getPieceAt(move.getDestination()).setActive(false);
+        			if (board.getPieceAt(move.getDestination())!=null)board.getPieceAt(move.getDestination()).setActive(false);
         			
         			if(king.isChecked(board, oppiece)) {
         				board.undoLastMove();

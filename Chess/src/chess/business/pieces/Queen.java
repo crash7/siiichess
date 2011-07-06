@@ -23,25 +23,14 @@ public class Queen extends Piece {
     		Piece piece = new Bishop(piezaorigen.getColor());
             if(piece.makeMove(move, board, king, oppiece, safely)) {
             	moved = true;
-                board.getPieceAt(move.getDestination()).setActive(false);
+               
             	
             } else {
             	piece = new Rook(piezaorigen.getColor());
             	moved = piece.makeMove(move, board, king, oppiece, safely);
-                if(moved) {
-                	piece = board.getPieceAt(move.getDestination());
-                	if(piece != null) {
-                		piece.setActive(false);
-                	}
-                }
+                
             	
             }
-            
-            if(moved) {
-            	piezaorigen.incMoves();
-            	
-            }
-            
             return moved;
     		
     	}
