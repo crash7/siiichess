@@ -28,7 +28,12 @@ public class Queen extends Piece {
             } else {
             	piece = new Rook(piezaorigen.getColor());
             	moved = piece.makeMove(move, board, king, oppiece, safely);
-                board.getPieceAt(move.getDestination()).setActive(false);
+                if(moved) {
+                	piece = board.getPieceAt(move.getDestination());
+                	if(piece != null) {
+                		piece.setActive(false);
+                	}
+                }
             	
             }
             
