@@ -207,8 +207,18 @@ public class King extends Piece {
 		private boolean isCheckMated(Board board, King king, List oppiece) {
 			boolean mated = true;
 			King temp = new King(king.getColor());
-			List positions = this.getPosiblePositions(king);
-			Iterator i = positions.iterator();
+			List positions = this.getPosiblePositions(king, board);
+                        board.setPieceAt(king.getPosition(), null);
+			if (positions.isEmpty()){
+                            temp.setPosition(king.getPosition());
+                            if (temp.isChecked(board, oppiece) == false) {
+					mated = false;
+					
+
+				}
+                        }
+                        else{
+                              Iterator i = positions.iterator();
 			
 			while (i.hasNext()) {
 				temp.setPosition((Position) i.next());
@@ -218,19 +228,31 @@ public class King extends Piece {
 
 				}
 
-			}
-
+			} 
+                            
+                        }
+                     
+                        board.setPieceAt(king.getPosition(), king);
 			return mated;
 		}
 
-		private List getPosiblePositions(King king) {
+		private List getPosiblePositions(King king, Board board) {
 			List positions = new ArrayList();
 			int x = king.getPosition().getX();
 			int y = king.getPosition().getY();
 
-			for (int i = x - 1; i <= x; i++) {
-				for (int j = y - 1; j <= y; j++) {
-					positions.add(new Position(i, j));
+			for (int i = x - 1; i <= x+1; i++) {
+				for (int j = y - 1; j <= y+1; j++) {
+                                    if (board.validatePosition(new Position (i,j))){
+                                        if (board.getPieceAt(new Position (i,j))!=null){
+                                            if (!board.getPieceAt(new Position (i,j)).sameColour(king)){
+                                             positions.add(new Position(i, j));
+                                            }
+                                             
+                                        }
+                                        else positions.add(new Position(i, j));
+                                               
+                                    }
 
 				}
 
