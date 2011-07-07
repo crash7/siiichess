@@ -174,11 +174,14 @@ public class King extends Piece {
 			
 		}
 
-		private boolean isCheckMated(Board board, King king, List oppiece) {
+		private boolean isCheckMated(Board board, King king, List oppiece, List cppieces) {
 			boolean mated = true;
 			King temp = new King(king.getColor());
 			List positions = this.getPosiblePositions(king, board);
                         board.setPieceAt(king.getPosition(), null);
+                        List temppieces = new ArrayList();
+                        Piece thepiece=null;
+                        List positionslistcheck = new ArrayList();
 			if (positions.isEmpty()){
                             temp.setPosition(king.getPosition());
                             if (temp.isChecked(board, oppiece) == false) {
@@ -186,6 +189,13 @@ public class King extends Piece {
 					
 
 				}
+                            else{
+                                positionslistcheck.add(king.getPosition());
+                                
+                            }
+                                
+                          
+                               
                         }
                         else{
                               Iterator i = positions.iterator();
@@ -199,13 +209,40 @@ public class King extends Piece {
 					break;
 
 				}
+                                else{
+                                    positionslistcheck.add(temp.getPosition());
+                                }
                                 if (piece!=null)piece.setActive(true);
 
 			} 
                             
                         }
-                     
                         board.setPieceAt(king.getPosition(), king);
+                        if (!positionslistcheck.isEmpty()){
+                            Iterator j = positionslistcheck.iterator();
+                            while (j.hasNext()){
+                                Position temposition = (Position)j.next();
+                                Iterator pieceiterator = oppiece.iterator();
+                                while (pieceiterator.hasNext()){
+                                    thepiece =(Piece) pieceiterator.next();
+                                    if (thepiece.isActive())
+                                    {
+                                        if (thepiece.makeMove(new Move(thepiece.getPosition(),temp.getPosition()), board, king, oppiece,false))
+                                        {
+                                            temppieces.add(thepiece);
+                                        }
+                                    
+                                    }
+                            }
+                                pieceiterator = temppieces.iterator();
+                                while (pieceiterator.hasNext()){
+                                    thepiece =(Piece) pieceiterator.next();
+                                    if (thepiece.makeMove(null, board, thepiece, oppiece, mated))
+                                }
+                            }
+                            
+                        }
+                            
 			return mated;
 		}
 
