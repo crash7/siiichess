@@ -5,8 +5,10 @@ import chess.business.Position;
 import chess.business.board.Board;
 import chess.business.board.PieceMove;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class King extends Piece {
 	private static KingRule pieceRule = new KingRule();
@@ -26,8 +28,8 @@ public class King extends Piece {
 
 	}
 
-	public boolean isCheckMated(Board board, List oppiece) {
-		return King.pieceRule.isCheckMated(board, this, oppiece);
+	public boolean isCheckMated(Board board, List oppiece, List cppiece) {
+		return King.pieceRule.isCheckMated(board, this, oppiece, cppiece);
 
 	}
 
@@ -179,70 +181,16 @@ public class King extends Piece {
 			King temp = new King(king.getColor());
 			List positions = this.getPosiblePositions(king, board);
                         board.setPieceAt(king.getPosition(), null);
-                        List temppieces = new ArrayList();
+                        Set temppieces = new HashSet();
                         Piece thepiece=null;
-                        List positionslistcheck = new ArrayList();
-			if (positions.isEmpty()){
-                            temp.setPosition(king.getPosition());
-                            if (temp.isChecked(board, oppiece) == false) {
-					mated = false;
-					
-
-				}
-                            else{
-                                positionslistcheck.add(king.getPosition());
+                        Iterator pieceiterator = oppiece.iterator();
+                        while (pieceiterator.hasNext()){
+                            if (positions.isEmpty()){
                                 
                             }
-                                
-                          
-                               
-                        }
-                        else{
-                              Iterator i = positions.iterator();
-			Piece piece = null;
-			while (i.hasNext()) {
-				temp.setPosition((Position) i.next());
-                                piece=board.getPieceAt(temp.getPosition());
-                                if (piece!=null)piece.setActive(false);
-                                if (temp.isChecked(board, oppiece) == false) {
-					mated = false;
-					break;
-
-				}
-                                else{
-                                    positionslistcheck.add(temp.getPosition());
-                                }
-                                if (piece!=null)piece.setActive(true);
-
-			} 
                             
                         }
-                        board.setPieceAt(king.getPosition(), king);
-                        if (!positionslistcheck.isEmpty()){
-                            Iterator j = positionslistcheck.iterator();
-                            while (j.hasNext()){
-                                Position temposition = (Position)j.next();
-                                Iterator pieceiterator = oppiece.iterator();
-                                while (pieceiterator.hasNext()){
-                                    thepiece =(Piece) pieceiterator.next();
-                                    if (thepiece.isActive())
-                                    {
-                                        if (thepiece.makeMove(new Move(thepiece.getPosition(),temp.getPosition()), board, king, oppiece,false))
-                                        {
-                                            temppieces.add(thepiece);
-                                        }
-                                    
-                                    }
-                            }
-                                pieceiterator = temppieces.iterator();
-                                while (pieceiterator.hasNext()){
-                                    thepiece =(Piece) pieceiterator.next();
-                                    if (thepiece.makeMove(null, board, thepiece, oppiece, mated))
-                                }
-                            }
-                            
-                        }
-                            
+                        board.setPieceAt(king.getPosition(), king);    
 			return mated;
 		}
 
