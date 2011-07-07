@@ -58,13 +58,13 @@ public class Bishop extends Piece {
             Position posiciontemporal = new Position(move.getSource().getX(), move.getSource().getY());
             Piece piezatemporal=null;
             Piece piezaorigen = board.getPieceAt(move.getSource());
-            while (!posiciontemporal.equals(move.getDestination())) {
+            while (!posiciontemporal.isEqual(move.getDestination())) {
                 posiciontemporal.setX(posiciontemporal.getX() + x);
                 posiciontemporal.setY(posiciontemporal.getY() + y);
                 piezatemporal = board.getPieceAt(posiciontemporal);
                 if (piezatemporal != null) {
                     if (!piezaorigen.sameColour(piezatemporal)) {
-                        if (posiciontemporal.equals(move.getDestination())) {
+                        if (posiciontemporal.isEqual(move.getDestination())) {
                             return true;
                         } else {
                             return false;
@@ -74,7 +74,7 @@ public class Bishop extends Piece {
                     }
 
                 } else {
-                    if (posiciontemporal.equals(move.getDestination())) {
+                    if (posiciontemporal.isEqual(move.getDestination())) {
                         return true;
                     }
                 }
@@ -86,12 +86,15 @@ public class Bishop extends Piece {
         private boolean isValidMove(Move move) {
             int x = move.getDestination().getX() - move.getSource().getX();
             int y = move.getDestination().getY() - move.getSource().getY();
-            if (Math.abs(x) == Math.abs(y)){
+            if (move.getSource().isEqual(move.getDestination()))return false;
+            else
+            {
+                if (Math.abs(x) == Math.abs(y)){
                 return true;
             } else {
                 return false;
             }
-
+        }
         }
     }
 }
