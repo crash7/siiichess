@@ -24,8 +24,10 @@ public class Bishop extends Piece {
         	Piece piezaorigen = board.getPieceAt(move.getSource());
             if (isValidMove(move) && pathIsClear(move, board)) {
             	if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
+            		if (board.getPieceAt(move.getDestination())!=null) {
+            			board.getPieceAt(move.getDestination()).setActive(false);
+            		}
             		board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-            		if (board.getPieceAt(move.getDestination())!=null)board.getPieceAt(move.getDestination()).setActive(false);
             		if(king.isChecked(board, oppiece)) {
             			board.undoLastMove();
             			return false;
