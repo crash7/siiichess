@@ -27,7 +27,7 @@ public class Pawn extends Piece {
 				if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
 					board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
 					
-					if(safely && king.isChecked(board, oppiece)) {
+					if(king.isChecked(board, oppiece)) {
 						board.undoLastMove();
 						return false;
 						

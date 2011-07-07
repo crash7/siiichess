@@ -182,22 +182,22 @@ public class King extends Piece {
 			Iterator i = oppiece.iterator();
 
 			move.setDestination(king.getPosition());
-			
+
 			while (i.hasNext()) {
 				current = (Piece) i.next();
 				if(current.isActive()) {
 					move.setSource(current.getPosition());
-					if (current.makeMove(move, board, king, oppiece, false)) {
-						board.undoLastMove();
+					if(current.makeMove(move, board, king, oppiece, false)) {
 						checked = true;
-						System.out.println("JAQUEEE HA HA");
 						break;
 		
 					}
+
+				} else {
+					System.out.println(current.getColor());
 					
 				}
-				i.next();
-				
+								
 			}
 
 			return checked;
@@ -205,8 +205,8 @@ public class King extends Piece {
 		}
 
 		private boolean isCheckMated(Board board, King king, List oppiece) {
-			boolean mated = false;
-			/*King temp = new King(king.getColor());
+			boolean mated = true;
+			King temp = new King(king.getColor());
 			List positions = this.getPosiblePositions(king);
 			Iterator i = positions.iterator();
 			
@@ -218,7 +218,7 @@ public class King extends Piece {
 
 				}
 
-			}*/
+			}
 
 			return mated;
 		}

@@ -118,21 +118,21 @@ public class Game {
     }
     private void createPieceList(Player player){
             player.addPiece(new Rook(player.getColor()));
-            player.addPiece(new Pawn(player.getColor()));
+//            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Knight(player.getColor()));
-            player.addPiece(new Pawn(player.getColor()));
+//            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Bishop(player.getColor()));
-            player.addPiece(new Pawn(player.getColor()));
+//            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Queen(player.getColor()));
-            player.addPiece(new Pawn(player.getColor()));
+//            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new King(player.getColor()));
-            player.addPiece(new Pawn(player.getColor()));
+//            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Bishop(player.getColor()));
-            player.addPiece(new Pawn(player.getColor()));
+//            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Knight(player.getColor()));
-            player.addPiece(new Pawn(player.getColor()));
+//            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Rook(player.getColor()));
-            player.addPiece(new Pawn(player.getColor()));
+//            player.addPiece(new Pawn(player.getColor()));
             
     }
 
@@ -148,9 +148,9 @@ public class Game {
 
         while(iterator1.hasNext() && iterator2.hasNext()){
         	this.board.setPieceAt(new Position(Board.DIMENSION-1,i), (Piece)iterator1.next());
-            this.board.setPieceAt(new Position(Board.DIMENSION-2,i), (Piece)iterator1.next());
+//            this.board.setPieceAt(new Position(Board.DIMENSION-2,i), (Piece)iterator1.next());
             this.board.setPieceAt(new Position(0,i), (Piece)iterator2.next());
-            this.board.setPieceAt(new Position(1,i), (Piece)iterator2.next());
+//            this.board.setPieceAt(new Position(1,i), (Piece)iterator2.next());
             i++;
         }
         

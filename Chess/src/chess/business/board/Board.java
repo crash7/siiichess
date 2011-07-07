@@ -65,10 +65,11 @@ public class Board {
 			this.squares[move.getDestination().getX()][move.getDestination()
 					.getY()].setPiece(move.getPiece());
 			
+			/* no es necesario..
 			if (move.getCaptured() != null) {
 				move.getCaptured().setActive(false);
 
-			}
+			}*/
 
 			this.moves.add(move);
 

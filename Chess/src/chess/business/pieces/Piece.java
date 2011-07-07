@@ -32,6 +32,10 @@ public abstract class Piece {
 
     public void setActive(boolean active) {
         this.active = active;
+        if(!active) {
+        	System.out.println(this);
+        	
+        }
 
     }
 
