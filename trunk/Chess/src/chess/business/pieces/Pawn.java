@@ -14,20 +14,25 @@ public class Pawn extends Piece {
 
     }
 
-    public boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
-        return Pawn.pieceRule.makeMove(move, board, king, oppiece, safely);
+    public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
+        return Pawn.pieceRule.makeMove(move, board, threatened, oppiece, safely);
         
     }
+    
+    public boolean isChecked(Board board, List oppiece) {
+    	return Pawn.pieceRule.isChecked(board, this, oppiece);
+    	
+    }
 
-    static class PawnRule {
-		private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
+    static class PawnRule extends PieceRule {
+		public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
 			Piece piezaorigen = board.getPieceAt(move.getSource());
 			
 			if (this.isValidMove(board, move) && this.pathIsClear(move, board)) {
 				if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
 					board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
 					
-					if(king.isChecked(board, oppiece)) {
+					if(threatened.isChecked(board, oppiece)) {
 						board.undoLastMove();
 						return false;
 						

@@ -14,13 +14,18 @@ public class Bishop extends Piece {
         
     }
 
-    public boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
-        return Bishop.pieceRule.makeMove(move, board, king, oppiece, safely);
+    public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
+        return Bishop.pieceRule.makeMove(move, board, threatened, oppiece, safely);
         
     }
+    
+    public boolean isChecked(Board board, List oppiece) {
+    	return Bishop.pieceRule.isChecked(board, this, oppiece);
+    	
+    }
 
-    static class BishopRule {
-        private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
+    static class BishopRule extends PieceRule {
+        public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
         	Piece piezaorigen = board.getPieceAt(move.getSource());
             if (isValidMove(move) && pathIsClear(move, board)) {
             	if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
@@ -28,7 +33,7 @@ public class Bishop extends Piece {
             			board.getPieceAt(move.getDestination()).setActive(false);
             		}
             		board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-            		if(king.isChecked(board, oppiece)) {
+            		if(threatened.isChecked(board, oppiece)) {
             			board.undoLastMove();
             			return false;
             			

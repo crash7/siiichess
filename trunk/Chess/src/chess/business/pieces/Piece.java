@@ -4,6 +4,8 @@ import chess.business.Move;
 import chess.business.Position;
 import chess.business.board.Board;
 import chess.business.pieces.Piece;
+
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class Piece {
@@ -104,5 +106,39 @@ public abstract class Piece {
 
     }
     
-    public abstract boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely);
+    public abstract boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely);
+    
+    public abstract boolean isChecked(Board board, List oppiece);
+    
+    static abstract class PieceRule {
+    	public abstract boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely);
+    	
+    	public boolean isChecked(Board board, Piece piece, List oppiece) {
+			Piece current;
+			Move move = new Move();
+			boolean checked = false;
+
+			Iterator i = oppiece.iterator();
+
+			move.setDestination(piece.getPosition());
+
+			while (i.hasNext()) {
+				current = (Piece) i.next();
+				if(current.isActive()) {
+					move.setSource(current.getPosition());
+					if(current.makeMove(move, board, piece, oppiece, false)) {
+						checked = true;
+						break;
+		
+					}
+
+				}
+								
+			}
+
+			return checked;
+
+		}
+    	
+    }
 }
