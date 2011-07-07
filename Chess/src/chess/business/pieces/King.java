@@ -10,7 +10,7 @@ import java.util.List;
 
 public class King extends Piece {
 	private static KingRule pieceRule = new KingRule();
-
+        
 	public King(char color) {
 		super(color, 'K');
 
@@ -219,14 +219,17 @@ public class King extends Piece {
                         }
                         else{
                               Iterator i = positions.iterator();
-			
+			Piece piece = null;
 			while (i.hasNext()) {
 				temp.setPosition((Position) i.next());
-				if (temp.isChecked(board, oppiece) == false) {
+                                piece=board.getPieceAt(temp.getPosition());
+                                if (piece!=null)piece.setActive(false);
+                                if (temp.isChecked(board, oppiece) == false) {
 					mated = false;
 					break;
 
 				}
+                                if (piece!=null)piece.setActive(true);
 
 			} 
                             
