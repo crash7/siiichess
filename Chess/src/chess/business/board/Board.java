@@ -25,12 +25,6 @@ public class Board {
 
 	}
 	
-	
-	// porque el board tiene que llenar el tablero? porque tiene saber como van las cosas?
-	// y si cambiamos la modalidad a juego de reinas?
-	// como hacemos que simplemente heredando Game y sobreescribiendo los metodos juguemos solo con reinas?
-	// y que las reinas vayan en lugares especificos? 
-   
 	public boolean validatePosition(Position p) {
 		return (p.getX() >= 0 && p.getX() < Board.DIMENSION && p.getY() >= 0 && p
 				.getY() < Board.DIMENSION);
