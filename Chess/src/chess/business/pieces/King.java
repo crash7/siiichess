@@ -16,8 +16,8 @@ public class King extends Piece {
 
 	}
 
-	public boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
-		return King.pieceRule.makeMove(move, board, king, oppiece, safely);
+	public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
+		return King.pieceRule.makeMove(move, board, threatened, oppiece, safely);
 
 	}
 
@@ -35,8 +35,8 @@ public class King extends Piece {
 	 * Porque una static inner class? Porque no necesitamos la referencia a la
 	 * clase que la contiene y porque...tenes que leer el capitulo 8 del TIJ
 	 */
-	static class KingRule {
-		private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
+	static class KingRule extends PieceRule {
+		public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
 			int x = move.getDestination().getX() - move.getSource().getX();
 			int y = move.getDestination().getY() - move.getSource().getY();
 
@@ -55,7 +55,7 @@ public class King extends Piece {
 						if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
 							board.move(new PieceMove(piezaorigen, piezatemporal, move));
 							piezatemporal.setActive(false); // captura
-							if(king.isChecked(board, oppiece)) {
+							if(threatened.isChecked(board, oppiece)) {
 								board.undoLastMove();
 								return false;
 								
@@ -78,7 +78,7 @@ public class King extends Piece {
 				} else {
 					if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
 						board.move(new PieceMove(piezaorigen, piezatemporal, move));
-						if (king.isChecked(board, oppiece)) {
+						if (threatened.isChecked(board, oppiece)) {
 							board.undoLastMove();
 							return false;
 							
@@ -101,7 +101,7 @@ public class King extends Piece {
 				 * 
 				 */
 				
-				if(safely && !king.isChecked(board, oppiece) && !piezaorigen.hasMoved() && y == 2) {
+				if(safely && !threatened.isChecked(board, oppiece) && !piezaorigen.hasMoved() && y == 2) {
 					int yA, yB;
 					
 					if(move.getDestination().getY() - move.getSource().getY() > 0) { // Torre tablero derecha
@@ -121,10 +121,10 @@ public class King extends Piece {
 							if(board.getPieceAt(new Position(move.getSource().getX(), yA)) == null 
 									&& board.getPieceAt(new Position(move.getSource().getX(), yB)) == null) {
 								
-								king.setPosition(new Position(move.getSource().getX(), yB));
-								if(king.isChecked(board, oppiece) == false) {
-									king.setPosition(new Position(move.getSource().getX(), yB));
-									if(safely && !king.isChecked(board, oppiece)) {
+								threatened.setPosition(new Position(move.getSource().getX(), yB));
+								if(threatened.isChecked(board, oppiece) == false) {
+									threatened.setPosition(new Position(move.getSource().getX(), yB));
+									if(safely && !threatened.isChecked(board, oppiece)) {
 										
 										// dirty move
 										// VERY dirty
@@ -172,36 +172,6 @@ public class King extends Piece {
 				
 			}
 			
-		}
-
-		private boolean isChecked(Board board, King king, List oppiece) {
-			Piece current;
-			Move move = new Move();
-			boolean checked = false;
-
-			Iterator i = oppiece.iterator();
-
-			move.setDestination(king.getPosition());
-
-			while (i.hasNext()) {
-				current = (Piece) i.next();
-				if(current.isActive()) {
-					move.setSource(current.getPosition());
-					if(current.makeMove(move, board, king, oppiece, false)) {
-						checked = true;
-						break;
-		
-					}
-
-				} else {
-					System.out.println(current.getColor());
-					
-				}
-								
-			}
-
-			return checked;
-
 		}
 
 		private boolean isCheckMated(Board board, King king, List oppiece) {

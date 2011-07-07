@@ -17,14 +17,6 @@ public class Controller {
     	
     }
 
-    public Player[] getRegisteredPlayers() {
-        return registeredPlayers;
-    }
-
-    public void setRegisteredPlayers(Player[] registeredPlayers) {
-        this.registeredPlayers = registeredPlayers;
-    }
-    
     public void newGame(PlayerDTO white, PlayerDTO black) {
     	currentGame = new Game();        
         registeredPlayers[0] = new Player(white.getName(), white.getColor());

@@ -11,23 +11,28 @@ public class Queen extends Piece {
 
     }
 
-    public boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
-    	return Queen.pieceRule.makeMove(move, board, king, oppiece, safely);
+    public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
+    	return Queen.pieceRule.makeMove(move, board, threatened, oppiece, safely);
     	
     }
     
-    static class QueenRule {
-    	private boolean makeMove(Move move, Board board, King king, List oppiece, boolean safely) {
+    public boolean isChecked(Board board, List oppiece) {
+    	return Queen.pieceRule.isChecked(board, this, oppiece);
+    	
+    }
+    
+    static class QueenRule extends PieceRule {
+    	public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
     		Piece piezaorigen = board.getPieceAt(move.getSource());
     		boolean moved = false;
     		Piece piece = new Bishop(piezaorigen.getColor());
-            if(piece.makeMove(move, board, king, oppiece, safely)) {
+            if(piece.makeMove(move, board, threatened, oppiece, safely)) {
             	moved = true;
                
             	
             } else {
             	piece = new Rook(piezaorigen.getColor());
-            	moved = piece.makeMove(move, board, king, oppiece, safely);
+            	moved = piece.makeMove(move, board, threatened, oppiece, safely);
                 
             	
             }
