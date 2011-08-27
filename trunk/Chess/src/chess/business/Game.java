@@ -55,7 +55,7 @@ public class Game {
                         
                         King cpking = this.currentPlayer.getKing();
 
-                        if (cpking.isCheckMated(this.board, this.opponentPlayer.getPieces())) {
+                        if (cpking.isCheckMated(this.board, this.opponentPlayer.getPieces(), this.currentPlayer.getPieces())) {
                             if (this.currentPlayer.isWhite()) {
                                 moveResult = Game.WHITECHECKMATE;
 

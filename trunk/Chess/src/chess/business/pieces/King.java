@@ -178,20 +178,29 @@ public class King extends Piece {
 
 		private boolean isCheckMated(Board board, King king, List oppiece, List cppieces) {
 			boolean mated = true;
-			King temp = new King(king.getColor());
+			King tempKing = new King(king.getColor());
 			List positions = this.getPosiblePositions(king, board);
                         board.setPieceAt(king.getPosition(), null);
-                        Set temppieces = new HashSet();
-                        Piece thepiece=null;
-                        Iterator pieceiterator = oppiece.iterator();
-                        while (pieceiterator.hasNext()){
-                            if (positions.isEmpty()){
-                                
+                        Iterator positionsIterator = positions.iterator();
+                        while(positionsIterator.hasNext()){
+                            tempKing.setPosition((Position)positionsIterator.next());
+                            if (!tempKing.isChecked(board, oppiece)){
+                                mated = false;
                             }
-                            
                         }
-                        board.setPieceAt(king.getPosition(), king);    
-			return mated;
+                        board.setPieceAt(king.getPosition(), king);
+                        return mated;
+//                        Set temppieces = new HashSet();
+//                        Piece thepiece=null;
+//                        Iterator pieceiterator = oppiece.iterator();
+//                        while (pieceiterator.hasNext()){
+//                            if (positions.isEmpty()){
+//                                
+//                            }
+//                            
+//                        }
+//                        board.setPieceAt(king.getPosition(), king);    
+//			return mated;
 		}
 
 		private List getPosiblePositions(King king, Board board) {
