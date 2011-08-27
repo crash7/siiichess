@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 
 public class Frame extends javax.swing.JFrame {
 
+    JPanel mainPanel;
     public Frame(String title) {
         super(title);
         this.setMinimumSize(new Dimension(500, 500));
@@ -23,7 +24,7 @@ public class Frame extends javax.swing.JFrame {
         centerPanel.add(lanGame);
         mainPanel.add(mainTitle, BorderLayout.NORTH);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
-        this.setContentPane(mainPanel);
+        this.setContentPane(new StartPanel(this));
     }
 
     public static void main(String args[]) {
