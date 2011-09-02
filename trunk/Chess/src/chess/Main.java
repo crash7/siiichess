@@ -3,6 +3,11 @@ package chess;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import javax.swing.SwingUtilities;
+
+import UIX.ChessWindow;
+import UIX.pieces.GraphicPiece;
+
 import chess.business.Controller;
 import chess.dtos.PlayerDTO;
 
@@ -12,7 +17,14 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		new Main(new Controller()).start();
+		//new Main(new Controller()).start();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				new ChessWindow().setVisible(true);
+				
+			}
+		});
+		GraphicPiece p = new GraphicPiece("black_king.png");
 
 	}
 
