@@ -9,11 +9,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class Frame extends javax.swing.JFrame {
+public class FrameGUI extends javax.swing.JFrame {
 
     JPanel mainPanel;
-    public Frame(String title) {
+    public FrameGUI(String title) {
         super(title);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(500, 500));
         JPanel mainPanel = new JPanel(new BorderLayout(100,100));
         Label mainTitle = new Label("Chess Game");
@@ -24,14 +25,14 @@ public class Frame extends javax.swing.JFrame {
         centerPanel.add(lanGame);
         mainPanel.add(mainTitle, BorderLayout.NORTH);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
-        this.setContentPane(new StartPanel(this));
+        this.setContentPane(new StartPanelGUI());
     }
 
     public static void main(String args[]) {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                new Frame("Chess").setVisible(true);
+                new FrameGUI("Chess").setVisible(true);
             }
         });
     }
