@@ -24,9 +24,7 @@ public class GraphicPiece extends ImageIcon {
 //			System.out.println("no se pudo");
 //			
 //		}
-		// CHEEEEE QUE HACEMOSSS?????? onda que nosotros esperamos que ellos hicieran algo...y nada :P
-		// decimos algo?
-		
+		 	
 	}
 	
 
