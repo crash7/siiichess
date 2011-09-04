@@ -7,12 +7,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class LocalFormGUI extends JPanel {
-	
+	JTextField whitename;
+        JTextField blackname;
+        
 	public LocalFormGUI() {
 		super();
 		init();
@@ -23,10 +26,16 @@ public class LocalFormGUI extends JPanel {
 		JLabel title = new JLabel("rose");
 		JLabel whiteimage = new JLabel(PieceRepositoryGUI.get().getPiece("kwb").getImage());
 		JLabel blackimage = new JLabel(PieceRepositoryGUI.get().getPiece("kbb").getImage());;
-		JTextField whitename = new JTextField("Blancas", 20);
-		JTextField blackname = new JTextField("Negras", 20);
+		whitename = new JTextField("Blancas", 20);
+		blackname = new JTextField("Negras", 20);
 	    JButton start = new JButton("Comenzar");
-	    GridBagConstraints gbcontraints;
+	    start.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                startGame(evt);
+            }
+        });
+            GridBagConstraints gbcontraints;
 	    
 	    setLayout(new GridBagLayout());
 	    
@@ -64,11 +73,15 @@ public class LocalFormGUI extends JPanel {
 		gbcontraints.anchor = GridBagConstraints.CENTER;
 		gbcontraints.weightx = 2.0;
 		gbcontraints.fill = GridBagConstraints.HORIZONTAL;
-	    add(start, gbcontraints);
-	    
-	    
-	    
-		
+	    add(start, gbcontraints);	    	    	    		
 	}
+        private void startGame(java.awt.event.MouseEvent evt) {
+        GamePanelGUI gamePanel = new GamePanelGUI(this.whitename.getText(),this.blackname.getText());
+        JFrame topFrame = (JFrame) this.getTopLevelAncestor();
+        topFrame.getContentPane().removeAll();
+        topFrame.invalidate();
+        topFrame.setContentPane(gamePanel);
+        topFrame.validate();
+    }
 
 }

@@ -8,6 +8,8 @@ import chess.business.pieces.Knight;
 import chess.business.pieces.Piece;
 import chess.business.pieces.Queen;
 import chess.business.pieces.Rook;
+import chess.dtos.InactivePieceDTO;
+import java.util.List;
 
 public class Controller {
     private Game currentGame;
@@ -123,5 +125,17 @@ public class Controller {
     	
     }
 
+    public InactivePieceDTO[] getPlayersInactivePieces(PlayerDTO player){
+        List inactivePieces = this.registeredPlayers[player.getId()].getInactivePieces();
+        InactivePieceDTO[] piecesDTO = new InactivePieceDTO[inactivePieces.size()];
+        Piece tmpPiece;
+        for (int i=0;i< inactivePieces.size();i++) {
+            tmpPiece = (Piece)inactivePieces.get(i);            
+            piecesDTO[i] = new InactivePieceDTO();
+            piecesDTO[i].setColor(tmpPiece.getColor());
+            piecesDTO[i].setKeyname(tmpPiece.getKeyname());
+        }
+        return piecesDTO;
+    }
 
 }

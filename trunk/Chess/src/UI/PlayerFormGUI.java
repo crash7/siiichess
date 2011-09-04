@@ -38,9 +38,7 @@ public class PlayerFormGUI extends javax.swing.JPanel {
         this.add(startButton);
     }
     private void startGame(java.awt.event.MouseEvent evt) {
-        GamePanelGUI gamePanel = new GamePanelGUI();
-        gamePanel.setWhiteName(this.whiteName.getText());
-        gamePanel.setBlackName(this.blackName.getText());
+        GamePanelGUI gamePanel = new GamePanelGUI(this.whiteName.getText(),this.blackName.getText());
         JFrame topFrame = (JFrame) this.getTopLevelAncestor();
         topFrame.getContentPane().removeAll();
         topFrame.invalidate();
