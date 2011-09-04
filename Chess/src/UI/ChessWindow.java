@@ -21,7 +21,6 @@ public class ChessWindow extends JFrame {
 		// Construimos el repositorio de piezas
 		repoWorker.execute();
 		
-		
 	}
 	
 	SwingWorker repoWorker = new SwingWorker() {
