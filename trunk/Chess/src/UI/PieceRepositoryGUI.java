@@ -19,12 +19,12 @@ public class PieceRepositoryGUI {
 	private void buildRepository() {
 		repository = new HashMap();
 		// white
-		repository.put(new String("kw"), new PieceGUI("white_king.png", 'k', 'b')); // king
-		repository.put(new String("qw"), new PieceGUI("white_queen.png", 'k', 'b')); // queen
-		repository.put(new String("bw"), new PieceGUI("white_bishop.png", 'k', 'b')); // bishop
-		repository.put(new String("nw"), new PieceGUI("white_knight.png", 'k', 'b')); // Knight
-		repository.put(new String("rw"), new PieceGUI("white_rook.png", 'k', 'b')); // Rook
-		repository.put(new String("pw"), new PieceGUI("white_pawn.png", 'k', 'b')); // Pawn
+		repository.put(new String("kw"), new PieceGUI("white_king.png", 'k', 'w')); // king
+		repository.put(new String("qw"), new PieceGUI("white_queen.png", 'k', 'w')); // queen
+		repository.put(new String("bw"), new PieceGUI("white_bishop.png", 'k', 'w')); // bishop
+		repository.put(new String("nw"), new PieceGUI("white_knight.png", 'k', 'w')); // Knight
+		repository.put(new String("rw"), new PieceGUI("white_rook.png", 'k', 'w')); // Rook
+		repository.put(new String("pw"), new PieceGUI("white_pawn.png", 'k', 'w')); // Pawn
 		
 		// black
 		repository.put(new String("kb"), new PieceGUI("black_king.png", 'k', 'b')); // king

@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 
 public class GamePanelGUI extends JPanel {
 
@@ -16,15 +17,19 @@ public class GamePanelGUI extends JPanel {
     private String whiteName;
     private String blackName;
     private Controller controller;
+    private CellGUI currentIteraction[];
+    private SwingWorker actionWorker;
     private SidePanelGUI leftPanel;
     private SidePanelGUI rightPanel;
     private BoardGUI boardPanel;
     private TopPanelGUI topPanel;
 
     public GamePanelGUI() {
-        currentColor = 'w';
-        gameType = GamePanelGUI.LOCAL_GAME;
-        controller = new Controller();
+    	currentColor = 'w';
+    	gameType = GamePanelGUI.LOCAL_GAME;
+    	controller = new Controller();
+    	currentIteraction = null;
+    	actionWorker = null;
         init();
 
     }
@@ -123,22 +128,47 @@ public class GamePanelGUI extends JPanel {
     }
 
     public void boardAction(CellGUI start, CellGUI end) {
-        System.out.println("Me han llamado :D");
-        if (start.isEmpty()) {
-            System.out.println("Celda start vacia");
-
-        } else {
-            System.out.println("Celda start llena con: " + start.getPiece().getKeyName());
-
-        }
-
-        if (end.isEmpty()) {
-            System.out.println("Celda end vacia");
-
-        } else {
-            System.out.println("Celda end llena con: " + end.getPiece().getKeyName());
-
-        }
-
+    	if(actionWorker == null || actionWorker.getState() != SwingWorker.StateValue.STARTED) {
+    		currentIteraction = new CellGUI[] {start, end};
+    		actionWorker = new SwingWorker() {
+        		protected Object doInBackground() throws Exception {
+        			if(currentIteraction != null && currentIteraction.length == 2) {
+        				// It's showtime!
+        				//controller.move(player, xs, ys, xd, yd);
+        				System.out.println("Me han llamado :D (esta es la llamada al controller!");
+        		    	if(currentIteraction[0].isEmpty()) {
+        		    		System.out.println("Celda start vacia");
+        		    		
+        		    	} else {
+        		    		System.out.println("Celda start llena con: " + currentIteraction[0].getPiece().getKeyName());
+        		    		
+        		    	}
+        		    	if(currentIteraction[1].isEmpty()) {
+        		    		System.out.println("Celda end vacia");
+        		    		
+        		    	} else {
+        		    		System.out.println("Celda end llena con: " + currentIteraction[1].getPiece().getKeyName());
+        		    		    		
+        		    	}
+        				
+        			}
+        			return null;
+        			
+        		}
+        		
+        	};
+    		actionWorker.execute();
+    		
+    	}
+    	
     }
+    
+    private void swapPlayer() {
+    	if(gameType == GamePanelGUI.LOCAL_GAME) {
+    		
+    		
+    	}
+    	
+    }
+   	
 }
