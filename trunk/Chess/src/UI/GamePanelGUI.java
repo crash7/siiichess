@@ -1,16 +1,10 @@
 package UI;
 
 import chess.business.Controller;
-import chess.dtos.InactivePieceDTO;
-import chess.dtos.PlayerDTO;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanelGUI extends JPanel {
@@ -28,30 +22,28 @@ public class GamePanelGUI extends JPanel {
     private TopPanelGUI topPanel;
    
     public GamePanelGUI() {
-        controller = new Controller();
-        init();
+    	currentColor = 'w';
+    	gameType = GamePanelGUI.LOCAL_GAME;
+    	controller = new Controller();
+    	init();
         
     }
 
     private void init() {
     	setLayout(new BorderLayout());
-    	
     	leftPanel = new SidePanelGUI();
     	rightPanel = new SidePanelGUI();
-    	boardPanel = new BoardGUI(this);
+    	boardPanel = new BoardGUI();
     	topPanel = new TopPanelGUI();
+    	
     	add(topPanel, BorderLayout.NORTH);
     	add(leftPanel, BorderLayout.WEST);
     	add(rightPanel, BorderLayout.EAST);
-    	add(boardPanel, BorderLayout.CENTER);
-    	controller = new Controller();
-    	currentColor = 'b';
     	
-    	// test
     	boardPanel.addMouseListener(new MouseListener() {
     		private CellGUI start;
-			private CellGUI end;
-			
+    		private CellGUI end;
+    		
     		public void mouseReleased(MouseEvent e) {
     			if(start != null) {
     				start.setBorder(null);
@@ -62,68 +54,48 @@ public class GamePanelGUI extends JPanel {
     				}
     				
     			}
-
+    			
     		}
-			
-			public void mousePressed(MouseEvent e) {
-				start = (CellGUI)e.getComponent().getComponentAt(e.getX(), e.getY());
-				if(!start.isEmpty() && start.getPiece().getColor() == currentColor) {
-					start.setBorder(BorderFactory.createLoweredBevelBorder());
-					
-				} else {
-					start = null;
-					
-				}
-				
-			}
-			
-			public void mouseExited(MouseEvent e) { }
-			
-			public void mouseEntered(MouseEvent e) { }
-			
-			public void mouseClicked(MouseEvent e) { }
-		});
-    	
+    		
+    		public void mousePressed(MouseEvent e) {
+    			start = (CellGUI)e.getComponent().getComponentAt(e.getX(), e.getY());
+    			if(!start.isEmpty() && start.getPiece().getColor() == currentColor) {
+    				start.setBorder(BorderFactory.createLoweredBevelBorder());
+    				
+    			} else {
+    				start = null;
+    				
+    			}
+    			
+    		}
+    		
+    		public void mouseExited(MouseEvent e) { }
+    		public void mouseEntered(MouseEvent e) { }
+    		public void mouseClicked(MouseEvent e) { }
+    	});
+    	add(boardPanel, BorderLayout.CENTER);
     	   	
     }
-    
-    public void boardAction(CellGUI start, CellGUI end) {
-    	System.out.println("Me han llamado :D");
-    	if(start.isEmpty()) {
-    		System.out.println("Celda start vacia");
-    		
-    	} else {
-    		System.out.println("Celda start llena con: " + start.getPiece().getKeyName());
-    		    		
-    	}
-    	
-    }
-    
-    /*
-    public GamePanelGUI(String whiteName, String blackName) {
-        this.whiteName = whiteName;
-        this.blackName = blackName;
-        controller = new Controller();
-        this.setLayout(new BorderLayout());
-        leftPanel = new SidePanelGUI();
-        rightPanel = new SidePanelGUI();
-        board = new BoardGUI();
-        topPanel = new JPanel();
-        topPanel.setLayout(new BorderLayout());
-        topPanel.add(new JLabel("Blancas"), BorderLayout.WEST);
-        topPanel.add(new JLabel("Negras"), BorderLayout.EAST);
-        this.add(leftPanel, BorderLayout.WEST);
-        this.add(rightPanel, BorderLayout.EAST);
-        this.add(board, BorderLayout.CENTER);
-        this.add(topPanel, BorderLayout.NORTH);
-    }*/
 
+	public void setGameType(int type) {
+		gameType = type; 
+		
+	}
+
+	public void startGame() {
+		//controller.newGame(white, black)
+		
+		
+	}
+	
     public String getBlackName() {
         return blackName;
     }
 
     public void setBlackName(String blackName) {
         this.blackName = blackName;
+        topPanel.setBlackName(blackName);
+        
     }
 
     public String getWhiteName() {
@@ -132,33 +104,28 @@ public class GamePanelGUI extends JPanel {
 
     public void setWhiteName(String whiteName) {
         this.whiteName = whiteName;
+        topPanel.setWhiteName(whiteName);
+        
+    }
+	
+    public void boardAction(CellGUI start, CellGUI end) {
+    	System.out.println("Me han llamado :D");
+    	if(start.isEmpty()) {
+    		System.out.println("Celda start vacia");
+    		
+    	} else {
+    		System.out.println("Celda start llena con: " + start.getPiece().getKeyName());
+    		
+    	}
+    	
+    	if(end.isEmpty()) {
+    		System.out.println("Celda end vacia");
+    		
+    	} else {
+    		System.out.println("Celda end llena con: " + end.getPiece().getKeyName());
+    		    		
+    	}
+    	
     }
     
-    public String[][] getBoard() {
-        return controller.getBoard();
-    }
-    
-    public InactivePieceDTO[] getInactivePieces(PlayerDTO player) {
-        return controller.getPlayersInactivePieces(player);
-    }
-
-	public void setWhitePlayerName(String text) {
-		whiteName = text;
-		
-	}
-
-	public void setBlackPlayerName(String text) {
-		blackName = text;
-		
-	}
-
-	public void setGameType(int type) {
-		gameType = type; 
-		
-	}
-
-	public void startGame() {
-		// TODO Auto-generated method stub
-		
-	} 
 }

@@ -30,7 +30,7 @@ public class PieceGUI {
 			this.image = new ImageIcon(filepath);
 		
 		} else {
-			System.out.println("No se pudo cargar la imagen: " + image + "fp: " + filepath);
+			System.out.println("No se pudo cargar la imagen: " + image + " - fp: " + filepath);
 			this.image = new ImageIcon();
 			
 		}

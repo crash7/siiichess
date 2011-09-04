@@ -94,8 +94,8 @@ public class LocalFormGUI extends JPanel {
 	private void startLocalGame() {
 		GamePanelGUI gamepanel = new GamePanelGUI();
 		JFrame frame = (JFrame) getTopLevelAncestor();
-		gamepanel.setWhitePlayerName(whiteName.getText());
-		gamepanel.setBlackPlayerName(blackName.getText());
+		gamepanel.setWhiteName(whiteName.getText());
+		gamepanel.setBlackName(blackName.getText());
 		gamepanel.setGameType(GamePanelGUI.LOCAL_GAME);
 		frame.getContentPane().removeAll();
 		frame.invalidate();
