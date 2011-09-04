@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 public class GamePanelGUI extends JPanel {
 	public static final int LOCAL_GAME = 1;
 	private int gameType;
+	private char currentColor;
     private String whiteName;
     private String blackName;
     private Controller controller;
@@ -44,7 +45,7 @@ public class GamePanelGUI extends JPanel {
     	add(rightPanel, BorderLayout.EAST);
     	add(boardPanel, BorderLayout.CENTER);
     	controller = new Controller();
-    	
+    	currentColor = 'b';
     	
     	// test
     	boardPanel.addMouseListener(new MouseListener() {
@@ -66,7 +67,7 @@ public class GamePanelGUI extends JPanel {
 			
 			public void mousePressed(MouseEvent e) {
 				start = (CellGUI)e.getComponent().getComponentAt(e.getX(), e.getY());
-				if(!start.isEmpty()) {
+				if(!start.isEmpty() && start.getPiece().getColor() == currentColor) {
 					start.setBorder(BorderFactory.createLoweredBevelBorder());
 					
 				} else {
