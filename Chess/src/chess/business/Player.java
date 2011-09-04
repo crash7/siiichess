@@ -4,6 +4,7 @@ import chess.business.pieces.King;
 import chess.business.pieces.Piece;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Player {
 	private char color;
@@ -54,6 +55,19 @@ public class Player {
 
 	public List getPieces() {
 		return this.pieces;
+
+	}
+        
+	public List getInactivePieces() {
+            List inactivePiceces = new ArrayList();
+            Iterator piecesIterator = this.pieces.iterator();
+            while (piecesIterator.hasNext()){
+                Piece currPiece =(Piece)(piecesIterator.next());
+                if (!currPiece.isActive()){
+                    inactivePiceces.add(currPiece);
+                }
+            }
+            return inactivePiceces;
 
 	}
 
