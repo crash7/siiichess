@@ -8,18 +8,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanelGUI extends JPanel {
-
+	public static final int LOCAL_GAME = 1;
+	private int gameType;
     private String whiteName;
     private String blackName;
+    private Controller controller;
+    
+    
     private SidePanelGUI leftPanel;
     private SidePanelGUI rightPanel;
     private JPanel topPanel;
     private BoardGUI board;
-    private Controller controller;
     public GamePanelGUI() {
         controller = new Controller();
+        init();
+        
     }
 
+    private void init() {
+    	
+    	
+    	
+    	controller = new Controller();
+    	   	
+    }
+    
     public GamePanelGUI(String whiteName, String blackName) {
         this.whiteName = whiteName;
         this.blackName = blackName;
@@ -60,5 +73,25 @@ public class GamePanelGUI extends JPanel {
     
     public InactivePieceDTO[] getInactivePieces(PlayerDTO player) {
         return controller.getPlayersInactivePieces(player);
-    } 
+    }
+
+	public void setWhitePlayerName(String text) {
+		whiteName = text;
+		
+	}
+
+	public void setBlackPlayerName(String text) {
+		blackName = text;
+		
+	}
+
+	public void setGameType(int type) {
+		gameType = type; 
+		
+	}
+
+	public void startGame() {
+		// TODO Auto-generated method stub
+		
+	} 
 }
