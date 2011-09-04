@@ -4,10 +4,12 @@ import chess.business.Controller;
 import chess.dtos.InactivePieceDTO;
 import chess.dtos.PlayerDTO;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -46,19 +48,31 @@ public class GamePanelGUI extends JPanel {
     	
     	// test
     	boardPanel.addMouseListener(new MouseListener() {
-    		private Point start;
-			private Point end;
+    		private CellGUI start;
+			private CellGUI end;
 			
     		public void mouseReleased(MouseEvent e) {
-    			System.out.println("mouse release at: " + e.getX() + "-" + e.getY());
-    			start = new Point(e.getX(), e.getY());
-				boardAction(start, end);
-				
-			}
+    			if(start != null) {
+    				start.setBorder(null);
+    				end = (CellGUI)e.getComponent().getComponentAt(e.getX(), e.getY());
+    				if(end != null && !start.equals(end)) {
+    					boardAction(start, end);
+    					
+    				}
+    				
+    			}
+
+    		}
 			
 			public void mousePressed(MouseEvent e) {
-				System.out.println("mouse press at: " + e.getX() + "-" + e.getY());
-				end = new Point(e.getX(), e.getY());
+				start = (CellGUI)e.getComponent().getComponentAt(e.getX(), e.getY());
+				if(!start.isEmpty()) {
+					start.setBorder(BorderFactory.createLoweredBevelBorder());
+					
+				} else {
+					start = null;
+					
+				}
 				
 			}
 			
@@ -72,20 +86,14 @@ public class GamePanelGUI extends JPanel {
     	   	
     }
     
-    public void boardAction(Point start, Point end) {
-    	CellGUI startCell;
-    	CellGUI endCell;
-    	
+    public void boardAction(CellGUI start, CellGUI end) {
     	System.out.println("Me han llamado :D");
-    	startCell = (CellGUI) boardPanel.getComponentAt(start);
-    	endCell = (CellGUI) boardPanel.getComponentAt(end);
-    	if(startCell.isEmpty()) {
+    	if(start.isEmpty()) {
     		System.out.println("Celda start vacia");
     		
     	} else {
-    		System.out.println("Celda start llena con: " + startCell.getPiece().getKeyName());
-    		
-    		
+    		System.out.println("Celda start llena con: " + start.getPiece().getKeyName());
+    		    		
     	}
     	
     }
