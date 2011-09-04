@@ -4,6 +4,9 @@ import chess.business.Controller;
 import chess.dtos.InactivePieceDTO;
 import chess.dtos.PlayerDTO;
 import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -38,6 +41,37 @@ public class GamePanelGUI extends JPanel {
     	add(rightPanel, BorderLayout.EAST);
     	add(boardPanel, BorderLayout.CENTER);
     	controller = new Controller();
+    	
+    	
+    	// test
+    	boardPanel.addMouseListener(new MouseListener() {
+			
+    		public void mouseReleased(MouseEvent arg0) {
+				System.out.println("mouse release");
+				
+			}
+			
+			public void mousePressed(MouseEvent arg0) {
+				System.out.println("mouse press");
+				
+			}
+			
+			public void mouseExited(MouseEvent arg0) {
+				System.out.println("mouse exitado");
+				
+			}
+			
+			public void mouseEntered(MouseEvent arg0) {
+				System.out.println("mouse entro");
+				
+			}
+			
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("we got clicked");
+				
+			}
+		});
+    	
     	   	
     }
     
