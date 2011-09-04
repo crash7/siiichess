@@ -17,8 +17,9 @@ public class GamePanelGUI extends JPanel {
     
     private SidePanelGUI leftPanel;
     private SidePanelGUI rightPanel;
-    private JPanel topPanel;
-    private BoardGUI board;
+    private BoardGUI boardPanel;
+    private TopPanelGUI topPanel;
+   
     public GamePanelGUI() {
         controller = new Controller();
         init();
@@ -26,13 +27,22 @@ public class GamePanelGUI extends JPanel {
     }
 
     private void init() {
+    	setLayout(new BorderLayout());
     	
-    	
-    	
+    	leftPanel = new SidePanelGUI();
+    	rightPanel = new SidePanelGUI();
+    	boardPanel = new BoardGUI(this);
+    	topPanel = new TopPanelGUI();
+    	add(topPanel, BorderLayout.NORTH);
+    	add(leftPanel, BorderLayout.WEST);
+    	add(rightPanel, BorderLayout.EAST);
+    	add(boardPanel, BorderLayout.CENTER);
     	controller = new Controller();
     	   	
     }
     
+    
+    /*
     public GamePanelGUI(String whiteName, String blackName) {
         this.whiteName = whiteName;
         this.blackName = blackName;
@@ -49,7 +59,7 @@ public class GamePanelGUI extends JPanel {
         this.add(rightPanel, BorderLayout.EAST);
         this.add(board, BorderLayout.CENTER);
         this.add(topPanel, BorderLayout.NORTH);
-    }
+    }*/
 
     public String getBlackName() {
         return blackName;

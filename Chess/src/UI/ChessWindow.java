@@ -14,7 +14,7 @@ public class ChessWindow extends JFrame {
 	}
 	
 	public void init() {
-		setSize(new Dimension(600, 600));
+		setSize(new Dimension(700, 700));
 		setLocationRelativeTo(null);
 		setContentPane(new StartPanelGUI());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
