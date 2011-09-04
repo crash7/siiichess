@@ -2,12 +2,8 @@ package chess;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import javax.swing.SwingUtilities;
-
-import UIX.ChessWindow;
-import UIX.pieces.GraphicPiece;
-
+import UI.ChessWindow;
 import chess.business.Controller;
 import chess.dtos.PlayerDTO;
 
@@ -24,7 +20,6 @@ public class Main {
 				
 			}
 		});
-		GraphicPiece p = new GraphicPiece("black_king.png");
 
 	}
 

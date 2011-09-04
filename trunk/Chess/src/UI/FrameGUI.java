@@ -25,7 +25,7 @@ public class FrameGUI extends javax.swing.JFrame {
         centerPanel.add(lanGame);
         mainPanel.add(mainTitle, BorderLayout.NORTH);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
-        this.setContentPane(new StartPanelGUI());
+        this.setContentPane(new StartPanelGUI_M());
     }
 
     public static void main(String args[]) {
