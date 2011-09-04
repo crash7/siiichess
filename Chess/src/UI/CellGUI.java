@@ -3,6 +3,7 @@ package UI;
 import java.awt.Color;
 import java.awt.Point;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class CellGUI extends JLabel {

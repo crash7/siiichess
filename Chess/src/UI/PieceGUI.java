@@ -31,7 +31,7 @@ public class PieceGUI {
 		
 		} else {
 			System.out.println("No se pudo cargar la imagen: " + image);
-			this.image = null;
+			this.image = new ImageIcon();
 			
 		}
 
