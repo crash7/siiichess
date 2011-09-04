@@ -9,4 +9,9 @@ class SidePanelGUI extends JPanel {
         
     }
     
+    public void updatePieces(String[] pieces) {
+    	
+    	
+    }
+    
 }
