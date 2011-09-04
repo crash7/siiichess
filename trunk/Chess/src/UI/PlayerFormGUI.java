@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 /**
  *
  * @author mori
+ * @deprecated
  */
 public class PlayerFormGUI extends javax.swing.JPanel {
 

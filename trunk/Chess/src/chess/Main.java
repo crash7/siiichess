@@ -13,13 +13,14 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		//new Main(new Controller()).start();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				new ChessWindow().setVisible(true);
 				
 			}
 		});
+//		new Main(new Controller()).start();
+		
 
 	}
 
