@@ -26,12 +26,12 @@ public class CellGUI extends JLabel {
 			setBackground(new Color(230, 200, 140));
 			
 		}
-		setIcon(PieceRepositoryGUI.get().getPiece("kw").getImage());
-		
+				
 	}
 	
 	public void setPiece(PieceGUI p) {
 		piece = p;
+		setIcon(p.getImage());
 		
 	}
 	
