@@ -4,6 +4,7 @@ import chess.business.Controller;
 import chess.dtos.InactivePieceDTO;
 import chess.dtos.PlayerDTO;
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -45,36 +46,49 @@ public class GamePanelGUI extends JPanel {
     	
     	// test
     	boardPanel.addMouseListener(new MouseListener() {
+    		private Point start;
+			private Point end;
 			
-    		public void mouseReleased(MouseEvent arg0) {
-				System.out.println("mouse release");
+    		public void mouseReleased(MouseEvent e) {
+    			System.out.println("mouse release at: " + e.getX() + "-" + e.getY());
+    			start = new Point(e.getX(), e.getY());
+				boardAction(start, end);
 				
 			}
 			
-			public void mousePressed(MouseEvent arg0) {
-				System.out.println("mouse press");
+			public void mousePressed(MouseEvent e) {
+				System.out.println("mouse press at: " + e.getX() + "-" + e.getY());
+				end = new Point(e.getX(), e.getY());
 				
 			}
 			
-			public void mouseExited(MouseEvent arg0) {
-				System.out.println("mouse exitado");
-				
-			}
+			public void mouseExited(MouseEvent e) { }
 			
-			public void mouseEntered(MouseEvent arg0) {
-				System.out.println("mouse entro");
-				
-			}
+			public void mouseEntered(MouseEvent e) { }
 			
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("we got clicked");
-				
-			}
+			public void mouseClicked(MouseEvent e) { }
 		});
     	
     	   	
     }
     
+    public void boardAction(Point start, Point end) {
+    	CellGUI startCell;
+    	CellGUI endCell;
+    	
+    	System.out.println("Me han llamado :D");
+    	startCell = (CellGUI) boardPanel.getComponentAt(start);
+    	endCell = (CellGUI) boardPanel.getComponentAt(end);
+    	if(startCell.isEmpty()) {
+    		System.out.println("Celda start vacia");
+    		
+    	} else {
+    		System.out.println("Celda start llena con: " + startCell.getPiece().getKeyName());
+    		
+    		
+    	}
+    	
+    }
     
     /*
     public GamePanelGUI(String whiteName, String blackName) {
