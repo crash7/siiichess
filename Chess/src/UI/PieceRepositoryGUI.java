@@ -41,7 +41,7 @@ public class PieceRepositoryGUI {
 	}
 	
 	public PieceGUI getPiece(String codename) {
-		return (PieceGUI)repository.get(codename); 
+		return (PieceGUI)repository.get(codename);
 		
 	}
 	

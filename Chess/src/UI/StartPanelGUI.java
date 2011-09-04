@@ -55,7 +55,8 @@ public class StartPanelGUI extends JPanel {
 		gbcontraints.insets = new Insets(0, 0, 10, 0);
 		localgame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame frame = (JFrame)getTopLevelAncestor();
+				JFrame frame = (JFrame) getTopLevelAncestor();
+				frame.getContentPane().removeAll();
 				frame.invalidate();
 				frame.setContentPane(new LocalFormGUI());
 				frame.validate();
@@ -89,11 +90,9 @@ public class StartPanelGUI extends JPanel {
 			}
 		});
 		exit.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-			}
+			public void keyTyped(KeyEvent e) { }
 			
-			public void keyReleased(KeyEvent e) {
-			}
+			public void keyReleased(KeyEvent e) { }
 			
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -104,8 +103,7 @@ public class StartPanelGUI extends JPanel {
 			}
 		});
 		add(exit, gbcontraints);
-		
-		
+				
 	}
 
 }
