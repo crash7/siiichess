@@ -1,48 +1,111 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package UI;
 
-import java.awt.FlowLayout;
-import java.awt.Label;
-import java.awt.event.MouseEvent;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-/**
- *
- * @author mori
- */
-public class StartPanelGUI extends javax.swing.JPanel {
+import com.sun.java.swing.plaf.nimbus.SliderPainter;
 
-    private JButton localGame;
-    private JButton netGame;
-    private Label mainTitle;
 
-    public StartPanelGUI() {
-        localGame = new JButton("Jugar localmente");
-        netGame = new JButton("Jugar en red");
-        mainTitle = new Label("Chess Game");
-        mainTitle.setPreferredSize(new java.awt.Dimension(400, 50));
-        mainTitle.setFont(new java.awt.Font("Times", 0, 24));
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
-        localGame.addMouseListener(new java.awt.event.MouseAdapter() {
+public class StartPanelGUI extends JPanel {
 
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                localGameMouseClicked();
-            }
-        });
-        this.add(mainTitle);
-        this.add(localGame);
-        this.add(netGame);
-    }
+	public StartPanelGUI() {
+		super();
+		init();
+		
+	}
+	
+	public void init() {
+		JLabel title = new JLabel("CHESS");
+		JButton localgame = new JButton("Partida local");
+		JButton netgame = new JButton("Partida en red");
+		JButton exit = new JButton("Salir");
+		GridBagConstraints gbcontraints;
+		
+		setLayout(new GridBagLayout());
+		
+		title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		title.setFont(new Font("Trebuchet MS", Font.BOLD, 64));
+		gbcontraints = new GridBagConstraints();
+		gbcontraints.gridx = 0;
+		gbcontraints.gridy = 0;
+		gbcontraints.anchor = GridBagConstraints.SOUTH;
+		gbcontraints.weighty = 2.0;
+		add(title, gbcontraints);
+		
+		localgame.setPreferredSize(new Dimension(220, 60));
+		localgame.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
+		gbcontraints = new GridBagConstraints();
+		gbcontraints.gridx = 0;
+		gbcontraints.gridy = 1;
+		gbcontraints.anchor = GridBagConstraints.SOUTH;
+		gbcontraints.weighty = 2.0;
+		gbcontraints.insets = new Insets(0, 0, 10, 0);
+		localgame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = (JFrame)getTopLevelAncestor();
+				frame.invalidate();
+				frame.setContentPane(new LocalFormGUI());
+				frame.validate();
+				
+			}
+		});
+		add(localgame, gbcontraints);
+		
+		netgame.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
+		netgame.setPreferredSize(new Dimension(220, 60));
+		gbcontraints = new GridBagConstraints();
+		gbcontraints.gridx = 0;
+		gbcontraints.gridy = 2;
+		gbcontraints.anchor = GridBagConstraints.SOUTH;
+		gbcontraints.insets = new Insets(10, 0, 0, 0);
+		add(netgame, gbcontraints);
+		
+		exit.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		exit.setPreferredSize(new Dimension(100, 60));
+		gbcontraints = new GridBagConstraints();
+		gbcontraints.gridx = 0;
+		gbcontraints.gridy = 3;
+		gbcontraints.anchor = GridBagConstraints.SOUTHEAST;
+		gbcontraints.weightx = 3.0;
+		gbcontraints.weighty = 4.0;
+		gbcontraints.insets = new Insets(10, 10, 10, 10);
+		exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 
-    private void localGameMouseClicked() {
-        JFrame topFrame = (JFrame) this.getTopLevelAncestor();
-        topFrame.getContentPane().removeAll();
-        topFrame.invalidate();
-        topFrame.setContentPane(new PlayerFormGUI() );
-        topFrame.validate();
-    }
+			}
+		});
+		exit.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+			}
+			
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					System.exit(0);
+					
+				}
+				
+			}
+		});
+		add(exit, gbcontraints);
+		
+		
+	}
+
 }
