@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
@@ -27,7 +28,7 @@ public class GamePanelGUI extends JPanel implements Observer {
     private BoardGUI boardPanel;
     private TopPanelGUI topPanel;
     private JLabel bottomLabel;
-    private Integer i;
+    
     
 
     public GamePanelGUI() {
@@ -121,7 +122,7 @@ public class GamePanelGUI extends JPanel implements Observer {
     }
 
     public void boardAction(CellGUI start, CellGUI end) {
-    	if(actionWorker == null || actionWorker.getState() != SwingWorker.StateValue.STARTED) {
+    	if((actionWorker == null || actionWorker.getState() != SwingWorker.StateValue.STARTED)) {
     		currentIteraction = new CellGUI[] {start, end};
     		actionWorker = new SwingWorker() {
         		protected Object doInBackground() throws Exception {
@@ -173,9 +174,10 @@ public class GamePanelGUI extends JPanel implements Observer {
     }
 
     public void update(Observable o, Object arg) {
+        final Integer i;
         if (o != null && o instanceof Controller){
             if (arg!=null){
-                if (updateWorker == null || updateWorker.isDone()){
+                if ((updateWorker == null || updateWorker.isDone())&& (actionWorker==null || actionWorker.isDone())){
                     i = (Integer) arg;
                     updateWorker = new SwingWorker() {
                         protected Object doInBackground() throws Exception {
@@ -191,9 +193,11 @@ public class GamePanelGUI extends JPanel implements Observer {
                                     break;
                                 case 3:
                                     bottomLabel.setText("Jaque Mate Blanco.");
+                                    JOptionPane.showMessageDialog(GamePanelGUI.this, "Blanco ganador.");
                                     break;
                                 case 4:
                                     bottomLabel.setText("Jaque Mate Negro.");
+                                    JOptionPane.showMessageDialog(GamePanelGUI.this, "Negro ganador.");
                                     break;
                                 case 5:
                                     bottomLabel.setText("Jaque");
@@ -201,6 +205,9 @@ public class GamePanelGUI extends JPanel implements Observer {
                                 case 6:
                                     bottomLabel.setText("Movimiento Invalido. Por favor, intenta nuevamente.");
                                     break;
+                                case 7:
+                                    bottomLabel.setText("Pieza Comida.");
+                                   break;
                             }
                             boardPanel.paintBoard(controller.getBoard());
                             rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
