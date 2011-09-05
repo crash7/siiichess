@@ -14,14 +14,13 @@ class BoardGUI extends JPanel {
     public void paintBoard(String[][] board) {
         CellGUI tempCell;
         boolean dark = true;
-        String pieceCode;
+        removeAll();
         for (int i = 0; i < board.length; i++) {
             dark = !dark;
-            for (int j = 0; j < board[0].length; j++) {
+            for (int j = 0; j < board[i].length; j++) {
                 tempCell = new CellGUI(i, j, dark);
                 if (board[i][j] != null) {
-                    pieceCode = board[i][j].replace(",", "").toLowerCase();
-                    tempCell.setPiece(PieceRepositoryGUI.get().getPiece(pieceCode));
+                    tempCell.setPiece(PieceRepositoryGUI.get().getPiece(board[i][j]));
 
                 }
                 add(tempCell);
