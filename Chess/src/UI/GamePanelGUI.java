@@ -193,11 +193,9 @@ public class GamePanelGUI extends JPanel implements Observer {
                                     break;
                                 case 3:
                                     bottomLabel.setText("Jaque Mate Blanco.");
-                                    JOptionPane.showMessageDialog(GamePanelGUI.this, "Blanco ganador.");
                                     break;
                                 case 4:
                                     bottomLabel.setText("Jaque Mate Negro.");
-                                    JOptionPane.showMessageDialog(GamePanelGUI.this, "Negro ganador.");
                                     break;
                                 case 5:
                                     bottomLabel.setText("Jaque");
@@ -216,6 +214,7 @@ public class GamePanelGUI extends JPanel implements Observer {
                         }
                     };
                     updateWorker.execute();
+                    if (i.intValue()!=6)swapPlayer();
                     
                 }
                 
