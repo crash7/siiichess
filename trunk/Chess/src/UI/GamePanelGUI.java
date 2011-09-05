@@ -24,6 +24,7 @@ public class GamePanelGUI extends JPanel implements Observer {
     private SidePanelGUI rightPanel;
     private BoardGUI boardPanel;
     private TopPanelGUI topPanel;
+    private MessagesGUI bottomPanel;
 
     public GamePanelGUI() {
     	gameType = GamePanelGUI.LOCAL_GAME;
@@ -47,10 +48,12 @@ public class GamePanelGUI extends JPanel implements Observer {
         rightPanel = new SidePanelGUI();
         boardPanel = new BoardGUI();
         topPanel = new TopPanelGUI();
+        bottomPanel = new MessagesGUI();
 
         add(topPanel, BorderLayout.NORTH);
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.EAST);
+        add(bottomPanel, BorderLayout.SOUTH);
 
         boardPanel.addMouseListener(new MouseListener() {
             private CellGUI start;
@@ -164,7 +167,32 @@ public class GamePanelGUI extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (o != null && o instanceof Controller){
         	// Tenemos el tick de la vida!
-        	System.out.println("we got ticked");
+        	if (arg!=null){
+                    Integer i = (Integer) arg;
+                    switch (i) {
+                        case 0:
+                            bottomPanel.Update("Jugando...");
+                            break;
+                        case 1:
+                            bottomPanel.Update("Jaque blanco.");
+                            break;
+                        case 2:
+                            bottomPanel.Update("Jaque negro.");
+                            break;
+                        case 3:
+                            bottomPanel.Update("Jaque Mate blanco.");
+                            break;
+                        case 4:
+                            bottomPanel.Update("Jaque Mate negro.");
+                            break;
+                        case 5:
+                            bottomPanel.Update("Jaque.");
+                            break;
+                        case 6:
+                            bottomPanel.Update("Movimiento Invalido. Por favor, vuelve a intentar.");
+                            break;
+                    }
+                }
         	
         }
         

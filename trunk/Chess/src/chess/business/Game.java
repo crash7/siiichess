@@ -11,15 +11,12 @@ public class Game {
     private Position positionToPromote;
     private Board board;
     private int status;
-    private boolean changed=false;
 
-    public boolean isChanged() {
-        return changed;
+    public int getStatus() {
+        return status;
     }
 
-    public void setChanged(boolean changed) {
-        this.changed = changed;
-    }
+
     private static int PLAYING = 0;
     private static int WHITECHECK = 1;
     private static int BLACKCHECK = 2;
@@ -75,7 +72,7 @@ public class Game {
 
                             this.status = Game.CHECKMATE;
 
-                        } else if (cpking.isChecked(this.board, this.opponentPlayer.getPieces())) {
+                        } else if (cpking.isChecked(this.board, this.opponentPlayer.getPieces())) { 
                             if (this.currentPlayer.isWhite()) {
                                 moveResult = Game.WHITECHECK;
 
@@ -96,7 +93,7 @@ public class Game {
         }
         
             status=moveResult;
-            changed=true;
+            
         
         
     }

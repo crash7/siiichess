@@ -28,13 +28,13 @@ public class Controller extends Observable {
         black.setId(1);
         currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);    	
         setChanged();
-        notifyObservers();
+        notifyObservers(0);
     }
 
     public void restartGame() {  
         currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);  
         setChanged();
-        notifyObservers();        
+        notifyObservers(0);        
     }
     
     public void move(PlayerDTO player, int xs, int ys, int xd, int yd){
@@ -43,11 +43,9 @@ public class Controller extends Observable {
         move.setSource(new Position(xs, ys));
         move.setDestination(new Position(xd, yd));
         currentGame.move(businessPlayer, move);
-        if (currentGame.isChanged()){
-            setChanged();
-        notifyObservers();
-        currentGame.setChanged(false);
-        }
+        notifyObservers(currentGame.getStatus());
+        clearChanged();
+        
         
         
     }
