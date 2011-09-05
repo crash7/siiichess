@@ -59,15 +59,15 @@ public class Player {
 	}
         
 	public List getInactivePieces() {
-            List inactivePiceces = new ArrayList();
-            Iterator piecesIterator = this.pieces.iterator();
-            while (piecesIterator.hasNext()){
-                Piece currPiece =(Piece)(piecesIterator.next());
-                if (!currPiece.isActive()){
-                    inactivePiceces.add(currPiece);
-                }
+        List inactive = new ArrayList();
+        Iterator iterator = this.pieces.iterator();
+        while (iterator.hasNext()){
+            Piece current =(Piece)(iterator.next());
+            if(!current.isActive()){
+            	inactive.add(current);
             }
-            return inactivePiceces;
+        }
+        return inactive;
 
 	}
 
