@@ -1,6 +1,4 @@
-
 package UI;
-import chess.dtos.InactivePieceDTO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
