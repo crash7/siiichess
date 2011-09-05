@@ -10,8 +10,9 @@ import chess.business.pieces.Queen;
 import chess.business.pieces.Rook;
 import chess.dtos.InactivePieceDTO;
 import java.util.List;
+import java.util.Observable;
 
-public class Controller {
+public class Controller extends Observable {
     private Game currentGame;
     private Player[] registeredPlayers;    
     public Controller() {
@@ -26,18 +27,28 @@ public class Controller {
         white.setId(0);
         black.setId(1);
         currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);    	
+        setChanged();
+        notifyObservers();
     }
 
     public void restartGame() {  
-        currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);    	
+        currentGame.newGame(registeredPlayers[0], registeredPlayers[1]);  
+        setChanged();
+        notifyObservers();        
     }
     
-    public int move(PlayerDTO player, int xs, int ys, int xd, int yd){
+    public void move(PlayerDTO player, int xs, int ys, int xd, int yd){
         Move move = new Move();
         Player businessPlayer = new Player(player.getName(), player.getColor());
         move.setSource(new Position(xs, ys));
         move.setDestination(new Position(xd, yd));
-        return currentGame.move(businessPlayer, move);
+        currentGame.move(businessPlayer, move);
+        if (currentGame.isChanged()){
+            setChanged();
+        notifyObservers();
+        currentGame.setChanged(false);
+        }
+        
         
     }
     
@@ -137,5 +148,7 @@ public class Controller {
         }
         return piecesDTO;
     }
+    
+    
 
 }

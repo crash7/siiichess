@@ -5,11 +5,13 @@ import chess.dtos.PlayerDTO;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
-public class GamePanelGUI extends JPanel {
+public class GamePanelGUI extends JPanel implements Observer {
 
     public static final int LOCAL_GAME = 1;
     private int gameType;
@@ -170,5 +172,25 @@ public class GamePanelGUI extends JPanel {
     	}
     	
     }
-   	
+
+
+	public void setWhitePlayerName(String text) {
+		whiteName = text;
+		
+	}
+
+	public void setBlackPlayerName(String text) {
+		blackName = text;
+		
+	}
+
+
+    public void update(Observable o, Object arg) {
+        if (o instanceof Controller){
+            if (o!=null){
+                
+            }
+        }
+    }
+
 }

@@ -67,7 +67,7 @@ public class Main {
                 	destinoX = Integer.parseInt(keyb.readLine());
                 	System.out.print("PosY: ");
 					destinoY = Integer.parseInt(keyb.readLine());
-					respuesta = cc.move(current, origenX, origenY, destinoX, destinoY);
+					cc.move(current, origenX, origenY, destinoX, destinoY);
 					
 				} catch (Exception e) {
 					System.out.println("We got an exception, RUUUUUN");
