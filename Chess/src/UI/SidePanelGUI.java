@@ -16,6 +16,8 @@ class SidePanelGUI extends JPanel {
     public void updatePieces(String[] pieces) {
         JLabel temp = null;
         if (pieces.length != this.pieceCant) {
+            this.pieceCant=0;
+            removeAll();
             for (int i = 0; i < pieces.length; i++) {
                 temp.setIcon(PieceRepositoryGUI.get().getPiece(pieces[i]).getImage());
                 this.add(temp);
