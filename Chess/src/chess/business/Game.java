@@ -11,6 +11,15 @@ public class Game {
     private Position positionToPromote;
     private Board board;
     private int status;
+    private boolean changed=false;
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
+    }
     private static int PLAYING = 0;
     private static int WHITECHECK = 1;
     private static int BLACKCHECK = 2;
@@ -39,7 +48,7 @@ public class Game {
     	
     }
 
-    public int move(Player p, Move m) {
+    public void move(Player p, Move m) {
         int moveResult = Game.ILEGALMOVE;
         if (this.status == Game.PLAYING && currentPlayer.equals(p)) {
             Piece piece;
@@ -85,7 +94,11 @@ public class Game {
 
             }
         }
-        return moveResult;
+        
+            status=moveResult;
+            changed=true;
+        
+        
     }
 
     public boolean promotePawnTo(Player player, Piece piece) {
