@@ -177,7 +177,7 @@ public class GamePanelGUI extends JPanel implements Observer {
         final Integer i;
         if (o != null && o instanceof Controller){
             if (arg!=null){
-                if ((updateWorker == null || updateWorker.isDone())&& (actionWorker==null || actionWorker.isDone())){
+                if ((updateWorker == null || updateWorker.isDone()) && (actionWorker==null || actionWorker.isDone())){
                     i = (Integer) arg;
                     updateWorker = new SwingWorker() {
                         protected Object doInBackground() throws Exception {
@@ -210,11 +210,15 @@ public class GamePanelGUI extends JPanel implements Observer {
                             boardPanel.paintBoard(controller.getBoard());
                             rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
                             leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
+                            if (i.intValue()!=6) {
+                            	swapPlayer();
+                            }
                             return null;
+                            
                         }
                     };
                     updateWorker.execute();
-                    if (i.intValue()!=6)swapPlayer();
+                    
                     
                 }
                 
