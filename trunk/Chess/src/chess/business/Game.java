@@ -128,21 +128,20 @@ public class Game {
     }
     private void createPieceList(Player player){
             player.addPiece(new Rook(player.getColor()));
-//            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Knight(player.getColor()));
-//            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Bishop(player.getColor()));
-//            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Queen(player.getColor()));
-//            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new King(player.getColor()));
-//            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Bishop(player.getColor()));
-//            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Knight(player.getColor()));
-//            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
             player.addPiece(new Rook(player.getColor()));
-//            player.addPiece(new Pawn(player.getColor()));
+            player.addPiece(new Pawn(player.getColor()));
             
     }
 
