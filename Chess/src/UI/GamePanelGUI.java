@@ -123,7 +123,9 @@ public class GamePanelGUI extends JPanel implements Observer {
         		protected Object doInBackground() throws Exception {
         			if(currentIteraction != null && currentIteraction.length == 2) {
         				// It's showtime!
-        				//controller.move(player, xs, ys, xd, yd);
+        				/*controller.move(currentPlayer, 
+        						currentIteraction[0].getXPosition(), currentIteraction[0].getYPosition(), 
+        						currentIteraction[1].getXPosition(), currentIteraction[1].getYPosition());*/
         				System.out.println("Me han llamado :D (esta es la llamada al controller!");
         		    	if(currentIteraction[0].isEmpty()) {
         		    		System.out.println("Celda start vacia");
