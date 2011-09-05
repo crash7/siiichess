@@ -7,48 +7,26 @@ import javax.swing.JPanel;
 class BoardGUI extends JPanel {
 
     public BoardGUI() {
-        init();
-        
-    }
-    
-    private void init() {
-//    	CellGUI temp;
     	setLayout(new GridLayout(8, 8));
-//    	boolean dark = true;
-//    	for(int i=0; i < 8; i++) {
-//    		dark = !dark;
-//    		for(int j=0; j < 8; j++) {
-//    			
-//    			temp = new CellGUI(i, j, dark);
-//    			add(temp);
-//    			dark = !dark;
-//    			if(i == 0 || i == 7) {
-//    				temp.setPiece(PieceRepositoryGUI.get().getPiece("kb"));
-//    				
-//    			}
-//    		}
-//    		
-//    	}
-    	
+        paintBoard(new String[8][8]);
+        
     }
     
     public void paintBoard(String[][] board) {
     	CellGUI tempCell;
-    	PieceGUI tempPiece;
     	boolean dark = true;
-    	for(int i=0; i < 8; i++) {
+    	
+    	for(int i=0; i < board.length; i++) {
     		dark = !dark;
-    		for(int j=0; j < 8; j++) {
-    			tempPiece = new PieceGUI();
-                        tempPiece.setKeyName(board[i][j].charAt(0));
-                        tempPiece.setColor(board[i][j].charAt(2));
+    		for(int j=0; j < board[0].length; j++) {
     			tempCell = new CellGUI(i, j, dark);
-    			add(tempCell);
-    			dark = !dark;
-    			if(i == 0 || i == 7) {
-    				tempCell.setPiece(tempPiece);
+    			if(board[i][j] != null) {
+    				tempCell.setPiece(PieceRepositoryGUI.get().getPiece(board[i][j]));
     				
     			}
+    			add(tempCell);
+    			dark = !dark;
+
     		}
     		
     	}
