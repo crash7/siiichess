@@ -202,16 +202,17 @@ public class GamePanelGUI extends JPanel implements Observer {
                                     bottomLabel.setText("Movimiento Invalido. Por favor, intenta nuevamente.");
                                     break;
                             }
-                             boardPanel.paintBoard(controller.getBoard());
-                             rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
-                             leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
+                            boardPanel.paintBoard(controller.getBoard());
+                            rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
+                            leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
                             return null;
                         }
                     };
+                    updateWorker.execute();
+                    
                 }
+                
             }
-                   
-    
         	
         }
         

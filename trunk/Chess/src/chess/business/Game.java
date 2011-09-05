@@ -55,7 +55,7 @@ public class Game {
                   if (piece.getColor() == p.getColor()) {
                     if (piece.makeMove(m, this.board, this.currentPlayer.getKing(), this.opponentPlayer.getPieces(), true)) {
                         // Solo si el resultado del movimiento es valido!
-                        Player temp = this.currentPlayer;
+                    	Player temp = this.currentPlayer;
                         this.currentPlayer = this.opponentPlayer;
                         this.opponentPlayer = temp;
                         

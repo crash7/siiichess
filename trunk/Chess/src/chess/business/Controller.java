@@ -9,6 +9,9 @@ import chess.business.pieces.Piece;
 import chess.business.pieces.Queen;
 import chess.business.pieces.Rook;
 import chess.dtos.InactivePieceDTO;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
@@ -45,8 +48,7 @@ public class Controller extends Observable {
         currentGame.move(businessPlayer, move);
         notifyObservers(new Integer(currentGame.getStatus()));
         clearChanged();
-        
-        
+               
         
     }
     
@@ -134,17 +136,19 @@ public class Controller extends Observable {
     	
     }
 
-    public InactivePieceDTO[] getPlayersInactivePieces(PlayerDTO player){
-        List inactivePieces = this.registeredPlayers[player.getId()].getInactivePieces();
-        InactivePieceDTO[] piecesDTO = new InactivePieceDTO[inactivePieces.size()];
-        Piece tmpPiece;
-        for (int i=0;i< inactivePieces.size();i++) {
-            tmpPiece = (Piece)inactivePieces.get(i);            
-            piecesDTO[i] = new InactivePieceDTO();
-            piecesDTO[i].setColor(tmpPiece.getColor());
-            piecesDTO[i].setKeyname(tmpPiece.getKeyname());
+    public String[] getPlayersInactivePieces(PlayerDTO player){
+        List inactivepieces = this.registeredPlayers[player.getId()].getInactivePieces();
+        String[] result = new String[inactivepieces.size()];
+        Iterator iterator = inactivepieces.iterator();
+        int index = 0;
+        Piece temp;
+        while(iterator.hasNext()) {
+        	temp = (Piece) iterator.next();
+        	result[index] = temp.getKeyname() + "" + temp.getColor();
+        	index++;
         }
-        return piecesDTO;
+        return result;
+        
     }
     
     
