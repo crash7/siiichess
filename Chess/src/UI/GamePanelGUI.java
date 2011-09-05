@@ -192,6 +192,7 @@ public class GamePanelGUI extends JPanel implements Observer {
                             bottomPanel.Update("Movimiento Invalido. Por favor, vuelve a intentar.");
                             break;
                     }
+                    boardPanel.paintBoard(controller.getBoard());
                 }
         	
         }
