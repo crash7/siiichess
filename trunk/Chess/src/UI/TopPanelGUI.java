@@ -21,8 +21,8 @@ public class TopPanelGUI extends JPanel {
 		JLabel center = new JLabel("CHESS");
 		setLayout(new BorderLayout());
 		
-		whiteLabel = new JLabel(PieceRepositoryGUI.get().getPiece("kwb").getImage());
-		blackLabel = new JLabel(PieceRepositoryGUI.get().getPiece("kbb").getImage());
+		whiteLabel = new JLabel(PieceRepositoryGUI.get().getPiece("Kwb").getImage());
+		blackLabel = new JLabel(PieceRepositoryGUI.get().getPiece("Kbb").getImage());
 		
 		center.setHorizontalAlignment(SwingConstants.CENTER);
 		center.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
