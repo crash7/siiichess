@@ -27,8 +27,8 @@ public class LocalFormGUI extends JPanel {
 		GridBagConstraints gbcontraints;
 		JLabel title = new JLabel("Jugadores");
 		JButton start = new JButton("Comenzar");
-		JLabel whiteimage = new JLabel(PieceRepositoryGUI.get().getPiece("kwb").getImage());
-		JLabel blackimage = new JLabel(PieceRepositoryGUI.get().getPiece("kbb").getImage());
+		JLabel whiteimage = new JLabel(PieceRepositoryGUI.get().getPiece("Kwb").getImage());
+		JLabel blackimage = new JLabel(PieceRepositoryGUI.get().getPiece("Kbb").getImage());
 		whiteName = new JTextField("Blancas", 20);
 		blackName = new JTextField("Negras", 20);
 	    
