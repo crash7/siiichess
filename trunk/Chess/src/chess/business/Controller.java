@@ -100,7 +100,7 @@ public class Controller extends Observable {
 	                Position pos = new Position(i,j);
 	                Piece piece = board.getPieceAt(pos);
 	                if(piece != null) {
-	                	boardDT[i][j] = board.getPieceAt(pos).getKeyname() + "," + board.getPieceAt(pos).getColor();
+	                	boardDT[i][j] = board.getPieceAt(pos).getKeyname() + "" + board.getPieceAt(pos).getColor();
 	                }
 	                
 	            }

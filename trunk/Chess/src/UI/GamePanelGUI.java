@@ -38,6 +38,7 @@ public class GamePanelGUI extends JPanel implements Observer {
     	blackPlayer = new PlayerDTO();
     	blackPlayer.setColor('b');
     	blackPlayer.setName("Negras");
+    	currentPlayer = whitePlayer;
         init();
 
     }

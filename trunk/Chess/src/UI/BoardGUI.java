@@ -15,12 +15,12 @@ class BoardGUI extends JPanel {
         CellGUI tempCell;
         boolean dark = true;
         removeAll();
-        for (int i = 0; i < board.length; i++) {
+        for(int i = 0; i < board.length; i++) {
             dark = !dark;
-            for (int j = 0; j < board[i].length; j++) {
+            for(int j = 0; j < board[i].length; j++) {
                 tempCell = new CellGUI(i, j, dark);
-                if (board[i][j] != null) {
-                    tempCell.setPiece(PieceRepositoryGUI.get().getPiece(board[i][j]));
+                if(board[i][j] != null) {
+                	tempCell.setPiece(PieceRepositoryGUI.get().getPiece(board[i][j]));
 
                 }
                 add(tempCell);
