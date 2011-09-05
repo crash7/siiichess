@@ -1,5 +1,6 @@
 
 package UI;
+import chess.dtos.InactivePieceDTO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -9,7 +10,7 @@ class SidePanelGUI extends JPanel {
         
     }
     
-    public void updatePieces(String[] pieces) {
+    public void updatePieces(InactivePieceDTO[] pieces) {
     	
     	
     }
