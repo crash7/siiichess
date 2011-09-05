@@ -12,12 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
 public class GamePanelGUI extends JPanel implements Observer {
-
     public static final int LOCAL_GAME = 1;
     private int gameType;
-    private char currentColor;
-    private String whiteName;
-    private String blackName;
+    private PlayerDTO whitePlayer;
+    private PlayerDTO blackPlayer;
+    private PlayerDTO currentPlayer;
     private Controller controller;
     private CellGUI currentIteraction[];
     private SwingWorker actionWorker;
@@ -27,11 +26,17 @@ public class GamePanelGUI extends JPanel implements Observer {
     private TopPanelGUI topPanel;
 
     public GamePanelGUI() {
-    	currentColor = 'w';
     	gameType = GamePanelGUI.LOCAL_GAME;
     	controller = new Controller();
+    	controller.addObserver(this);
     	currentIteraction = null;
     	actionWorker = null;
+    	whitePlayer = new PlayerDTO();
+    	whitePlayer.setColor('w');
+    	whitePlayer.setName("Blancas");
+    	blackPlayer = new PlayerDTO();
+    	blackPlayer.setColor('b');
+    	blackPlayer.setName("Negras");
         init();
 
     }
@@ -48,7 +53,6 @@ public class GamePanelGUI extends JPanel implements Observer {
         add(rightPanel, BorderLayout.EAST);
 
         boardPanel.addMouseListener(new MouseListener() {
-
             private CellGUI start;
             private CellGUI end;
 
@@ -67,7 +71,7 @@ public class GamePanelGUI extends JPanel implements Observer {
 
             public void mousePressed(MouseEvent e) {
                 start = (CellGUI) e.getComponent().getComponentAt(e.getX(), e.getY());
-                if (!start.isEmpty() && start.getPiece().getColor() == currentColor) {
+                if (!start.isEmpty() && start.getPiece().getColor() == currentPlayer.getColor()) {
                     start.setBorder(BorderFactory.createLoweredBevelBorder());
 
                 } else {
@@ -77,14 +81,9 @@ public class GamePanelGUI extends JPanel implements Observer {
 
             }
 
-            public void mouseExited(MouseEvent e) {
-            }
-
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            public void mouseClicked(MouseEvent e) {
-            }
+            public void mouseExited(MouseEvent e) { }
+            public void mouseEntered(MouseEvent e) { }
+            public void mouseClicked(MouseEvent e) { }
         });
         add(boardPanel, BorderLayout.CENTER);
 
@@ -96,35 +95,18 @@ public class GamePanelGUI extends JPanel implements Observer {
     }
 
     public void startGame() {
-        PlayerDTO whitePlayerDTO = new PlayerDTO();
-        PlayerDTO blackPlayerDTO = new PlayerDTO();
-        whitePlayerDTO.setColor('w');
-        whitePlayerDTO.setName(whiteName);
-
-        blackPlayerDTO.setColor('b');
-        blackPlayerDTO.setName(blackName);
-
-        controller.newGame(whitePlayerDTO, blackPlayerDTO);
-
-
-    }
-
-    public String getBlackName() {
-        return blackName;
+    	controller.newGame(whitePlayer, blackPlayer);
+    	
     }
 
     public void setBlackName(String blackName) {
-        this.blackName = blackName;
-        topPanel.setBlackName(blackName);
+        blackPlayer.setName(blackName);
+    	topPanel.setBlackName(blackName);
 
-    }
-
-    public String getWhiteName() {
-        return whiteName;
     }
 
     public void setWhiteName(String whiteName) {
-        this.whiteName = whiteName;
+        whitePlayer.setName(whiteName);
         topPanel.setWhiteName(whiteName);
 
     }
@@ -167,30 +149,25 @@ public class GamePanelGUI extends JPanel implements Observer {
     
     private void swapPlayer() {
     	if(gameType == GamePanelGUI.LOCAL_GAME) {
-    		
+    		if(currentPlayer == whitePlayer) {
+    			currentPlayer = blackPlayer;
+    			
+    		} else {
+    			currentPlayer = whitePlayer;
+    			
+    		}
     		
     	}
     	
     }
 
-
-	public void setWhitePlayerName(String text) {
-		whiteName = text;
-		
-	}
-
-	public void setBlackPlayerName(String text) {
-		blackName = text;
-		
-	}
-
-
     public void update(Observable o, Object arg) {
-        if (o instanceof Controller){
-            if (o!=null){
-                
-            }
+        if (o != null && o instanceof Controller){
+        	// Tenemos el tick de la vida!
+        	System.out.println("we got ticked");
+        	
         }
+        
     }
 
 }
