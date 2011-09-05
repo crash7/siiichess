@@ -29,7 +29,7 @@ class BoardGUI extends JPanel {
             }
 
         }
-
+        this.revalidate();
     }
     
 }

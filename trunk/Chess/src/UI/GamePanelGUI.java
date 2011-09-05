@@ -54,6 +54,7 @@ public class GamePanelGUI extends JPanel implements Observer {
         boardPanel = new BoardGUI();
         topPanel = new TopPanelGUI();
         bottomLabel = new JLabel();
+        bottomLabel.setHorizontalAlignment(JLabel.CENTER);
 
         add(topPanel, BorderLayout.NORTH);
         add(leftPanel, BorderLayout.WEST);
@@ -193,9 +194,11 @@ public class GamePanelGUI extends JPanel implements Observer {
                                     break;
                                 case 3:
                                     bottomLabel.setText("Jaque Mate Blanco.");
+                                    boardPanel.removeMouseListener(boardPanel.getMouseListeners()[0]);
                                     break;
                                 case 4:
                                     bottomLabel.setText("Jaque Mate Negro.");
+                                    boardPanel.removeMouseListener(boardPanel.getMouseListeners()[0]);
                                     break;
                                 case 5:
                                     bottomLabel.setText("Jaque");
@@ -208,11 +211,10 @@ public class GamePanelGUI extends JPanel implements Observer {
                                    break;
                             }
                             boardPanel.paintBoard(controller.getBoard());
+                            if (i.intValue()!=6 && actionWorker!=null)swapPlayer();
                             rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
                             leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
-                            if (i.intValue()!=6) {
-                            	swapPlayer();
-                            }
+                         
                             return null;
                             
                         }
