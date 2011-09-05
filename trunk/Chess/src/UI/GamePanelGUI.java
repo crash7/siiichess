@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
@@ -20,11 +21,14 @@ public class GamePanelGUI extends JPanel implements Observer {
     private Controller controller;
     private CellGUI currentIteraction[];
     private SwingWorker actionWorker;
+    private SwingWorker updateWorker;
     private SidePanelGUI leftPanel;
     private SidePanelGUI rightPanel;
     private BoardGUI boardPanel;
     private TopPanelGUI topPanel;
-    private MessagesGUI bottomPanel;
+    private JLabel bottomLabel;
+    private Integer i;
+    
 
     public GamePanelGUI() {
     	gameType = GamePanelGUI.LOCAL_GAME;
@@ -48,12 +52,12 @@ public class GamePanelGUI extends JPanel implements Observer {
         rightPanel = new SidePanelGUI();
         boardPanel = new BoardGUI();
         topPanel = new TopPanelGUI();
-        bottomPanel = new MessagesGUI();
+        bottomLabel = new JLabel();
 
         add(topPanel, BorderLayout.NORTH);
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.EAST);
-        add(bottomPanel, BorderLayout.SOUTH);
+        add(bottomLabel, BorderLayout.SOUTH);
 
         boardPanel.addMouseListener(new MouseListener() {
             private CellGUI start;
@@ -170,34 +174,44 @@ public class GamePanelGUI extends JPanel implements Observer {
 
     public void update(Observable o, Object arg) {
         if (o != null && o instanceof Controller){
-        	// Tenemos el tick de la vida!
-        	if (arg!=null){
-                    Integer i = (Integer) arg;
-                    switch (i) {
-                        case 0:
-                            bottomPanel.Update("Jugando...");
-                            break;
-                        case 1:
-                            bottomPanel.Update("Jaque blanco.");
-                            break;
-                        case 2:
-                            bottomPanel.Update("Jaque negro.");
-                            break;
-                        case 3:
-                            bottomPanel.Update("Jaque Mate blanco.");
-                            break;
-                        case 4:
-                            bottomPanel.Update("Jaque Mate negro.");
-                            break;
-                        case 5:
-                            bottomPanel.Update("Jaque.");
-                            break;
-                        case 6:
-                            bottomPanel.Update("Movimiento Invalido. Por favor, vuelve a intentar.");
-                            break;
-                    }
-                    boardPanel.paintBoard(controller.getBoard());
+            if (arg!=null){
+                if (updateWorker == null || updateWorker.isDone()){
+                    i = (Integer) arg;
+                    updateWorker = new SwingWorker() {
+                        protected Object doInBackground() throws Exception {
+                            switch (i.intValue()){
+                                case 0:
+                                    bottomLabel.setText("Jugando...");
+                                    break;
+                                case 1:
+                                    bottomLabel.setText("Jaque Blanco.");
+                                    break;
+                                case 2:
+                                    bottomLabel.setText("Jaque Negro.");
+                                    break;
+                                case 3:
+                                    bottomLabel.setText("Jaque Mate Blanco.");
+                                    break;
+                                case 4:
+                                    bottomLabel.setText("Jaque Mate Negro.");
+                                    break;
+                                case 5:
+                                    bottomLabel.setText("Jaque");
+                                    break;
+                                case 6:
+                                    bottomLabel.setText("Movimiento Invalido. Por favor, intenta nuevamente.");
+                                    break;
+                            }
+                             boardPanel.paintBoard(controller.getBoard());
+                             rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
+                             leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
+                            return null;
+                        }
+                    };
                 }
+            }
+                   
+    
         	
         }
         
