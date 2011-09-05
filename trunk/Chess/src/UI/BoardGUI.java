@@ -31,4 +31,5 @@ class BoardGUI extends JPanel {
         }
 
     }
+    
 }
