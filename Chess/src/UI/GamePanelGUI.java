@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
 public class GamePanelGUI extends JPanel implements Observer {
+
     public static final int LOCAL_GAME = 1;
     private int gameType;
     private PlayerDTO whitePlayer;
@@ -28,22 +29,20 @@ public class GamePanelGUI extends JPanel implements Observer {
     private BoardGUI boardPanel;
     private TopPanelGUI topPanel;
     private JLabel bottomLabel;
-    
-    
 
     public GamePanelGUI() {
-    	gameType = GamePanelGUI.LOCAL_GAME;
-    	controller = new Controller();
-    	controller.addObserver(this);
-    	currentIteraction = null;
-    	actionWorker = null;
-    	whitePlayer = new PlayerDTO();
-    	whitePlayer.setColor('w');
-    	whitePlayer.setName("Blancas");
-    	blackPlayer = new PlayerDTO();
-    	blackPlayer.setColor('b');
-    	blackPlayer.setName("Negras");
-    	init();
+        gameType = GamePanelGUI.LOCAL_GAME;
+        controller = new Controller();
+        controller.addObserver(this);
+        currentIteraction = null;
+        actionWorker = null;
+        whitePlayer = new PlayerDTO();
+        whitePlayer.setColor('w');
+        whitePlayer.setName("Blancas");
+        blackPlayer = new PlayerDTO();
+        blackPlayer.setColor('b');
+        blackPlayer.setName("Negras");
+        init();
 
     }
 
@@ -62,6 +61,7 @@ public class GamePanelGUI extends JPanel implements Observer {
         add(bottomLabel, BorderLayout.SOUTH);
 
         boardPanel.addMouseListener(new MouseListener() {
+
             private CellGUI start;
             private CellGUI end;
 
@@ -90,9 +90,14 @@ public class GamePanelGUI extends JPanel implements Observer {
 
             }
 
-            public void mouseExited(MouseEvent e) { }
-            public void mouseEntered(MouseEvent e) { }
-            public void mouseClicked(MouseEvent e) { }
+            public void mouseExited(MouseEvent e) {
+            }
+
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            public void mouseClicked(MouseEvent e) {
+            }
         });
         add(boardPanel, BorderLayout.CENTER);
 
@@ -104,15 +109,15 @@ public class GamePanelGUI extends JPanel implements Observer {
     }
 
     public void startGame() {
-    	currentPlayer = whitePlayer;
-    	controller.newGame(whitePlayer, blackPlayer);
-    	
-    	
+        currentPlayer = whitePlayer;
+        controller.newGame(whitePlayer, blackPlayer);
+
+
     }
 
     public void setBlackName(String blackName) {
         blackPlayer.setName(blackName);
-    	topPanel.setBlackName(blackName);
+        topPanel.setBlackName(blackName);
 
     }
 
@@ -123,66 +128,71 @@ public class GamePanelGUI extends JPanel implements Observer {
     }
 
     public void boardAction(CellGUI start, CellGUI end) {
-    	if((actionWorker == null || actionWorker.getState() != SwingWorker.StateValue.STARTED)) {
-    		currentIteraction = new CellGUI[] {start, end};
-    		actionWorker = new SwingWorker() {
-        		protected Object doInBackground() throws Exception {
-        			if(currentIteraction != null && currentIteraction.length == 2) {
-        				// It's showtime!
-        				controller.move(currentPlayer, 
-        						currentIteraction[0].getXPosition(), currentIteraction[0].getYPosition(), 
-        						currentIteraction[1].getXPosition(), currentIteraction[1].getYPosition());
-        				System.out.println("Me han llamado :D (esta es la llamada al controller!");
-        		    	if(currentIteraction[0].isEmpty()) {
-        		    		System.out.println("Celda start vacia");
-        		    		
-        		    	} else {
-        		    		System.out.println("Celda start llena con: " + currentIteraction[0].getPiece().getKeyName());
-        		    		
-        		    	}
-        		    	if(currentIteraction[1].isEmpty()) {
-        		    		System.out.println("Celda end vacia");
-        		    		
-        		    	} else {
-        		    		System.out.println("Celda end llena con: " + currentIteraction[1].getPiece().getKeyName());
-        		    		    		
-        		    	}
-        				
-        			}
-        			return null;
-        			
-        		}
-        		
-        	};
-    		actionWorker.execute();
-    		
-    	}
-    	
+        if ((actionWorker == null || actionWorker.getState() != SwingWorker.StateValue.STARTED)) {
+            currentIteraction = new CellGUI[]{start, end};
+            actionWorker = new SwingWorker() {
+
+                protected Object doInBackground() throws Exception {
+                    if (currentIteraction != null && currentIteraction.length == 2) {
+                        // It's showtime!
+                        controller.move(currentPlayer,
+                                currentIteraction[0].getXPosition(), currentIteraction[0].getYPosition(),
+                                currentIteraction[1].getXPosition(), currentIteraction[1].getYPosition());
+                        if (currentIteraction[0].isEmpty()) {
+                            System.out.println("Celda start vacia");
+
+                        } else {
+                            System.out.println("Celda start llena con: " + currentIteraction[0].getPiece().getKeyName());
+
+                        }
+                        if (currentIteraction[1].isEmpty()) {
+                            System.out.println("Celda end vacia");
+
+                        } else {
+                            System.out.println("Celda end llena con: " + currentIteraction[1].getPiece().getKeyName());
+
+                        }
+
+                    }
+                    return null;
+                }
+
+                protected void done() {
+                    boardPanel.paintBoard(controller.getBoard());
+                    System.out.println(controller.getState());
+                    if (controller.getState() == 0) {
+                        swapPlayer();
+                    }
+
+                }
+            };
+            actionWorker.execute();
+        }
     }
-    
+
     private void swapPlayer() {
-    	if(gameType == GamePanelGUI.LOCAL_GAME) {
-    		if(currentPlayer == whitePlayer) {
-    			currentPlayer = blackPlayer;
-    			
-    		} else {
-    			currentPlayer = whitePlayer;
-    			
-    		}
-    		
-    	}
-    	
+        if (gameType == GamePanelGUI.LOCAL_GAME) {
+            if (currentPlayer == whitePlayer) {
+                currentPlayer = blackPlayer;
+
+            } else {
+                currentPlayer = whitePlayer;
+            }
+
+        }
+
     }
 
     public void update(Observable o, Object arg) {
         final Integer i;
-        if (o != null && o instanceof Controller){
-            if (arg!=null){
-                if ((updateWorker == null || updateWorker.isDone()) && (actionWorker==null || actionWorker.isDone())){
+        if (o != null && o instanceof Controller) {
+            if (arg != null) {
+                if ((updateWorker == null || updateWorker.isDone()) && (actionWorker == null || actionWorker.isDone())) {
                     i = (Integer) arg;
                     updateWorker = new SwingWorker() {
+
                         protected Object doInBackground() throws Exception {
-                            switch (i.intValue()){
+                            switch (i.intValue()) {
                                 case 0:
                                     bottomLabel.setText("Jugando...");
                                     break;
@@ -208,26 +218,27 @@ public class GamePanelGUI extends JPanel implements Observer {
                                     break;
                                 case 7:
                                     bottomLabel.setText("Pieza Comida.");
-                                   break;
+                                    break;
                             }
                             boardPanel.paintBoard(controller.getBoard());
-                            if (i.intValue()!=6 && actionWorker!=null)swapPlayer();
+                            if (i.intValue() != 6 && actionWorker != null) {
+                                swapPlayer();
+                            }
                             rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
                             leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
-                         
+
                             return null;
-                            
+
                         }
                     };
                     updateWorker.execute();
-                    
-                    
-                }
-                
-            }
-        	
-        }
-        
-    }
 
+
+                }
+
+            }
+
+        }
+
+    }
 }
