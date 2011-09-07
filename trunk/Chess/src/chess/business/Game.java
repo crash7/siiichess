@@ -118,7 +118,6 @@ public class Game {
             Player temp = this.currentPlayer;
             this.currentPlayer = this.opponentPlayer;
             this.opponentPlayer = temp;
-
             return true;
 
         }
@@ -148,6 +147,10 @@ public class Game {
 
 	public boolean isActive() {
 		return this.status == Game.PLAYING;
+		
+	}
+	public void resetStatus() {
+		this.status = Game.PLAYING;
 		
 	}
 

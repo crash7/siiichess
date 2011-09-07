@@ -159,15 +159,43 @@ public class GamePanelGUI extends JPanel implements Observer {
 
                 protected void done() {
                     boardPanel.paintBoard(controller.getBoard());
-                    System.out.println(controller.getState());
-                    if (controller.getState() == 0) {
+                    System.out.println(controller.getStatus());
+                    bottomLabel.setText(getStatusText());
+                    if (controller.getStatus() == 0) {
                         swapPlayer();
+                    } else {
+                        controller.resetStatus();
                     }
+
 
                 }
             };
             actionWorker.execute();
         }
+    }
+
+    public String getStatusText() {
+        String status;
+        switch (controller.getStatus()) {
+            case 0:
+                status = "Jugando";
+                break;
+
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                status = "Jaque";
+                break;
+
+            case 6:
+                status = "Jugada Ilegal";
+                break;
+            default:
+                status = "";
+        }
+        return status;
     }
 
     private void swapPlayer() {
