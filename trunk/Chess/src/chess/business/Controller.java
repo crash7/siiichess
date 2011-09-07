@@ -47,9 +47,7 @@ public class Controller extends Observable {
         move.setDestination(new Position(xd, yd));
         currentGame.move(businessPlayer, move);
         notifyObservers(new Integer(currentGame.getStatus()));
-        clearChanged();
-               
-        
+        clearChanged();                       
     }
     
     public boolean promoteTo(PlayerDTO player, PieceDTO piece){
@@ -150,7 +148,9 @@ public class Controller extends Observable {
         return result;
         
     }
-    
+    public int getState(){
+        return currentGame.getStatus();
+    }
     
 
 }
