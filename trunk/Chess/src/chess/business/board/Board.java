@@ -106,7 +106,11 @@ public class Board {
 	}
 
 	public PieceMove getLastMove() {
-	    return (PieceMove)this.moves.get(this.moves.size() - 1);
+            if (!this.moves.isEmpty()) {
+                return (PieceMove)this.moves.get(this.moves.size() - 1);
+            } else {
+                return null;
+            }
 	    
 	}
 	

@@ -134,8 +134,9 @@ public class Pawn extends Piece {
 					piezatemporal = board.getPieceAt(new Position(move.getSource().getX(), move.getDestination().getY()));
 					PieceMove lastmove = board.getLastMove();
 					PieceMove fakemove;
-					
-					if(piezatemporal != null && piezatemporal == lastmove.getPiece() && piezatemporal instanceof Pawn && piezatemporal.getMovesCount() == 1) {
+
+                                        if(lastmove != null) {
+                                            if(piezatemporal != null && piezatemporal == lastmove.getPiece() && piezatemporal instanceof Pawn && piezatemporal.getMovesCount() == 1) {
 						// dirty thingy starts
 						fakemove = new PieceMove();
 						fakemove.setPiece(piezaorigen);
@@ -149,6 +150,9 @@ public class Pawn extends Piece {
 						piezatemporal.setActive(false);
 						
 						return true;
+                                            } else {
+                                                return false;
+                                            }
 
 					} else {
 						return false; // en passant
