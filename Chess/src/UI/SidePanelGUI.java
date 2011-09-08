@@ -21,9 +21,12 @@ class SidePanelGUI extends JPanel {
     
     public void updatePieces(String[] pieces) {
         if (pieces.length != this.pieceCant) {
-        	JLabel temp;
+            JLabel temp;
             pieceCant=0;
             removeAll();
+            JLabel header = new JLabel("PIEZAS COMIDAS");
+            header.setBorder(new EmptyBorder(0, 4, 0, 4));
+            add(header);
             for(int i = 0; i < pieces.length; i++) {
             	temp = new JLabel(PieceRepositoryGUI.get().getPiece(pieces[i]).getImage());
                 add(temp);
