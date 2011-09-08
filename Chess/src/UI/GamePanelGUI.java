@@ -54,7 +54,7 @@ public class GamePanelGUI extends JPanel implements Observer {
         topPanel = new TopPanelGUI();
         bottomLabel = new JLabel();
         bottomLabel.setHorizontalAlignment(JLabel.CENTER);
-
+        boardPanel.setSize(WIDTH, WIDTH);
         add(topPanel, BorderLayout.NORTH);
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.EAST);
@@ -159,6 +159,8 @@ public class GamePanelGUI extends JPanel implements Observer {
 
                 protected void done() {
                     boardPanel.paintBoard(controller.getBoard());
+                    rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
+                    leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
                     System.out.println(controller.getStatus());
                     bottomLabel.setText(getStatusText());
                     if (controller.getStatus() == 0) {
