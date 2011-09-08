@@ -48,7 +48,7 @@ public class Controller extends Observable {
         move.setSource(new Position(xs, ys));
         move.setDestination(new Position(xd, yd));
         currentGame.move(businessPlayer, move);
-        notifyObservers(new Integer(currentGame.getStatus()));
+        //notifyObservers(new Integer(currentGame.getStatus()));
         //clearChanged();
     }
 
