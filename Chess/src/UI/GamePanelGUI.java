@@ -161,13 +161,14 @@ public class GamePanelGUI extends JPanel implements Observer {
                     boardPanel.paintBoard(controller.getBoard());
                     rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
                     leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
-                    System.out.println(controller.getStatus());
-                    bottomLabel.setText(getStatusText());
+                                        
                     if (controller.getStatus() == 0) {
                         swapPlayer();
                     } else {
                         controller.resetStatus();
                     }
+                    System.out.println(controller.getStatus());
+                    bottomLabel.setText(getStatusText());
 
 
                 }
@@ -180,7 +181,7 @@ public class GamePanelGUI extends JPanel implements Observer {
         String status;
         switch (controller.getStatus()) {
             case 0:
-                status = "Jugando";
+                status = "Juega el jugador "+this.currentPlayer.getName();
                 break;
 
             case 1:
@@ -213,62 +214,18 @@ public class GamePanelGUI extends JPanel implements Observer {
 
     }
 
-    public void update(Observable o, Object arg) {
-        final Integer i;
+    public void update(Observable o, Object arg) {        
         if (o != null && o instanceof Controller) {
             if (arg != null) {
-                if ((updateWorker == null || updateWorker.isDone()) && (actionWorker == null || actionWorker.isDone())) {
-                    i = (Integer) arg;
-                    updateWorker = new SwingWorker() {
-
-                        protected Object doInBackground() throws Exception {
-                            switch (i.intValue()) {
-                                case 0:
-                                    bottomLabel.setText("Jugando...");
-                                    break;
-                                case 1:
-                                    bottomLabel.setText("Jaque Blanco.");
-                                    break;
-                                case 2:
-                                    bottomLabel.setText("Jaque Negro.");
-                                    break;
-                                case 3:
-                                    bottomLabel.setText("Jaque Mate Blanco.");
-                                    boardPanel.removeMouseListener(boardPanel.getMouseListeners()[0]);
-                                    break;
-                                case 4:
-                                    bottomLabel.setText("Jaque Mate Negro.");
-                                    boardPanel.removeMouseListener(boardPanel.getMouseListeners()[0]);
-                                    break;
-                                case 5:
-                                    bottomLabel.setText("Jaque");
-                                    break;
-                                case 6:
-                                    bottomLabel.setText("Movimiento Invalido. Por favor, intenta nuevamente.");
-                                    break;
-                                case 7:
-                                    bottomLabel.setText("Pieza Comida.");
-                                    break;
-                            }
-                            boardPanel.paintBoard(controller.getBoard());
-                            if (i.intValue() != 6 && actionWorker != null) {
-                                swapPlayer();
-                            }
-                            rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
-                            leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
-
-                            return null;
-
-                        }
-                    };
-                    updateWorker.execute();
-
-
-                }
-
+                bottomLabel.setText(getStatusText());
+                boardPanel.paintBoard(controller.getBoard());                            
+                rightPanel.updatePieces(controller.getPlayersInactivePieces(whitePlayer));
+                leftPanel.updatePieces(controller.getPlayersInactivePieces(blackPlayer));
             }
 
         }
 
     }
+
+    
 }
