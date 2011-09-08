@@ -1,16 +1,22 @@
 package UI;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 class SidePanelGUI extends JPanel {
     private int pieceCant;
 
     public SidePanelGUI() {
     	super();
-        setLayout(new GridLayout(1, 8));
-        
+        setLayout(new GridLayout(8, 1));
+        JLabel header = new JLabel("PIEZAS COMIDAS");
+        header.setBorder(new EmptyBorder(0, 4, 0, 4));
+        add(header);
     }
     
     public void updatePieces(String[] pieces) {
