@@ -1,9 +1,9 @@
 package chess.business.pieces;
 
 import chess.business.Board;
-import chess.business.Move;
-import chess.business.PieceMove;
 import chess.business.Position;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Rook extends Piece {
@@ -11,91 +11,115 @@ public class Rook extends Piece {
 
     public Rook(char color) {
         super(color, 'R');
-    }
-
-    public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
-        return Rook.pieceRule.makeMove(move, board, threatened, oppiece, safely);
+        
     }
     
-    public boolean isChecked(Board board, List oppiece) {
-    	return Rook.pieceRule.isChecked(board, this, oppiece);
-    	
-    }
+    protected PieceRule getRules() {
+		return Rook.pieceRule;
+		
+	}
 
     static class RookRule extends PieceRule {
-        public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
-        	Piece piezaorigen = board.getPieceAt(move.getSource());
-        	
-            if (isValidMove(move) && pathIsClear(move, board)) {
-            	if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
-            		if(board.getPieceAt(move.getDestination())!=null) {
-            			board.getPieceAt(move.getDestination()).setActive(false);
-            		}
-            		board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-	                if (threatened.isChecked(board, oppiece)) {
-		                board.undoLastMove();
-		                return false;
-	                
-		            } else {
-		            	piezaorigen.incMoves();
-		                return true;
-		                
-		            }
-	                
-                } else { // el movimiento es valido, con eso me alcanza
-                	return true;
-                	
-                }
-            }else return false;
-        }
+    	
+		public boolean makeMove(Piece context, Board board, Position end, List oppiece) {
+			if(((context.getPosition().getX() == end.getX()) && (context.getPosition().getY() != end.getY()))
+	                 || ((context.getPosition().getX() != end.getX()) && (context.getPosition().getY() == end.getY()))) {
+				// movimiento valido
+				int x = end.getX() - context.getPosition().getX();
+	            int y = end.getY() - context.getPosition().getY(); 
+	            Position temp = new Position(context.getPosition().getX(), context.getPosition().getY());
+				if(Math.abs(x) >= 1) { // vertical
+					x = x/Math.abs(x);
+					temp.setX(temp.getX()+x);
+	                while (temp.getX() != end.getX()) {
+	                    if (board.getPieceAt(temp) != null) {
+	                        return false;
+	                        
+	                    }
+	                    temp.setX(temp.getX()+x);
+	                    
+	                }
+					
+					
+				} else { // horizontal
+					y = y/Math.abs(y);
+					temp.setY(temp.getY()+y);
+	                while (temp.getY() != end.getY()) {
+	                    if (board.getPieceAt(temp) != null) {
+	                        return false;
+	                        
+	                    }
+	                    temp.setY(temp.getY()+y);
+	                    
+	                }
+					
+				}
+				// parece que tenemos el camino libre de bichos
+				Piece captured = board.getPieceAt(end);
+				if(captured != null) {
+					if(captured.sameColour(context)) {
+						return false;
+						
+					} else {
+						captured.setActive(false);
+						
+					}
+					
+				}
+				board.logMove(context, context.getPosition(), captured, end);
+				board.setPieceAt(null, context.getPosition());
+				board.setPieceAt(context, end);
+				return true;
+				
+			} else {
+				return false; // movimiento no valido
+				
+			}
+			
+		}
 
-        private boolean isValidMove(Move move) {
-            Position source = move.getSource();
-            Position destination = move.getDestination();
-            if (((source.getX() == destination.getX()) && (source.getY() != destination.getY()))
-                 || ((source.getX() != destination.getX()) && (source.getY() == destination.getY()))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        private boolean pathIsClear(Move move, Board board) {
-            int x = move.getDestination().getX() - move.getSource().getX();
-            int y = move.getDestination().getY() -  move.getSource().getY();
-            Position position = new Position (move.getSource().getX(),move.getSource().getY());
-            if (Math.abs(x) >= 1) {
-                x = x/Math.abs(x);
-                position.setX(position.getX()+x);
-                while (position.getX() != move.getDestination().getX()) {
-                    if (board.getPieceAt(position) != null) {
-                        return false;
+		public List getThreatenedPositionsTo(Piece context, Position end, Board board) {
+			// TODO Auto-generated method stub
+			List positions = new ArrayList();
+            int x = end.getX() - context.getPosition().getX();
+            int y = end.getY() - context.getPosition().getY();
+            Position temp = new Position(context.getPosition().getX(), context.getPosition().getY());
+            if (Math.abs(x) >= 1) { // vertical
+                x = x / Math.abs(x);
+                temp.setX(temp.getX() + x);
+                while (temp.getX() != end.getX()) {
+                    if (board.getPieceAt(temp) != null) {
+                        return null;
+ 
+                    } else {
+                    	positions.add(new Position(temp.getX(), temp.getY()));
+                    	
                     }
-                    position.setX(position.getX()+x);
+                    temp.setX(temp.getX() + x);
+ 
                 }
-            }
-            else {
-                y = y/Math.abs(y);
-                position.setY(position.getY()+y);
-                while (position.getY() != move.getDestination().getY()) {
-                   if (board.getPieceAt(position) != null) {
-                        return false;
+ 
+ 
+            } else { // horizontal
+                y = y / Math.abs(y);
+                temp.setY(temp.getY() + y);
+                while (temp.getY() != end.getY()) {
+                    if (board.getPieceAt(temp) != null) {
+                        return null;
+ 
+                    }else {
+                    	positions.add(new Position(temp.getX(), temp.getY()));
+                    	
                     }
-                   position.setY(position.getY()+y);
+                    temp.setY(temp.getY() + y);
+ 
                 }
-                
-                
+ 
             }
-            Piece piece = null;
-            piece= board.getPieceAt(position);
-            if (piece != null)
-            {   
-                if (board.getPieceAt(move.getSource()).sameColour(piece))return false;
-                return true;
-            }
-            else return true;
-            
-            
-        }
+            return positions;
+			
+		}
+		
     }
+
 }

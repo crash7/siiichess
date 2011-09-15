@@ -1,20 +1,22 @@
 package chess.business;
 
-import chess.business.pieces.King;
-import chess.business.pieces.Piece;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import chess.business.pieces.King;
+import chess.business.pieces.Piece;
 
 public class Player {
+	private int uniqueId;
 	private char color;
 	private String name;
 	private List pieces;
 	private King king;
 
-	public Player(String name, char color) {
+	public Player(String name, char color, int unique) {
 		this.color = color;
 		this.name = name;
+		uniqueId = unique;
 		this.pieces = new ArrayList();
 
 	}
@@ -25,7 +27,7 @@ public class Player {
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 
 	}
 
@@ -35,37 +37,49 @@ public class Player {
 	}
 
 	public char getColor() {
-		return this.color;
+		return color;
 
+	}
+	
+	public void setUniqueId(int unique) {
+		uniqueId = unique;
+		
+	}
+	
+	public int getUniqueId() {
+		return uniqueId;
+		
 	}
 
 	public King getKing() {
-		return this.king;
+		return king;
 
 	}
 
 	public void addPiece(Piece piece) {
-		this.pieces.add(piece);
-		if (piece instanceof King) {
-			this.king = (King) piece;
+		pieces.add(piece);
+		if(piece instanceof King) {
+			king = (King) piece;
 			
 		}
 
 	}
 
 	public List getPieces() {
-		return this.pieces;
+		return pieces;
 
 	}
         
 	public List getInactivePieces() {
         List inactive = new ArrayList();
-        Iterator iterator = this.pieces.iterator();
-        while (iterator.hasNext()){
-            Piece current =(Piece)(iterator.next());
-            if(!current.isActive()){
+        Iterator iterator = pieces.iterator();
+        while(iterator.hasNext()) {
+            Piece current = (Piece) iterator.next();
+            if(!current.isActive()) {
             	inactive.add(current);
+            	
             }
+            
         }
         return inactive;
 

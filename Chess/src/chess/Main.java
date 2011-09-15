@@ -5,11 +5,12 @@ import java.io.InputStreamReader;
 import javax.swing.SwingUtilities;
 
 import chess.UI.ChessWindow;
-import chess.business.Controller;
+import chess.business.Board;
+import chess.business.BusinessController;
 import chess.dtos.PlayerDTO;
 
 public class Main {
-	Controller cc;
+	BusinessController cc;
 	PlayerDTO players[];
 	
 
@@ -20,12 +21,13 @@ public class Main {
 				
 			}
 		});
-//		new Main(new Controller()).start();
+		//new Main(new BusinessController()).start();
 		
-
+		
+		
 	}
 
-	public Main(Controller c) {
+	public Main(BusinessController c) {
 		cc = c;
 		// Jugadores
 		players = new PlayerDTO[2];
@@ -51,7 +53,7 @@ public class Main {
         BufferedReader keyb = new BufferedReader(new InputStreamReader(System.in));
         
         
-		while(cc.isActive()) {
+		while(cc.isRunning()) {
         	printBoard(cc.getBoard());
         	current = players[turno%2];
             System.out.println("Juega " + current.getName() + "(" + current.getColor() + ")");
@@ -68,7 +70,7 @@ public class Main {
                 	destinoX = Integer.parseInt(keyb.readLine());
                 	System.out.print("PosY: ");
 					destinoY = Integer.parseInt(keyb.readLine());
-					cc.move(current, origenX, origenY, destinoX, destinoY);
+					cc.playerMove(current, origenX, origenY, destinoX, destinoY);
 					
 				} catch (Exception e) {
 					System.out.println("We got an exception, RUUUUUN");

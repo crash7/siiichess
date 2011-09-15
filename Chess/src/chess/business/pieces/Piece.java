@@ -1,7 +1,6 @@
 package chess.business.pieces;
 
 import chess.business.Board;
-import chess.business.Move;
 import chess.business.Position;
 import chess.business.pieces.Piece;
 
@@ -9,35 +8,30 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class Piece {
-
+	private char keyName;
     private char color;
     private int movesCount;
-    private char keyname;
     private boolean active;
-    private Position position;
-
+    private Position temp;
+    
     public Piece(char color, char kn) {
         this.color = color;
-        this.keyname = kn;
-        this.active = true;
+        keyName = kn;
+        active = true;
     }
 
     public boolean sameType(Piece p) {
-        return this.keyname == p.getKeyname();
+        return this.keyName == p.getKeyName();
 
     }
 
     public boolean sameColour(Piece p) {
-        return this.color == p.getColor();
+        return color == p.getColor();
 
     }
 
     public void setActive(boolean active) {
         this.active = active;
-        if(!active) {
-        	System.out.println(this);
-        	
-        }
 
     }
 
@@ -57,22 +51,22 @@ public abstract class Piece {
     }
 
     public void setPosition(Position pos) {
-        this.position = pos;
+        temp = pos;
 
     }
 
     public Position getPosition() {
-        return this.position;
+        return temp;
 
     }
 
-    public void setKeyname(char keyname) {
-        this.keyname = keyname;
+    public void setKeyName(char keyname) {
+        this.keyName = keyname;
 
     }
 
-    public char getKeyname() {
-        return this.keyname;
+    public char getKeyName() {
+        return this.keyName;
 
     }
 
@@ -87,7 +81,12 @@ public abstract class Piece {
     }
     
     public void incMoves() {
-    	this.movesCount++;
+    	movesCount++;
+    	
+    }
+
+    public void decMoves() {
+    	movesCount--;
     	
     }
 
@@ -106,39 +105,53 @@ public abstract class Piece {
 
     }
     
-    public abstract boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely);
-    
-    public abstract boolean isChecked(Board board, List oppiece);
-    
-    static abstract class PieceRule {
-    	public abstract boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely);
-    	
-    	public boolean isChecked(Board board, Piece piece, List oppiece) {
-			Piece current;
-			Move move = new Move();
-			boolean checked = false;
-
-			Iterator i = oppiece.iterator();
-
-			move.setDestination(piece.getPosition());
-
-			while (i.hasNext()) {
-				current = (Piece) i.next();
-				if(current.isActive()) {
-					move.setSource(current.getPosition());
-					if(current.makeMove(move, board, piece, oppiece, false)) {
-						checked = true;
-						break;
-		
-					}
-
-				}
-								
-			}
-
-			return checked;
-
-		}
+    public boolean makeMove(Board board, Position end, List oppiece) {
+    	return getRules().makeMove(this, board, end, oppiece);
     	
     }
+    
+    public boolean isThreatened(Board board, List oppiece) {
+    	return getRules().isThreatened(this, board, oppiece);
+    	
+    }
+    
+    public List getThreatenedPositionsTo(Position end, Board board) {
+    	return getRules().getThreatenedPositionsTo(this, end, board);
+    	
+    }
+    
+    protected abstract PieceRule getRules();
+    
+    // Clase interna
+    static abstract class PieceRule {
+    	
+    	// This piece, with this board, to this position, from this enemys
+    	public abstract boolean makeMove(Piece context, Board board, Position end, List oppiece);
+    	
+    	// This piece, to this place
+    	public abstract List getThreatenedPositionsTo(Piece context, Position end, Board board);
+    	
+    	// This piece, in this board, from this enemys
+    	public boolean isThreatened(Piece context, Board board, List oppiece) {
+			Piece current;
+			Iterator iterator = oppiece.iterator();
+			while(iterator.hasNext()) {
+				current = (Piece) iterator.next();
+				if(current.isActive()) {
+					if(current.makeMove(board, context.getPosition(), null)) {
+						board.undoLastMove();
+						System.out.println("[WARNING] " + context.getKeyName() + "" + context.getColor() + " esta amenazado por " + current.keyName + "" + current.getColor());
+						return true;
+						
+					}
+					
+				}
+				
+			}
+			return false;
+			
+    	}
+    	
+    }
+    
 }

@@ -29,7 +29,7 @@ public class CellGUI extends JLabel {
 	
 	public void setPiece(PieceGUI p) {
 		piece = p;
-		setIcon(p.getImage());
+		setIcon(p.getImageIcon());
 		
 	}
 	
