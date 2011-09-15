@@ -1,8 +1,8 @@
 package chess.business.pieces;
 
+import chess.business.Board;
 import chess.business.Move;
 import chess.business.Position;
-import chess.business.board.Board;
 import chess.business.pieces.Piece;
 
 import java.util.Iterator;

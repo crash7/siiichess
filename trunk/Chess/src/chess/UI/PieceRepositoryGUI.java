@@ -1,4 +1,4 @@
-package UI;
+package chess.UI;
 
 import java.util.HashMap;
 

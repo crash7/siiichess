@@ -1,7 +1,6 @@
 package chess.business;
 
 import chess.business.pieces.*;
-import chess.business.board.Board;
 import java.util.List;
 import java.util.Iterator;
 

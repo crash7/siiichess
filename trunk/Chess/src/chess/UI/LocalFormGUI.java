@@ -1,4 +1,4 @@
-package UI;
+package chess.UI;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
