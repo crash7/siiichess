@@ -185,15 +185,17 @@ public class GamePanelGUI extends JPanel implements Observer {
 
     public void update(Observable o, Object arg) {
         if(o != null && o instanceof BusinessController) {
-        	if(arg != null) {
-        		Integer i = (Integer) arg;
-        		System.out.println("Update: " + i);
+        		final Integer i = (Integer) arg;
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                public void run() {
+                    	System.out.println("Update: " + i);
         		if(i.intValue() != BusinessController.ILEGALMOVE) {
         			boardPanel.paintBoard(controller.getBoard());
         			rightPanel.updatePieces(controller.getInactivePiecesOf(blackPlayer));
         			leftPanel.updatePieces(controller.getInactivePiecesOf(whitePlayer));
         			swapPlayer();
-        			
+
         		}
         		switch (i.intValue()) {
                 case BusinessController.LEGALMOVE:
@@ -216,10 +218,15 @@ public class GamePanelGUI extends JPanel implements Observer {
                 case BusinessController.ILEGALMOVE:
                     bottomLabel.setText("Movimiento Invalido. Por favor, intenta nuevamente.");
                     break;
-                   
+
         		}
-        		
-        	}
+
+
+                }
+
+                });
+            } {
+        	
         	
         }
         
