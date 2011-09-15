@@ -14,9 +14,9 @@ public class ChessWindow extends JFrame {
 	}
 	
 	public void init() {
-		setSize(new Dimension(800, 700));
+		setResizable(false);
+		setSize(new Dimension(800, 600));
 		setLocationRelativeTo(null);
-                setResizable(false);
 		setContentPane(new StartPanelGUI());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		// Construimos el repositorio de piezas

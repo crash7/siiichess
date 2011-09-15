@@ -1,116 +1,109 @@
 package chess.business;
 
-import chess.business.pieces.Piece;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
+import chess.business.pieces.Piece;
+
 public class Board {
 	public static final int DIMENSION = 8;
-	private Square[][] squares;
-	private List moves;
+	private Piece[][] pieces;
+	private List loggedMoves;
 
-	public Board() {
-		this.squares = new Square[Board.DIMENSION][Board.DIMENSION];
-
-		for (int i = 0; i < Board.DIMENSION; i++) {
-			for (int j = 0; j < Board.DIMENSION; j++) {
-				this.squares[i][j] = new Square();
-
-			}
-
-		}                
-                
-		this.moves = new ArrayList();
-
+	public Board(List whitePieces, List blackPieces) {
+		pieces = new Piece[Board.DIMENSION][Board.DIMENSION];
+		loggedMoves = new ArrayList();
+		createBoard(whitePieces, blackPieces);
+		
 	}
 	
-	public boolean validatePosition(Position p) {
-		return (p.getX() >= 0 && p.getX() < Board.DIMENSION && p.getY() >= 0 && p
-				.getY() < Board.DIMENSION);
-
-	}
-
-	public boolean setPieceAt(Position position, Piece piece) {
-		if (this.validatePosition(position)) {
-			if(piece != null) {
-				piece.setPosition(position);
+	public void setPieceAt(Piece who, Position where) {
+		if(checkPosition(where)) {
+			if(who != null) {
+				who.setPosition(where);
+				
 			}
-			this.squares[position.getX()][position.getY()].setPiece(piece);
-			return true;
+			pieces[where.getX()][where.getY()] = who;
 
 		}
-
-		return false;
+		
 	}
 
-	public Piece getPieceAt(Position position) {
-		if (this.validatePosition(position)) {
-			return this.squares[position.getX()][position.getY()].getPiece();
+	public Piece getPieceAt(Position where) {
+		if(checkPosition(where)) {
+			return pieces[where.getX()][where.getY()];
+			
 		}
-
 		return null;
 
 	}
 
-	public boolean move(PieceMove move) {
-		if (this.validatePosition(move.getSource())
-				&& this.validatePosition(move.getDestination())
-				&& !move.getSource().isEqual(move.getDestination())
-				&& move.getPiece() != null) {
-			this.squares[move.getSource().getX()][move.getSource().getY()]
-					.setPiece(null);
-			
-			move.getPiece().setPosition(move.getDestination());
-			this.squares[move.getDestination().getX()][move.getDestination()
-					.getY()].setPiece(move.getPiece());
-			
-			/* no es necesario..
-			if (move.getCaptured() != null) {
-				move.getCaptured().setActive(false);
-
-			}*/
-
-			this.moves.add(move);
-
+	public void logMove(Piece origin, Position originpos, Piece previous, Position previouspos) {
+		loggedMoves.add(new LoggedMove(origin, originpos, previous, previouspos));
+		
+	}
+	
+	public boolean undoLastMove() {
+		LoggedMove lastmove = (LoggedMove) loggedMoves.remove(loggedMoves.size() - 1);
+		if(lastmove != null) {
+			setPieceAt(lastmove.origin, lastmove.originPos);
+			setPieceAt(lastmove.previous, lastmove.previousPos);
+			if(lastmove.previous != null) {
+				lastmove.previous.setActive(true);
+				
+			}
 			return true;
-
+			
 		}
-
 		return false;
 
 	}
 	
-	public void addMove(PieceMove m) {
-		this.moves.add(m);
-		
-	}
-
-	public boolean undoLastMove() {
-		PieceMove lastmove = (PieceMove) this.moves.remove(this.moves.size() - 1);
-
-		if (lastmove != null) {
-			this.squares[lastmove.getSource().getX()][lastmove.getSource()
-					.getY()].setPiece(lastmove.getPiece());
-			this.squares[lastmove.getDestination().getX()][lastmove
-					.getDestination().getY()].setPiece(lastmove.getCaptured());
-			if(lastmove.getCaptured() != null) {
-				lastmove.getCaptured().setActive(true);
-			}
-
-			return true;
+	public Piece getLastMovePiece() {
+		if(loggedMoves.size() > 0) {
+			return ((LoggedMove) loggedMoves.get(loggedMoves.size() - 1)).origin;
+			
 		}
-
-		return false;
+		return null;
+	    
+	}
+	
+	public boolean checkPosition(Position p) {
+		return (p.getX() >= 0 && p.getX() < Board.DIMENSION && p.getY() >= 0 && p.getY() < Board.DIMENSION);
 
 	}
+	
+	private void createBoard(List whitePieces, List blackPieces) {
+		Iterator whiteiterator = whitePieces.iterator();
+        Iterator blackiterator = blackPieces.iterator();
+        int i=0;
 
-	public PieceMove getLastMove() {
-            if (!this.moves.isEmpty()) {
-                return (PieceMove)this.moves.get(this.moves.size() - 1);
-            } else {
-                return null;
-            }
-	    
+        while(whiteiterator.hasNext() && blackiterator.hasNext()) {
+        	setPieceAt((Piece) whiteiterator.next(), new Position(Board.DIMENSION-1, i));
+        	setPieceAt((Piece) whiteiterator.next(), new Position(Board.DIMENSION-2, i));
+        	setPieceAt((Piece) blackiterator.next(), new Position(0, i));
+        	setPieceAt((Piece) blackiterator.next(), new Position(1, i));
+            i++;
+            
+        }
+	
+	}
+	
+	private static class LoggedMove {
+		Piece origin;
+		Position originPos;
+		Piece previous;
+		Position previousPos;
+		
+		LoggedMove(Piece origin, Position originpos, Piece previous, Position previouspos) {
+			this.origin = origin;
+			this.originPos = originpos;
+			this.previous = previous;
+			this.previousPos = previouspos;
+			
+		}
+		
 	}
 	
 }

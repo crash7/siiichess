@@ -1,8 +1,6 @@
 package chess.business.pieces;
 
 import chess.business.Board;
-import chess.business.Move;
-import chess.business.PieceMove;
 import chess.business.Position;
 import java.util.List;
 
@@ -13,59 +11,38 @@ public class Pawn extends Piece {
         super(color, 'P');
 
     }
-
-    public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
-        return Pawn.pieceRule.makeMove(move, board, threatened, oppiece, safely);
-        
-    }
     
-    public boolean isChecked(Board board, List oppiece) {
-    	return Pawn.pieceRule.isChecked(board, this, oppiece);
-    	
-    }
+    protected PieceRule getRules() {
+		return Pawn.pieceRule;
+		
+	}
 
     static class PawnRule extends PieceRule {
-		public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
-			Piece piezaorigen = board.getPieceAt(move.getSource());
+    	
+		public boolean makeMove(Piece context, Board board, Position end, List oppiece) {
+			int x = end.getX() - context.getPosition().getX();
+			int y = end.getY() - context.getPosition().getY();
 			
-			if (this.isValidMove(board, move) && this.pathIsClear(move, board)) {
-				if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
-					board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-					
-					if(threatened.isChecked(board, oppiece)) {
-						board.undoLastMove();
-						return false;
-						
-					} else {
-						piezaorigen.incMoves();
-						return true;
-						
-					}
-					
-				} else { // el movimiento es valido, con eso me alcanza
-                	return true;
-                	
-                }
-
-			} else {
-				return false;
-				
-			}
-			
-		}
-
-		private boolean isValidMove(Board board, Move move) {
-			int x = move.getDestination().getX() - move.getSource().getX();
-			int y = move.getDestination().getY() - move.getSource().getY();
-			y = Math.abs(y);
-			
-			Piece piezaorigen = board.getPieceAt(move.getSource());
-			
-			if (Math.abs(x) == 1) {
-				
-				
-				if(piezaorigen.isWhite()) {
-					if (x == -1 && (y == 1 || y == 0)) {
+    		if(Math.abs(x) == 1) {
+    			if(context.isWhite()) {
+    				if(x != -1 && (y != 0 || Math.abs(y) != 1)) {
+    					return false;
+    					
+    				}
+    				
+    			} else {
+    				if(x != 1 && (y != 0 || Math.abs(y) != 1)) {
+    					return false;
+    					
+    				}
+    				
+    			}
+				if(y == 0) {
+					if(board.getPieceAt(end) == null) {
+						// alter table
+						board.logMove(context, context.getPosition(), null, end);
+						board.setPieceAt(null, context.getPosition());
+						board.setPieceAt(context, end);
 						return true;
 						
 					} else {
@@ -73,120 +50,104 @@ public class Pawn extends Piece {
 						
 					}
 					
-				} else {
-					if (x == 1 && (y == 1 || y == 0)) {
-						return true;
-						
-					} else {
-						return false;
-						
-					}
-					
-				}
-				
-			} else {
-				if (Math.abs(x) == 2) {
-					if (piezaorigen.getMovesCount() == 0) {
-						if(piezaorigen.isWhite()) {
-							if (x == -2) {
-								return true;
-							} else {
-								return false;
-							}
-							
-						} else {
-							if (x == 2){
+				} else if(Math.abs(y) == 1) {
+					Piece captured = board.getPieceAt(end);
+					if(captured == null) { // comer al paso
+						/*captured = board.getPieceAt(new Position(context.getPosition().getX(), end.getY()));
+						Piece lastmovepiece = board.getLastMovePiece();
+						if(lastmovepiece != null) {
+							if(captured == lastmovepiece && lastmovepiece instanceof Pawn && lastmovepiece.getMovesCount() == 1) {
+								// tenemos un comer al paso original
+								// set table
+								board.logMove(context, context.getPosition(), captured, captured.getPosition());
+								board.setPieceAt(null, context.getPosition());
+								board.setPieceAt(context, end);
+								board.setPieceAt(null, captured.getPosition());
+								captured.setActive(false);
 								return true;
 								
 							} else {
 								return false;
+								
 							}
-						}
-						
-					} else {
+							
+						} else {
+							return false;
+							
+						}*/
 						return false;
 						
+					} else {
+						if(context.sameColour(captured)) {
+							return false;
+						
+						} else {
+							board.logMove(context, context.getPosition(), captured, end);
+							board.setPieceAt(null, context.getPosition());
+							board.setPieceAt(context, end);
+							captured.setActive(false);
+							return true;
+							
+						}
+						
 					}
+					
 					
 				} else {
 					return false;
 					
 				}
-			}
+    			
+    		} else if(Math.abs(x) == 2 && y == 0 && !context.hasMoved()) {
+    			if(context.isWhite()) {
+    				if(x == -2) {
+    					if((board.getPieceAt(end) == null) && (board.getPieceAt(new Position(end.getX()+1, y)) == null)) {
+    						board.logMove(context, context.getPosition(), null, end);
+    						board.setPieceAt(null, context.getPosition());
+    						board.setPieceAt(context, end);
+    						return true;
+    						
+    					} else {
+    						return false;
+    						
+    					}
+    					
+    				} else {
+    					return false;
+    					
+    				}
+    				
+    			} else {
+    				if(x == 2) {
+    					if((board.getPieceAt(end) == null) && (board.getPieceAt(new Position(end.getX()-1, y)) == null)) {
+    						board.logMove(context, context.getPosition(), null, end);
+    						board.setPieceAt(null, context.getPosition());
+    						board.setPieceAt(context, end);
+    						return true;
+    						
+    					} else {
+    						return false;
+    						
+    					}
+    					
+    				} else {
+    					return false;
+    					
+    				}
+    				
+    			}
+    			
+    		} else {
+    			return false;
+    			
+    		}
+    	}
 
+		public List getThreatenedPositionsTo(Piece context, Position end, Board board) {
+			return null;		
+			
 		}
-
-		private boolean pathIsClear(Move move, Board board) {
-			Piece piezatemporal = null;
-			Piece piezaorigen = null;
-			if (move.getSource().getY() != move.getDestination().getY()) {
-				piezatemporal = board.getPieceAt(move.getDestination());
-				piezaorigen = board.getPieceAt(move.getSource());
-				if (piezatemporal != null) {
-					if (piezatemporal.sameColour(piezaorigen))return false;
-                                        else
-                                        {
-                                             board.getPieceAt(move.getDestination()).setActive(false);
-                                             return true;
-                                        }
-					
-				} else {
-					piezatemporal = board.getPieceAt(new Position(move.getSource().getX(), move.getDestination().getY()));
-					PieceMove lastmove = board.getLastMove();
-					PieceMove fakemove;
-
-                                        if(lastmove != null) {
-                                            if(piezatemporal != null && piezatemporal == lastmove.getPiece() && piezatemporal instanceof Pawn && piezatemporal.getMovesCount() == 1) {
-						// dirty thingy starts
-						fakemove = new PieceMove();
-						fakemove.setPiece(piezaorigen);
-						fakemove.setCaptured(piezatemporal);
-						fakemove.setMove(new Move(piezaorigen.getPosition(), piezatemporal.getPosition()));
-						
-						board.setPieceAt(piezatemporal.getPosition(), null); // pawn pawnd
-						board.setPieceAt(piezaorigen.getPosition(), null); // pwan win
-						board.setPieceAt(move.getDestination(), piezaorigen); // pawn win
-						piezaorigen.incMoves();
-						piezatemporal.setActive(false);
-						
-						return true;
-                                            } else {
-                                                return false;
-                                            }
-
-					} else {
-						return false; // en passant
-					
-					}
-					
-				}
-
-			} else {
-				int x = move.getDestination().getX() - move.getSource().getX();
-				if (Math.abs(x) == 2) {
-					x = x / Math.abs(x);
-					piezatemporal = board.getPieceAt(new Position(move
-							.getSource().getX() + x, move.getSource().getY()));
-					if (piezatemporal == null) {
-						piezatemporal = board.getPieceAt(move.getDestination());
-						if (piezatemporal == null)
-							return true;
-						else
-							return false;
-					} else
-						return false;
-				} else {
-					piezatemporal = board.getPieceAt(move.getDestination());
-					if (piezatemporal != null) {
-						return false;
-					} else {
-						return true;
-					}
-				}
-
-			}
-		}
-		
+    	
    }
     
 }

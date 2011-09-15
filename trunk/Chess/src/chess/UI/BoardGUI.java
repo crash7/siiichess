@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 class BoardGUI extends JPanel {
 
     public BoardGUI() {
+    	super();
         setLayout(new GridLayout(8, 8));
         paintBoard(new String[8][8]);
 
@@ -29,7 +30,9 @@ class BoardGUI extends JPanel {
             }
 
         }
-        this.revalidate();
+        revalidate();
+        repaint();
+        
     }
     
 }

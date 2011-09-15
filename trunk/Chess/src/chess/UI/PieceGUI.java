@@ -1,5 +1,6 @@
 package chess.UI;
 
+import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
 
@@ -20,12 +21,17 @@ public class PieceGUI {
 		
 	}
 
-	public ImageIcon getImage() {
+	public ImageIcon getImageIcon() {
 		return image;
+	}
+	
+	public Image getImage() {
+		return image.getImage();
+		
 	}
 
 	public void loadIcon(String image) {
-		URL filepath = getClass().getClassLoader().getResource("UI/resources/" + image);
+		URL filepath = getClass().getClassLoader().getResource("chess/UI/resources/" + image);
 		if(filepath != null) {
 			this.image = new ImageIcon(filepath);
 		

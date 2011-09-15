@@ -1,8 +1,6 @@
 package chess.business.pieces;
 
 import chess.business.Board;
-import chess.business.Move;
-import chess.business.PieceMove;
 import chess.business.Position;
 import java.util.List;
 
@@ -13,59 +11,46 @@ public class Knight extends Piece {
         super(color, 'N');
 
     }
-
-    public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
-        return Knight.pieceRule.makeMove(move, board, threatened, oppiece, safely);
-        
-    }
     
-    public boolean isChecked(Board board, List oppiece) {
-    	return Knight.pieceRule.isChecked(board, this, oppiece);
-    	
-    }
+	protected PieceRule getRules() {
+		return Knight.pieceRule;
+		
+	}
 
     static class KnightRule extends PieceRule {
-        public boolean makeMove(Move move, Board board, Piece threatened, List oppiece, boolean safely) {
-        	Piece piezaorigen = board.getPieceAt(move.getSource());
-        
-        	if(isValidMove(move) && ((board.getPieceAt(move.getDestination()) == null)
-        			|| !(board.getPieceAt(move.getDestination()).sameColour(piezaorigen)))) {
-        		if(safely) { // el movimiento tiene que ser seguro, veamos el isCheck..
-        			if (board.getPieceAt(move.getDestination())!=null) {
-        				board.getPieceAt(move.getDestination()).setActive(false);
-        			}
-        			board.move(new PieceMove(piezaorigen, board.getPieceAt(move.getDestination()), move));
-        			
-        			if(threatened.isChecked(board, oppiece)) {
-        				board.undoLastMove();
-        				return false;
-        				
-        			} else {
-        				piezaorigen.incMoves();
-        				return true;
-        				
-        			}
-        			
-	    		} else { // el movimiento es valido, con eso me alcanza
-	    			return true;
-	             	
-	            }
-                
+
+    	public boolean makeMove(Piece context, Board board, Position end, List oppiece) {
+            int x = Math.abs(context.getPosition().getX() - end.getX());
+            int y = Math.abs(context.getPosition().getY() - end.getY());
+            if((y == 2 && x == 1) || (y == 1 && x == 2)) {
+            	// movimiento valido
+            	Piece captured = board.getPieceAt(end);
+            	if(captured != null) {
+            		if(captured.sameColour(context)) {
+            			return false;
+            			
+            		} else {
+            			captured.setActive(false);
+            			
+            		}
+            		
+            	}
+            	board.logMove(context, context.getPosition(), captured, end);
+				board.setPieceAt(null, context.getPosition());
+				board.setPieceAt(context, end);
+				return true;
+            	 
+            } else {
+            	return false;
+            	
             }
-                else return false;
             
-        
-        }
+		}
 
-        private boolean isValidMove(Move move) {
-            Position source = move.getSource();
-            Position destination = move.getDestination();
-            int difY = Math.abs(source.getY() - destination.getY());
-            int difX = Math.abs(source.getX() - destination.getX());
-
-            return ((difY == 2 && difX == 1) || (difY == 1 && difX == 2));
-            
-        }
+		public List getThreatenedPositionsTo(Piece context, Position end, Board board) {
+			return null;
+			
+		}
         
     }
     
