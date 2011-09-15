@@ -42,8 +42,10 @@ public class Queen extends Piece {
 			Piece captured = board.getPieceAt(end);
 			if(captured != null) {
 				captured.setActive(false);
+				captured.incMoves();
 				
 			}
+			context.incMoves();
 			board.logMove(context, context.getPosition(), captured, end);
 			board.setPieceAt(null, context.getPosition());
 			board.setPieceAt(context, end);

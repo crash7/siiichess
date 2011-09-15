@@ -47,10 +47,12 @@ public class Board {
 	public boolean undoLastMove() {
 		LoggedMove lastmove = (LoggedMove) loggedMoves.remove(loggedMoves.size() - 1);
 		if(lastmove != null) {
+			lastmove.origin.decMoves();
 			setPieceAt(lastmove.origin, lastmove.originPos);
 			setPieceAt(lastmove.previous, lastmove.previousPos);
 			if(lastmove.previous != null) {
 				lastmove.previous.setActive(true);
+				lastmove.previous.decMoves();
 				
 			}
 			return true;
