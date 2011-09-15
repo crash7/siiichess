@@ -52,12 +52,10 @@ public class BusinessController extends Observable {
 	    				if(selected.makeMove(board, new Position(xd, yd), opponentPlayer.getPieces())) {
 	    					if(currentPlayer.getKing().isThreatened(board, opponentPlayer.getPieces())) {
 	    						board.undoLastMove();
-	    						selected.decMoves();
 	    						status = BusinessController.ILEGALMOVE;
 	    						System.out.println("[WARNING] Rey " + currentPlayer.getColor() + " esta en jaque");
 	    						
 	    					} else {
-	    						selected.incMoves();
 	    						status = BusinessController.LEGALMOVE;
 	    						swapPlayers();
 	    						if(currentPlayer.getKing().isThreatened(board, opponentPlayer.getPieces())) {

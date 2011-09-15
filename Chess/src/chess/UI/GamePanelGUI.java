@@ -176,49 +176,45 @@ public class GamePanelGUI extends JPanel implements Observer {
 
     public void update(Observable o, Object arg) {
         if(o != null && o instanceof BusinessController) {
-        		final Integer i = (Integer) arg;
-                        SwingUtilities.invokeLater(new Runnable() {
-
+    		final Integer i = (Integer) arg;
+            SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    	System.out.println("Update: " + i);
-        		if(i.intValue() != BusinessController.ILEGALMOVE) {
-        			boardPanel.paintBoard(controller.getBoard());
-        			rightPanel.updatePieces(controller.getInactivePiecesOf(blackPlayer));
-        			leftPanel.updatePieces(controller.getInactivePiecesOf(whitePlayer));
-        			swapPlayer();
-
-        		}
-        		switch (i.intValue()) {
-                case BusinessController.LEGALMOVE:
-                    bottomLabel.setText("Jugando..." + currentPlayer.getName());
-                    break;
-                case BusinessController.WHITECHECK:
-                    bottomLabel.setText("Jaque al blanco.");
-                    break;
-                case BusinessController.BLACKCHECK:
-                    bottomLabel.setText("Jaque al negro.");
-                    break;
-                case BusinessController.WHITECHECKMATE:
-                    bottomLabel.setText("Jaque mate al blanco.");
-                    boardPanel.removeMouseListener(boardPanel.getMouseListeners()[0]);
-                    break;
-                case BusinessController.BLACKCHECKMATE:
-                    bottomLabel.setText("Jaque mate al negro.");
-                    boardPanel.removeMouseListener(boardPanel.getMouseListeners()[0]);
-                    break;
-                case BusinessController.ILEGALMOVE:
-                    bottomLabel.setText("Movimiento Invalido. Por favor, intenta nuevamente.");
-                    break;
-
-        		}
-
+                   	System.out.println("Update: " + i);
+	        		if(i.intValue() != BusinessController.ILEGALMOVE) {
+	        			boardPanel.paintBoard(controller.getBoard());
+	        			rightPanel.updatePieces(controller.getInactivePiecesOf(blackPlayer));
+	        			leftPanel.updatePieces(controller.getInactivePiecesOf(whitePlayer));
+	        			swapPlayer();
+	
+	        		}
+	        		switch (i.intValue()) {
+		                case BusinessController.LEGALMOVE:
+		                    bottomLabel.setText("Jugando..." + currentPlayer.getName());
+		                    break;
+		                case BusinessController.WHITECHECK:
+		                    bottomLabel.setText("Jaque al blanco.");
+		                    break;
+		                case BusinessController.BLACKCHECK:
+		                    bottomLabel.setText("Jaque al negro.");
+		                    break;
+		                case BusinessController.WHITECHECKMATE:
+		                    bottomLabel.setText("Jaque mate al blanco.");
+		                    boardPanel.removeMouseListener(boardPanel.getMouseListeners()[0]);
+		                    break;
+		                case BusinessController.BLACKCHECKMATE:
+		                    bottomLabel.setText("Jaque mate al negro.");
+		                    boardPanel.removeMouseListener(boardPanel.getMouseListeners()[0]);
+		                    break;
+		                case BusinessController.ILEGALMOVE:
+		                    bottomLabel.setText("Movimiento Invalido. Por favor, intenta nuevamente.");
+		                    break;
+	
+	        		}
 
                 }
 
-                });
-            } {
-        	
-        	
+            });
+        
         }
         
     }

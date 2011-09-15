@@ -62,6 +62,7 @@ public class Rook extends Piece {
 						
 					} else {
 						captured.setActive(false);
+						captured.incMoves();
 						
 					}
 					
@@ -69,6 +70,7 @@ public class Rook extends Piece {
 				board.logMove(context, context.getPosition(), captured, end);
 				board.setPieceAt(null, context.getPosition());
 				board.setPieceAt(context, end);
+				context.incMoves();
 				return true;
 				
 			} else {

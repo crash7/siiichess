@@ -40,6 +40,7 @@ public class Pawn extends Piece {
 				if(y == 0) {
 					if(board.getPieceAt(end) == null) {
 						// alter table
+						context.incMoves();
 						board.logMove(context, context.getPosition(), null, end);
 						board.setPieceAt(null, context.getPosition());
 						board.setPieceAt(context, end);
@@ -86,6 +87,8 @@ public class Pawn extends Piece {
 							board.setPieceAt(null, context.getPosition());
 							board.setPieceAt(context, end);
 							captured.setActive(false);
+							captured.incMoves();
+							context.incMoves();
 							return true;
 							
 						}
@@ -105,6 +108,7 @@ public class Pawn extends Piece {
     						board.logMove(context, context.getPosition(), null, end);
     						board.setPieceAt(null, context.getPosition());
     						board.setPieceAt(context, end);
+    						context.incMoves();
     						return true;
     						
     					} else {
@@ -123,6 +127,7 @@ public class Pawn extends Piece {
     						board.logMove(context, context.getPosition(), null, end);
     						board.setPieceAt(null, context.getPosition());
     						board.setPieceAt(context, end);
+    						context.incMoves();
     						return true;
     						
     					} else {
