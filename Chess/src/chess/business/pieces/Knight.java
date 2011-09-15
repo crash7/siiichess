@@ -1,9 +1,9 @@
 package chess.business.pieces;
 
+import chess.business.Board;
 import chess.business.Move;
+import chess.business.PieceMove;
 import chess.business.Position;
-import chess.business.board.Board;
-import chess.business.board.PieceMove;
 import java.util.List;
 
 public class Knight extends Piece {

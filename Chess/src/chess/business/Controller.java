@@ -2,7 +2,6 @@ package chess.business;
 
 import chess.dtos.PlayerDTO;
 import chess.dtos.PieceDTO;
-import chess.business.board.Board;
 import chess.business.pieces.Bishop;
 import chess.business.pieces.Knight;
 import chess.business.pieces.Piece;

@@ -1,4 +1,4 @@
-package chess.business.board;
+package chess.business;
 
 import chess.business.pieces.Piece;
 

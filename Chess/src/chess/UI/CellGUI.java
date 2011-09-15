@@ -1,4 +1,4 @@
-package UI;
+package chess.UI;
 
 import java.awt.Color;
 import javax.swing.JLabel;

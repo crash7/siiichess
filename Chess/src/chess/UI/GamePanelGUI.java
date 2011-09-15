@@ -1,4 +1,4 @@
-package UI;
+package chess.UI;
 
 import chess.business.Controller;
 import chess.dtos.PlayerDTO;

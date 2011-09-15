@@ -1,4 +1,4 @@
-package UI;
+package chess.UI;
 
 import java.net.URL;
 import javax.swing.ImageIcon;

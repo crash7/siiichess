@@ -1,7 +1,7 @@
 package chess.business.pieces;
 
+import chess.business.Board;
 import chess.business.Move;
-import chess.business.board.Board;
 import java.util.List;
 
 public class Queen extends Piece {

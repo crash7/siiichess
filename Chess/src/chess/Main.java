@@ -3,7 +3,8 @@ package chess;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import javax.swing.SwingUtilities;
-import UI.ChessWindow;
+
+import chess.UI.ChessWindow;
 import chess.business.Controller;
 import chess.dtos.PlayerDTO;
 
