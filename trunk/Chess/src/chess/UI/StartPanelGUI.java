@@ -25,7 +25,8 @@ public class StartPanelGUI extends JPanel {
 	public void init() {
 		JLabel title = new JLabel("CHESS");
 		JButton localgame = new JButton("Partida local");
-		JButton netgame = new JButton("Partida en red");
+		JButton netgame = new JButton("Crear Partida en red");
+		JButton joinnetgame = new JButton("Unirse a Partida");
 		JButton exit = new JButton("Salir");
 		GridBagConstraints gbcontraints;
 		
@@ -67,13 +68,42 @@ public class StartPanelGUI extends JPanel {
 		gbcontraints.gridy = 2;
 		gbcontraints.anchor = GridBagConstraints.SOUTH;
 		gbcontraints.insets = new Insets(10, 0, 0, 0);
-		add(netgame, gbcontraints);
+		netgame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = (JFrame) getTopLevelAncestor();
+				frame.getContentPane().removeAll();
+				frame.invalidate();
+				frame.setContentPane(new JoinNetFormGUI());
+				frame.validate();
+				
+			}
+		});
+                add(netgame, gbcontraints);
+		
+		joinnetgame.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
+		joinnetgame.setPreferredSize(new Dimension(220, 60));
+		gbcontraints = new GridBagConstraints();
+		gbcontraints.gridx = 0;
+		gbcontraints.gridy = 3;
+		gbcontraints.anchor = GridBagConstraints.SOUTH;
+		gbcontraints.insets = new Insets(10, 0, 0, 0);
+		joinnetgame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = (JFrame) getTopLevelAncestor();
+				frame.getContentPane().removeAll();
+				frame.invalidate();
+				frame.setContentPane(new JoinNetFormGUI());
+				frame.validate();
+				
+			}
+		});
+                add(joinnetgame, gbcontraints);
 		
 		exit.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		exit.setPreferredSize(new Dimension(100, 60));
 		gbcontraints = new GridBagConstraints();
 		gbcontraints.gridx = 0;
-		gbcontraints.gridy = 3;
+		gbcontraints.gridy = 4;
 		gbcontraints.anchor = GridBagConstraints.SOUTHEAST;
 		gbcontraints.weightx = 3.0;
 		gbcontraints.weighty = 4.0;
