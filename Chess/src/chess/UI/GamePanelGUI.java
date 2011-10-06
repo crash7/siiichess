@@ -216,7 +216,8 @@ public class GamePanelGUI extends JPanel implements Observer {
             });
         
         }
-        
+        if(controller.getLastMove()!=null)
+        System.out.println(controller.getLastMove().toString());
     }
     
 }
