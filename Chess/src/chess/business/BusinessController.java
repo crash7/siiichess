@@ -7,6 +7,7 @@ import chess.business.pieces.Pawn;
 import chess.business.pieces.Piece;
 import chess.business.pieces.Queen;
 import chess.business.pieces.Rook;
+import chess.dtos.MoveDTO;
 import chess.dtos.PlayerDTO;
 import java.util.Iterator;
 import java.util.List;
@@ -254,6 +255,14 @@ public class BusinessController extends Observable {
         player.addPiece(new Rook(player.getColor()));
         player.addPiece(new Pawn(player.getColor()));
     	
+    }
+
+    public MoveDTO getLastMove() {
+        Position[] p = board.getLastMovePositions();
+        if(p != null) {
+            return new MoveDTO(p[0].getX(),p[0].getY(),p[1].getX(),p[1].getY());
+        }
+        return null;
     }
     
 }
