@@ -2,11 +2,8 @@ package chess.business.pieces;
 
 import chess.business.Board;
 import chess.business.Position;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class King extends Piece {
 	private static KingRule pieceRule = new KingRule();
@@ -127,7 +124,7 @@ public class King extends Piece {
 		
 		// me, in this lawn, to this enemies, with my fellows
 		private boolean isCheckMated(King context, Board board, List oppiece, List cppieces) {
-			
+			System.out.println("Inicia checkmate");
 			if(context.isThreatened(board, oppiece)) {
 				// recolectar guias de escape
 				Position trypos;
@@ -142,6 +139,7 @@ public class King extends Piece {
 		                        	if(context.makeMove(board, trypos, oppiece)) {
 		                        		if(!context.isThreatened(board, oppiece)) {
 		                        			board.undoLastMove();
+		                        			System.out.println("Salida 1");
 		                        			return false;
 		                        			
 		                        		} else {
@@ -172,6 +170,7 @@ public class King extends Piece {
 							threater = enemy;
 							
 						} else { 
+							System.out.println("Salida 2");
 							return true; // tengo dos mirandome, ya fue
 							
 						}
@@ -197,6 +196,7 @@ public class King extends Piece {
 								currentpiece = (Piece) iterator.next();
 								if(currentpiece.makeMove(board, currentpos, oppiece)) {
 									board.undoLastMove();
+									System.out.println("Salida 3");
 									return false;
 									
 								}
@@ -204,10 +204,12 @@ public class King extends Piece {
 							}
 							
 						}
+						System.out.println("Salida 4");
 						return true; // nadie me puede tapar
 						
 					} else {
 						// no hay forma de tapar! =/
+						System.out.println("Salida 5");
 						return true;
 						
 					}
@@ -215,6 +217,7 @@ public class King extends Piece {
 				}
 				
 			} else { // no esta ni en jaque!
+				System.out.println("Salida 6");
 				return false;
 
 			}

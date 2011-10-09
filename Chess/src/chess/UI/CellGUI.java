@@ -3,7 +3,7 @@ package chess.UI;
 import java.awt.Color;
 import javax.swing.JLabel;
 
-public class CellGUI extends JLabel {
+class CellGUI extends JLabel {
 	private boolean darkCell;
 	private PieceGUI piece;
 	private int xPosition;

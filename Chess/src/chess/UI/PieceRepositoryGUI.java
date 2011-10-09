@@ -2,7 +2,7 @@ package chess.UI;
 
 import java.util.HashMap;
 
-public class PieceRepositoryGUI {
+class PieceRepositoryGUI {
 	private HashMap repository;
 	private static PieceRepositoryGUI instance = new PieceRepositoryGUI();
 	

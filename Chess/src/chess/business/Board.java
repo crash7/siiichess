@@ -71,16 +71,18 @@ public class Board {
 	    
 	}
 
-        public Position[] getLastMovePositions(){
-            if(loggedMoves.size() > 0) {
-                Position[] positions = new Position[2];
-                LoggedMove move = (LoggedMove) loggedMoves.get(loggedMoves.size() - 1);
-                positions[0] = move.originPos;
-                positions[1] = move.previousPos;
-                return positions;
-            }
-            return null;
+    public Position[] getLastMovePositions(){
+        if(loggedMoves.size() > 0) {
+            Position[] positions = new Position[2];
+            LoggedMove move = (LoggedMove) loggedMoves.get(loggedMoves.size() - 1);
+            positions[0] = move.originPos;
+            positions[1] = move.previousPos;
+            return positions;
+            
         }
+        return null;
+        
+    }
 
 	public boolean checkPosition(Position p) {
 		return (p.getX() >= 0 && p.getX() < Board.DIMENSION && p.getY() >= 0 && p.getY() < Board.DIMENSION);

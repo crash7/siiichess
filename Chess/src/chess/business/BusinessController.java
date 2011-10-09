@@ -169,6 +169,10 @@ public class BusinessController extends Observable {
     }
     
     public boolean usePromotion(PlayerDTO player, char piecename) {
+    	if(promotedPosition != null) {
+    		promotedPosition = new Position();
+    		
+    	}
     	return false;
     	/*
     	Piece promotep;
@@ -230,6 +234,21 @@ public class BusinessController extends Observable {
     	
     }
     
+    public void clientMoveError() {
+    	System.out.println("Error al mover la pieza en el cliente");
+    	setChanged();
+    	notifyObservers(new Integer(BusinessController.ILEGALMOVE));
+    	
+    }
+    
+    public MoveDTO getLastMove() {
+        Position[] p = board.getLastMovePositions();
+        if(p != null) {
+            return new MoveDTO(p[0].getX(),p[0].getY(),p[1].getX(),p[1].getY());
+        }
+        return null;
+    }
+        
     private void swapPlayers() {
     	Player temp = currentPlayer;
     	currentPlayer = opponentPlayer;
@@ -255,14 +274,6 @@ public class BusinessController extends Observable {
         player.addPiece(new Rook(player.getColor()));
         player.addPiece(new Pawn(player.getColor()));
     	
-    }
-
-    public MoveDTO getLastMove() {
-        Position[] p = board.getLastMovePositions();
-        if(p != null) {
-            return new MoveDTO(p[0].getX(),p[0].getY(),p[1].getX(),p[1].getY());
-        }
-        return null;
     }
     
 }

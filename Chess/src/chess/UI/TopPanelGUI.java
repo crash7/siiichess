@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class TopPanelGUI extends JPanel {
+class TopPanelGUI extends JPanel {
 	private JLabel whiteLabel;
 	private JLabel blackLabel;
 		
