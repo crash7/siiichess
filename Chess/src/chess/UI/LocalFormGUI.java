@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import chess.business.BusinessController;
+
 class LocalFormGUI extends JPanel {
 	private JTextField whiteName;
 	private JTextField blackName;
@@ -92,11 +94,13 @@ class LocalFormGUI extends JPanel {
 	}
 	
 	private void startLocalGame() {
+		BusinessController controller = new BusinessController();
 		GamePanelGUI gamepanel = new GamePanelGUI();
-		JFrame frame = (JFrame) getTopLevelAncestor();
+		gamepanel.setController(controller);
 		gamepanel.setWhiteName(whiteName.getText());
 		gamepanel.setBlackName(blackName.getText());
 		gamepanel.setGameType(GamePanelGUI.LOCAL_GAME);
+		JFrame frame = (JFrame) getTopLevelAncestor();
 		frame.getContentPane().removeAll();
 		frame.invalidate();
 		frame.setContentPane(gamepanel);

@@ -15,7 +15,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 class GamePanelGUI extends JPanel implements Observer {
-    public static final int LOCAL_GAME = 1;
+	public static final int LOCAL_GAME = 1;
+    public static final int NET_GAME = 2;
     private int gameType;
     private PlayerDTO whitePlayer;
     private PlayerDTO blackPlayer;
@@ -31,8 +32,8 @@ class GamePanelGUI extends JPanel implements Observer {
     
     public GamePanelGUI() {
     	gameType = GamePanelGUI.LOCAL_GAME;
-    	controller = new BusinessController();
-    	controller.addObserver(this);
+    	//controller = new BusinessController();
+    	//controller.addObserver(this);
     	currentIteraction = null;
     	actionWorker = null;
     	whitePlayer = new PlayerDTO();
@@ -103,22 +104,51 @@ class GamePanelGUI extends JPanel implements Observer {
     }
 
     public void startGame() {
-    	currentPlayer = blackPlayer;
+    	if(gameType == LOCAL_GAME) {
+    		currentPlayer = blackPlayer;
+    		
+    	}
     	controller.newGame(whitePlayer, blackPlayer);
     	
-    	
     }
-
+    
     public void setBlackName(String blackName) {
         blackPlayer.setName(blackName);
     	topPanel.setBlackName(blackName);
 
+    }
+    
+    public PlayerDTO getBlackPlayer() {
+    	return blackPlayer;
+    	
     }
 
     public void setWhiteName(String whiteName) {
         whitePlayer.setName(whiteName);
         topPanel.setWhiteName(whiteName);
 
+    }
+    
+    public PlayerDTO getWhitePlayer() {
+    	return whitePlayer;
+    	
+    }
+    
+    public void setStartColor(char color) {
+    	if(color == 'w') {
+    		currentPlayer = whitePlayer;
+    		
+    	} else if(color == 'b') {
+    		currentPlayer = blackPlayer;
+    		
+    	}
+    	
+    }
+    
+    public void setController(BusinessController c) {
+    	controller = c;
+    	controller.addObserver(this);
+    	
     }
 
     public void boardAction(CellGUI start, CellGUI end) {
@@ -216,8 +246,7 @@ class GamePanelGUI extends JPanel implements Observer {
             });
         
         }
-        if(controller.getLastMove()!=null)
-        System.out.println(controller.getLastMove().toString());
+        
     }
     
 }

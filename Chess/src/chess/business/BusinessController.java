@@ -108,7 +108,10 @@ public class BusinessController extends Observable {
 	    	} else {
 	    		status = BusinessController.ILEGALMOVE;
 	    		System.out.println("[WARNING] Jugador incorrecto");
-	    		
+	    		System.out.println("chash: " + currentPlayer.getUniqueId() + " " + currentPlayer.getColor());
+	    		System.out.println("ohash: " + opponentPlayer.getUniqueId() + " " + opponentPlayer.getColor());
+	    		System.out.println("phash: " + player.hashCode() + " " + player.getColor());
+
 	    	}
 	    	
     	} else {
