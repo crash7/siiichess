@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
 
-public class PieceGUI {
+class PieceGUI {
 	private ImageIcon image;
 	private char keyName;
 	private char color;

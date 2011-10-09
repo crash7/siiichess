@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
-public class GamePanelGUI extends JPanel implements Observer {
+class GamePanelGUI extends JPanel implements Observer {
     public static final int LOCAL_GAME = 1;
     private int gameType;
     private PlayerDTO whitePlayer;

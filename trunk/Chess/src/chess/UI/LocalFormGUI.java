@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class LocalFormGUI extends JPanel {
+class LocalFormGUI extends JPanel {
 	private JTextField whiteName;
 	private JTextField blackName;
 	    

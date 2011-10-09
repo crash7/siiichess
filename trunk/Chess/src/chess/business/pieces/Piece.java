@@ -106,7 +106,10 @@ public abstract class Piece {
     }
     
     public boolean makeMove(Board board, Position end, List oppiece) {
-    	return getRules().makeMove(this, board, end, oppiece);
+    	if(active) {
+    		return getRules().makeMove(this, board, end, oppiece);
+    	}
+    	return false;
     	
     }
     
