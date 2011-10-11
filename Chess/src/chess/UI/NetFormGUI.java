@@ -1,6 +1,5 @@
 package chess.UI;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
@@ -8,17 +7,23 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
 import chess.business.BusinessController;
 import chess.net.NetworkGame;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import javax.swing.JSplitPane;
+import javax.swing.SwingConstants;
 
 class NetFormGUI extends JPanel {
-	private JTextField serverIP;
-	private JTextField serverPort;
-	private JTextField localPort;
-	private JTextField playerName;
+	private JTextFieldFL ip;
+	private JTextFieldFL puerto;
+	private JTextFieldFL puertolocal;
+	private JTextFieldFL nombre;
 	
 	public NetFormGUI() {
 		super();
@@ -27,62 +32,67 @@ class NetFormGUI extends JPanel {
 	}
 		
 	private void init() {
-		serverIP = new JTextField("localhost");
-		serverPort = new JTextField("24377");
-		localPort = new JTextField("24377");
-		playerName = new JTextField("Fofito");
-		
-		setLayout(new FlowLayout(FlowLayout.CENTER, 20, 250));
+		/*setLayout(new FlowLayout(FlowLayout.CENTER, 20, 250));
 		
 		// host
-		JButton host = new JButton("host me, oh oh oh (?)");
-		host.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SwingWorker sw = new SwingWorker() {
-					protected Object doInBackground() throws Exception {
-						System.out.println("Server on localhost:" + localPort.getText() + " for " + playerName.getText());
-						return NetworkGame.createServer(playerName.getText(), Integer.valueOf(localPort.getText()));
-
-					};
-					
-					protected void done() {
-						try {
-							NetworkGame ng = (NetworkGame) get();
-							if(ng != null) {
-								GamePanelGUI gamepanel = new GamePanelGUI();
-								gamepanel.setWhiteName(ng.getLocalName());
-								gamepanel.setBlackName(ng.getRemoteName());
-								gamepanel.setStartColor('w');
-								ng.setLocalPlayer(gamepanel.getBlackPlayer());
-								startMultiplayerGame(gamepanel, ng);
-								
-							}
-							
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-							
-						} catch (ExecutionException e) {
-							e.printStackTrace();
-							
-						}
-
-					};
-					
-				};
-				sw.execute();
-				
-			}
-		});
-		add(host);
 		
 		// join
-		JButton join = new JButton("join me, oh oh oh (?)");
-		join.addActionListener(new ActionListener() {
+		
+		*/
+            // ******** Layout General ********
+            
+             setLayout(new BorderLayout(0, 10));
+             JLabel titulo = new JLabel ("Partida en red");
+             titulo.setFont(new Font("Tahoma", 0, 24));
+             titulo.setHorizontalAlignment(SwingConstants.CENTER);
+             add(titulo, BorderLayout.NORTH);
+             JPanel centro = new JPanel(new BorderLayout());
+             add(centro,BorderLayout.CENTER);
+             nombre = new JTextFieldFL("Ingrese su nombre");
+             nombre.setFont(new Font("Tahoma", 0, 18));
+             nombre.setHorizontalAlignment(SwingConstants.CENTER);
+             centro.add(nombre,BorderLayout.NORTH);
+             JSplitPane splitpane= new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+             splitpane.setDividerLocation(395);
+             JPanel izquierda = new JPanel(new GridBagLayout());
+             JPanel derecha = new JPanel(new GridBagLayout());
+             splitpane.setLeftComponent(izquierda);
+             splitpane.setRightComponent(derecha);
+             centro.add(splitpane,BorderLayout.CENTER);
+             GridBagConstraints gridbag = new GridBagConstraints();
+             
+             // ***** Left Panel ****
+             
+             ip = new JTextFieldFL("IP");
+             ip.setHorizontalAlignment(javax.swing.JTextField.CENTER);        
+             ip.setPreferredSize(new java.awt.Dimension(80, 20));
+             gridbag.gridx = 0;
+             gridbag.gridy = 0;
+             gridbag.gridwidth = 2;
+             gridbag.insets = new java.awt.Insets(0, 0, 0, 20);
+             izquierda.add(ip,gridbag);
+             
+             puerto = new JTextFieldFL("Puerto");
+             puerto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+             puerto.setPreferredSize(new java.awt.Dimension(50, 20));
+             gridbag = new java.awt.GridBagConstraints();
+             gridbag.gridx = 2;
+             gridbag.gridy = 0;
+             izquierda.add(puerto,gridbag);
+             
+             JButton unirse = new JButton("Conectar");
+             gridbag = new java.awt.GridBagConstraints();
+             gridbag.gridx = 1;
+             gridbag.gridy = 1;
+             gridbag.gridwidth = 2;
+             gridbag.insets = new java.awt.Insets(20, 0, 0, 0);
+             izquierda.add(unirse,gridbag);
+             unirse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SwingWorker sw = new SwingWorker() {
 					protected Object doInBackground() throws Exception {
-						System.out.println("Connect to " + serverIP.getText() + ":" + serverPort.getText() + " for " + playerName.getText());
-						return NetworkGame.createClient(playerName.getText(), serverIP.getText(), Integer.valueOf(serverPort.getText()));
+						System.out.println("Connect to " + ip.getText() + ":" + puerto.getText() + " for " + nombre.getText());
+						return NetworkGame.createClient(nombre.getText(), ip.getText(), Integer.valueOf(puerto.getText()));
 
 					};
 					
@@ -114,8 +124,60 @@ class NetFormGUI extends JPanel {
 				
 			}
 		});
-		add(join);
-		
+             
+             //***** Right Panel *****
+             
+             puertolocal = new JTextFieldFL("Puerto");
+             puertolocal.setHorizontalAlignment(javax.swing.JTextField.CENTER);        
+             puertolocal.setPreferredSize(new java.awt.Dimension(50, 20));
+             gridbag = new java.awt.GridBagConstraints();
+             gridbag.insets = new java.awt.Insets(0, 0, 20, 0);
+             derecha.add(puertolocal, gridbag);
+             
+             JButton crear = new JButton("Crear");
+                  crear.setPreferredSize(new java.awt.Dimension(77, 23));
+        gridbag = new java.awt.GridBagConstraints();
+        gridbag.gridx = 0;
+        gridbag.gridy = 1;
+        gridbag.insets = new java.awt.Insets(1, 0, 0, 0);
+        derecha.add(crear, gridbag);
+		crear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SwingWorker sw = new SwingWorker() {
+					protected Object doInBackground() throws Exception {
+						System.out.println("Server on localhost:" + puertolocal.getText() + " for " + nombre.getText());
+						return NetworkGame.createServer(nombre.getText(), Integer.valueOf(puertolocal.getText()));
+
+					};
+					
+					protected void done() {
+						try {
+							NetworkGame ng = (NetworkGame) get();
+							if(ng != null) {
+								GamePanelGUI gamepanel = new GamePanelGUI();
+								gamepanel.setWhiteName(ng.getLocalName());
+								gamepanel.setBlackName(ng.getRemoteName());
+								gamepanel.setStartColor('w');
+								ng.setLocalPlayer(gamepanel.getBlackPlayer());
+								startMultiplayerGame(gamepanel, ng);
+								
+							}
+							
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+							
+						} catch (ExecutionException e) {
+							e.printStackTrace();
+							
+						}
+
+					};
+					
+				};
+				sw.execute();
+				
+			}
+		});
 	}
 	
 	public void startMultiplayerGame(GamePanelGUI gp, final NetworkGame ng) {
