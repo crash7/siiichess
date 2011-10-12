@@ -3,8 +3,6 @@ package chess.net;
 import java.util.Observable;
 import java.util.Observer;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-
 import chess.business.BusinessController;
 import chess.dtos.MoveDTO;
 import chess.dtos.PlayerDTO;
@@ -151,34 +149,37 @@ public class NetworkGame implements Observer {
 				int xs, xd, ys, yd;
 				while(cnx.isOnline()) {
 					msg = cnx.waitMessage();
-					if(currentStatus == WAITING_REMOTE_RESULT) {
-						currentStatus = WAITING_MOVE;
-						if(msg.get("status") != null) {
-							if(Integer.valueOf(msg.get("status").toString()) == BusinessController.ILEGALMOVE) {
+					if(msg != null) {
+						if(currentStatus == WAITING_REMOTE_RESULT) {
+							currentStatus = WAITING_MOVE;
+							if(msg.get("status") != null) {
+								if(Integer.valueOf(msg.get("status").toString()) == BusinessController.ILEGALMOVE) {
+									controller.clientMoveError();
+									
+								}
+								
+							} else {
 								controller.clientMoveError();
 								
 							}
 							
-						} else {
-							controller.clientMoveError();
+						} else if(currentStatus == WAITING_MOVE) {
+							xs = Integer.valueOf(msg.get("xsource").toString());
+							ys = Integer.valueOf(msg.get("ysource").toString());
+							xd = Integer.valueOf(msg.get("xdest").toString());
+							yd = Integer.valueOf(msg.get("ydest").toString());
+							currentStatus = WAITING_RESULT;
+							controller.playerMove(localPlayer, xs, ys, xd, yd);
 							
 						}
 						
-					} else if(currentStatus == WAITING_MOVE) {
-						xs = Integer.valueOf(msg.get("xsource").toString());
-						ys = Integer.valueOf(msg.get("ysource").toString());
-						xd = Integer.valueOf(msg.get("xdest").toString());
-						yd = Integer.valueOf(msg.get("ydest").toString());
-						currentStatus = WAITING_RESULT;
-						controller.playerMove(localPlayer, xs, ys, xd, yd);
-						
-					}
-					
-					try {
-						Thread.sleep(100);
-						
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+						try {
+							Thread.sleep(100);
+							
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+							
+						}
 						
 					}
 					
