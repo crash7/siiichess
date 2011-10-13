@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import javax.swing.border.EmptyBorder;
 
 class GamePanelGUI extends JPanel implements Observer {
 	public static final int LOCAL_GAME = 1;
@@ -55,6 +56,7 @@ class GamePanelGUI extends JPanel implements Observer {
         topPanel = new TopPanelGUI();
         bottomLabel = new JLabel();
         bottomLabel.setHorizontalAlignment(JLabel.CENTER);
+        bottomLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         add(topPanel, BorderLayout.NORTH);
         add(leftPanel, BorderLayout.WEST);
@@ -170,6 +172,7 @@ class GamePanelGUI extends JPanel implements Observer {
         		protected void done() {
         			try {
 						get();
+						
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 						
@@ -201,6 +204,7 @@ class GamePanelGUI extends JPanel implements Observer {
     		}
     		
     	}
+    	topPanel.toggleRaise();
     	
     }
 
@@ -219,7 +223,8 @@ class GamePanelGUI extends JPanel implements Observer {
 	        		}
 	        		switch (i.intValue()) {
 		                case BusinessController.LEGALMOVE:
-		                    bottomLabel.setText("Jugando..." + currentPlayer.getName());
+		                    //bottomLabel.setText("Jugando..." + currentPlayer.getName());
+		                	bottomLabel.setText(" ");
 		                    break;
 		                case BusinessController.WHITECHECK:
 		                    bottomLabel.setText("Jaque al blanco.");
