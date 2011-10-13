@@ -60,6 +60,9 @@ class NetFormGUI extends JPanel {
              splitpane.setRightComponent(derecha);
              centro.add(splitpane,BorderLayout.CENTER);
              GridBagConstraints gridbag = new GridBagConstraints();
+             JLabel abajo = new JLabel("All your base belong to us") ;
+             abajo.setHorizontalAlignment(JLabel.CENTER);
+             add(abajo,BorderLayout.SOUTH);
              
              // ***** Left Panel ****
              
