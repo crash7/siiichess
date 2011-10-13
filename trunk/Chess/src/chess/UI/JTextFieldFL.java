@@ -19,18 +19,23 @@ public class JTextFieldFL extends JTextField {
         super(s);
         texto=s;
         addFocusListener(new FocusListener() {
-
              public void focusGained(FocusEvent e) {
-        setText("");
-    }
-
-    public void focusLost(FocusEvent e) {
-        if (getText().equals("")) setText(texto);
-        else texto=getText();
-    }
+            	 setText("");
+             }
+             
+             public void focusLost(FocusEvent e) {
+            	 if (getText().equals("")) {
+            		 setText(texto);
+            		 
+            	 } else { 
+            		 texto=getText();
+            		 
+            	 }
+            	 
+             }
+             
         });
+        
     }
-
- 
     
 }
