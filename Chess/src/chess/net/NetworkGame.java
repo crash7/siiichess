@@ -85,6 +85,7 @@ public class NetworkGame implements Observer {
 	    				msg.put("ysource", move.getOriginY());
 	    				msg.put("xdest", move.getPreviousX());
 	    				msg.put("ydest", move.getPreviousY());
+	    				msg.put("player", localPlayer.getColor() == 'w' ? 1 : 2);
 	    				currentStatus = WAITING_REMOTE_RESULT;
 	    				cnx.sendMessage(msg);
 	    				
@@ -95,13 +96,14 @@ public class NetworkGame implements Observer {
     		} else if(currentStatus == WAITING_RESULT) {
     			JSONObject msg = new JSONObject();
     			if(i.intValue() == BusinessController.ILEGALMOVE) {
-    				msg.put("result", "404 FAIL");
+    				msg.put("status", "404 FAIL");
     				
     			} else {
-    				msg.put("result", "200 OK");
+    				msg.put("status", "200 OK");
     				
     			}
-    			msg.put("status", i);
+    			msg.put("result", i);
+    			msg.put("player", localPlayer.getColor() == 'w' ? 1 : 2);
     			currentStatus = WAITING_MOVE;
     			cnx.sendMessage(msg);
     			
@@ -152,8 +154,8 @@ public class NetworkGame implements Observer {
 					if(msg != null) {
 						if(currentStatus == WAITING_REMOTE_RESULT) {
 							currentStatus = WAITING_MOVE;
-							if(msg.get("status") != null) {
-								if(Integer.valueOf(msg.get("status").toString()) == BusinessController.ILEGALMOVE) {
+							if(msg.get("result") != null) {
+								if(Integer.valueOf(msg.get("result").toString()) == BusinessController.ILEGALMOVE) {
 									controller.clientMoveError();
 									
 								}

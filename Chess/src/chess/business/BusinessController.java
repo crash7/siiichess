@@ -15,7 +15,7 @@ import java.util.Observable;
 
 public class BusinessController extends Observable {
 	public static final int LEGALMOVE = 9;
-	public static final int ILEGALMOVE = 1;
+	public static final int ILEGALMOVE = 10;
 	public static final int WHITECHECK = 2;
 	public static final int BLACKCHECK = 3;
 	public static final int WHITECHECKMATE = 4;
