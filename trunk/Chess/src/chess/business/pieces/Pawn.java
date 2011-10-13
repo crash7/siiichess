@@ -16,6 +16,8 @@ public class Pawn extends Piece {
 		return Pawn.pieceRule;
 		
 	}
+    
+    
 
     static class PawnRule extends PieceRule {
     	
